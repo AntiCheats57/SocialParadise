@@ -1,0 +1,68 @@
+.place-card {
+    border: none;
+    box-shadow: 0 0 8px #ddd;
+    cursor: pointer;
+    max-width: 20rem !important;
+    min-width: 0rem !important;
+    margin-bottom: 3rem !important;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.place-card:hover {
+    border: none;
+    box-shadow: 0 0 12px #ccc;
+    cursor: pointer;
+    transform: translatey(-3px);
+}
+
+.place-card:active {
+    filter: brightness(0.95);
+}
+
+.place-card img {
+    height: 180px;
+}
+
+.place-card .card-body h5 {
+    padding-bottom: .1rem;
+    padding-top: 1.1rem;
+    font-weight: 500;
+}
+
+.place-card .card-body p {
+    padding-bottom: 3.5rem;
+}
+
+@media (max-width: 768px) {
+    .container {
+        max-width: 720px;
+    }
+}
+
+
+/*  FORMULARIO DE BÚSQUEDA */
+
+.form-search {
+    margin-bottom: 40px;
+}
+
+.form-search .row div {
+    margin-bottom: 13px;
+}
+
+.form-search .btn {
+    background-color: #4CAF50;
+    box-shadow: 0 0 4px #ccc;
+}
+
+.form-search .btn:hover {
+    background-color: #3B963E;
+}
+
+.form-search input {
+    box-shadow: 0 0 8px #eee;
+}
+
+
+/* ----------------------------- */

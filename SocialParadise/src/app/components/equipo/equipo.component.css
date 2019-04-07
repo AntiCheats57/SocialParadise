@@ -1,0 +1,39 @@
+.back-gray {
+    background-color: #FAFAFA;
+}
+
+.team-component {
+    padding: 3.2rem 0;
+}
+
+.team-heading {
+    font-weight: 300;
+    margin-bottom: 1rem;
+}
+
+.team-member {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.team-description {
+    font-weight: 400;
+    font-size: 18px;
+    margin-bottom: 3rem;
+}
+
+.team h5 {
+    font-weight: 500;
+    margin-bottom: 5px;
+    color: #4CAF50;
+}
+
+.team img {
+    min-width: 140px;
+    min-height: 140px;
+    width: 140px;
+    height: 140px;
+    border-radius: 70px;
+    margin-bottom: 10px;
+    background-color: gray;
+}

@@ -1,0 +1,27 @@
+/* .footer {
+    color: white;
+    background-color: #222;
+    width: 100%;
+    padding: 1rem 0rem;
+    margin-top: 3.5rem;
+    position: absolute;
+    bottom: 0;
+} */
+
+.footer {
+    color: white;
+    background-color: #222;
+    width: 100%;
+    padding: 1rem 0rem;
+    margin-top: 3.5rem;
+}
+
+.footer p {
+    margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+    .footer {
+        margin-top: 2.5rem;
+    }
+}

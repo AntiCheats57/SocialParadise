@@ -1,0 +1,64 @@
+<div class="contact-section">
+    <div class="container">
+        <h2 class="text-center">Ponte en contacto con nosotros</h2>
+        <p class="text-center">¿Tienes alguna pregunta? Estamos para ayudarte</p>
+    </div>
+</div>
+<div class="container">
+    <h2 class="text-center form-title">Contáctenos</h2>
+    <form [formGroup]="formulario" (ngSubmit)="enviar()">
+        <div>
+            <div class="row">
+                <div class="form-group col-md-6" [ngClass]="{'has-danger': !formulario.get('nombre').valid && formulario.get('nombre').touched}">
+                    <!-- <label for="nombre" class="col-2 col-form-label">Nombre</label> -->
+                    <!-- <div class="col-sm-6"> -->
+                    <input type="text" formControlName="nombre" class="form-control" placeholder="Nombre">
+                    <div>
+                        <small *ngIf="formulario.get('nombre').errors?.required && formulario.get('nombre').touched" class="form-control-feedback">Este campo es requerido.</small>
+                        <small *ngIf="formulario.get('nombre').errors?.minlength && formulario.get('nombre').touched" class="form-control-feedback">Por lo menos {{formulario.controls['nombre'].errors?.minlength.requiredLength}} caracteres.</small>
+                    </div>
+                    <!-- </div> -->
+                </div>
+
+                <div class="form-group col-md-6" [ngClass]="{'has-danger': !formulario.get('correo').valid && formulario.get('correo').touched}">
+                    <!-- <label for="correo" class="col-2 col-form-label">Correo</label> -->
+                    <!-- <div class="col-sm-6"> -->
+                    <input type="text" formControlName="correo" class="form-control" placeholder="Correo">
+                    <div>
+                        <small *ngIf="formulario.get('correo').errors?.required && formulario.get('correo').touched" class="form-control-feedback">Este campo es requerido.</small>
+                        <small *ngIf="formulario.get('correo').errors?.pattern && formulario.get('correo').touched" class="form-control-feedback">El campo no tiene formato de correo</small>
+                    </div>
+                    <!-- </div> -->
+                </div>
+            </div>
+            <!-- <div class="form-group row" [ngClass]="{'has-danger': !formulario.get('asunto').valid && formulario.get('asunto').touched}">
+            <label for="asunto" class="col-2 col-form-label">Asunto</label>
+            <div class="col-8">
+                <input type="text" formControlName="asunto" class="form-control" placeholder="Asunto">
+                <div>
+                    <small *ngIf="formulario.get('asunto').errors?.required && formulario.get('asunto').touched" class="form-control-feedback">Este campo es requerido.</small>
+                    <small *ngIf="formulario.get('asunto').errors?.minlength && formulario.get('asunto').touched" class="form-control-feedback">Por lo menos {{formulario.controls['asunto'].errors?.minlength.requiredLength}} caracteres.</small>
+                </div>
+            </div>
+        </div> -->
+
+            <div class="form-group row" [ngClass]="{'has-danger': !formulario.get('mensaje').valid && formulario.get('mensaje').touched}">
+                <!-- <label for="mensaje" class="col-2 col-form-label">Mensaje</label> -->
+                <div class="col">
+                    <textarea rows="6" formControlName='mensaje' class="form-control" placeholder="Mensaje"></textarea>
+                    <!-- <input type="text" formControlName="mensaje" class="form-control" placeholder="Mensaje"> -->
+                    <div>
+                        <small *ngIf="formulario.get('mensaje').errors?.required && formulario.get('mensaje').touched" class="form-control-feedback">Este campo es requerido.</small>
+                        <small *ngIf="formulario.get('mensaje').errors?.minlength && formulario.get('mensaje').touched" class="form-control-feedback">Por lo menos {{formulario.controls['mensaje'].errors?.minlength.requiredLength}} caracteres.</small>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="text-right">
+            <button type="submit" class="btn">Enviar</button>
+        </div>
+
+    </form>
+</div>

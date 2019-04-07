@@ -1,0 +1,30 @@
+<div class="container" style="margin-top: 20px;">
+    <form class="form-search">
+        <div class="row">
+            <div class="col-sm-9 col-md-10">
+                <input type="text" class="form-control" placeholder="Lugar turístico">
+            </div>
+            <div class="col-sm-3 col-md-2 text-center">
+                <button type="submit" class="btn btn-primary" style="width: 100%">Buscar</button>
+            </div>
+        </div>
+    </form>
+
+    <!-- <div *ngFor="let item of items | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize"> -->
+    <div class="row">
+        <div class="col-sm-6  col-lg-4" *ngFor="let item of items | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+            <div class="card place-card">
+                <img src="../../../assets/images/im-contact.jpg" class="card-img-top img-fluid" alt="">
+                <div class="card-body">
+                    <span>UBICACIÓN {{item}}</span>
+                    <h5 class="card-title">Nombre del lugar</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content. Proin eget tristique justo. Proin at lacus leo.</p>
+                </div>
+            </div>
+        </div>
+        <!-- </div> -->
+    </div>
+</div>
+
+<ngb-pagination class="d-flex justify-content-center" [collectionSize]="collectionSize" [(page)]="page" [maxSize]="maxSize" [rotate]="true" [ellipses]="false" [boundaryLinks]="true">
+</ngb-pagination>

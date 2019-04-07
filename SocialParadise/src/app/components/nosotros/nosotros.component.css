@@ -1,0 +1,21 @@
+.contact-section {
+    display: flex;
+    align-items: center;
+    background-color: gray;
+    padding: 40px 0;
+    height: 400px;
+    color: white;
+    background: url('src/assets/images/im-about.jpg') no-repeat center;
+    background-size: cover;
+}
+
+.contact-section h2 {
+    font-weight: 450;
+    line-height: 1.5;
+    letter-spacing: .1rem;
+}
+
+.contact-section p {
+    font-weight: 300;
+    line-height: 1.5;
+}
