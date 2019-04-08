@@ -1,0 +1,51 @@
+<div>
+    <div id="signin-container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="my-5">Registrarse</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5 my-auto">
+                <div>
+                    <div>
+                        <app-btn-social [imgUrl]="'https://www.facebook.com/images/fb_icon_325x325.png'" [imgAlt]="'Facebook'" [text]="'Registrarse con Facebook'" [background]="'rgb(56, 24, 173)'" [textColor]="'rgb(255, 255, 255)'"></app-btn-social>
+                    </div>
+                    <div class="mt-3 mb-3">
+                        <app-btn-social [imgUrl]="'https://www.uao.edu.co/portal-comunicacion-publicitaria/wp-content/uploads/2019/02/google-logo.png'" [imgAlt]="'Google'" [text]="'Registrarse con Google'" [background]="'rgb(255, 255, 255)'" [textColor]="'rgb(0, 0, 0)'"></app-btn-social>
+                    </div>
+                </div>
+            </div>
+            <div id="separator" class="col-md-1 p-3">
+                <div class=""></div>
+            </div>
+            <div class="container col-md-6">
+                <form class="row">
+                    <div class="col-sm-6 form-group">
+                        <label for="name">Nombre</label>
+                        <input type="text" class="form-control" id="name" placeholder="Enter email">
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label for="lastname">Apellidos</label>
+                        <input type="text" class="form-control" id="lastname" placeholder="Apellidos">
+                    </div>
+                    <div class="col-12 form-group">
+                        <label for="user">Usuario</label>
+                        <input type="text" class="form-control" id="user" placeholder="Usuario">
+                    </div>
+                    <div class="col-12 form-group">
+                        <label for="password">Contraseña</label>
+                        <input type="password" class="form-control" id="password" placeholder="Contraseña">
+                    </div>
+                    <div class="col-12 form-group">
+                        <label for="email">Correo electrónico</label>
+                        <input type="email" class="form-control" id="email" placeholder="Correo electrónico">
+                    </div>
+                    <div class="col text-right">
+                        <button type="submit" class="btn btn-primary">Registrarse</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

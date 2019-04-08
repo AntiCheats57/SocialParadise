@@ -1,0 +1,38 @@
+a {
+    display: inline-block;
+    text-decoration: none;
+    font-weight: 400;
+}
+
+h2 {
+    text-align: center;
+    font-size: 16px;
+    text-transform: uppercase;
+    display: inline-block;
+}
+
+#signin-container {
+    background: rgb(255, 255, 255);
+    position: relative;
+    padding: 20px;
+    text-align: center;
+}
+
+@media (max-width: 767px) {
+    #separator div {
+        border-left: 0px;
+        border-bottom: 2px solid #ccc;
+        width: 100%;
+    }
+}
+
+@media (min-width: 768px) {
+    #separator div {
+        border-bottom: 0px;
+        border-left: 2px solid #ccc;
+        height: 100%;
+    }
+    form {
+        padding-right: 20px;
+    }
+}

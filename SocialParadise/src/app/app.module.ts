@@ -8,12 +8,14 @@ import { AppComponent } from './app.component';
 import { ContactenosComponent } from './components/contactenos/contactenos.component';
 import { NavegacionComponent } from './components/navegacion/navegacion.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { PruebasComponent } from './components/pruebas/pruebas.component';
 import { CaracteristicasComponent } from './components/caracteristicas/caracteristicas.component';
 import { NosotrosComponent } from './components/nosotros/nosotros.component';
 import { EquipoComponent } from './components/equipo/equipo.component';
 import { InicioComponent } from './components/inicio/inicio.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
+import { LoginComponent } from './components/login/login.component';
+import { BtnSocialComponent } from './components/btn-social/btn-social.component';
+import { SigninComponent } from './components/signin/signin.component';
 
 @NgModule({
   declarations: [
@@ -21,12 +23,14 @@ import { CarouselComponent } from './components/carousel/carousel.component';
     ContactenosComponent,
     NavegacionComponent,
     FooterComponent,
-    PruebasComponent,
     CaracteristicasComponent,
     NosotrosComponent,
     EquipoComponent,
     InicioComponent,
-    CarouselComponent
+    CarouselComponent,
+    LoginComponent,
+    BtnSocialComponent,
+    SigninComponent
   ],
   imports: [
     BrowserModule,
