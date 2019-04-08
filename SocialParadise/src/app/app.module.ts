@@ -13,9 +13,11 @@ import { NosotrosComponent } from './components/nosotros/nosotros.component';
 import { EquipoComponent } from './components/equipo/equipo.component';
 import { InicioComponent } from './components/inicio/inicio.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
-import { LoginComponent } from './components/login/login.component';
+import { LoguearseComponent } from './components/loguearse/loguearse.component';
 import { BtnSocialComponent } from './components/btn-social/btn-social.component';
-import { SigninComponent } from './components/signin/signin.component';
+import { RegistrarseComponent } from './components/registrarse/registrarse.component';
+import { ServiciosComponent } from './components/servicios/servicios.component';
+import { LugarTuristicoComponent } from './components/lugar-turistico/lugar-turistico.component';
 
 @NgModule({
   declarations: [
@@ -28,16 +30,18 @@ import { SigninComponent } from './components/signin/signin.component';
     EquipoComponent,
     InicioComponent,
     CarouselComponent,
-    LoginComponent,
+    LoguearseComponent,
     BtnSocialComponent,
-    SigninComponent
+    RegistrarseComponent,
+    ServiciosComponent,
+    LugarTuristicoComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbModule
+    NgbModule    
   ],
   providers: [],
   bootstrap: [AppComponent]

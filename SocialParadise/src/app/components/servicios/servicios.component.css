@@ -1,0 +1,8 @@
+.contact-section {
+    display: flex;
+    align-items: center;
+    background-color: gray;
+    padding: 40px 0;
+    height: 400px;
+    color: white;
+}
