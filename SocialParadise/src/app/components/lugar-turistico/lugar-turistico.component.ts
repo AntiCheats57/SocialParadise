@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-lugar-turistico',
@@ -7,7 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LugarTuristicoComponent implements OnInit {
 
-  constructor() { }
+  currentRate:number = 3;
+  
+  constructor(config: NgbRatingConfig) { 
+    config.max = 5;
+    config.readonly = true;
+  }
 
   ngOnInit() {
   }

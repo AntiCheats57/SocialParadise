@@ -59,6 +59,12 @@
     .feature-heading {
         font-size: 50px;
     }
+    #agregar-comentario .img-circle {
+        width: 65%;
+    }
+    #div-img-comentario {
+        text-align: center;
+    }
 }
 
 @media (min-width: 992px) {
@@ -70,4 +76,18 @@
 iframe {
     width: 90%;
     height: 90vh;
+}
+
+.img-responsiv {
+    max-width: 100%;
+}
+
+.img-circle {
+    border-radius: 50%;
+}
+
+#agregar-comentario {
+    border: 2px;
+    -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
 }
