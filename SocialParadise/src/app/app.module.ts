@@ -18,6 +18,14 @@ import { BtnSocialComponent } from './components/btn-social/btn-social.component
 import { RegistrarseComponent } from './components/registrarse/registrarse.component';
 import { ServiciosComponent } from './components/servicios/servicios.component';
 import { LugarTuristicoComponent } from './components/lugar-turistico/lugar-turistico.component';
+import { PruebasComponent} from './components/pruebas/pruebas.component';
+import { PerfilComponent } from './components/perfil/perfil.component';
+import { AdminComponent } from './components/admin/admin.component';
+import { EdicionLugarComponent } from './components/edicion-lugar/edicion-lugar.component';
+import { EdicionNoticiaComponent } from './components/edicion-noticia/edicion-noticia.component';
+import { AdminNoticiaComponent } from './components/admin-noticia/admin-noticia.component';
+import { AdminLugarComponent } from './components/admin-lugar/admin-lugar.component';
+import { AdminEditorComponent } from './components/admin-editor/admin-editor.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +42,15 @@ import { LugarTuristicoComponent } from './components/lugar-turistico/lugar-turi
     BtnSocialComponent,
     RegistrarseComponent,
     ServiciosComponent,
-    LugarTuristicoComponent
+    LugarTuristicoComponent,
+    PruebasComponent,
+    PerfilComponent,
+    AdminComponent,
+    EdicionLugarComponent,
+    EdicionNoticiaComponent,
+    AdminNoticiaComponent,
+    AdminLugarComponent,
+    AdminEditorComponent
   ],
   imports: [
     BrowserModule,

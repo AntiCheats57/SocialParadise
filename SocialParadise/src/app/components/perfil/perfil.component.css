@@ -1,0 +1,166 @@
+.has-danger .form-control-feedback,
+.has-danger .form-control-label,
+.has-danger .col-form-label,
+.has-danger .form-check-label,
+.has-danger .custom-control {
+    color: #d9534f;
+}
+
+.has-danger .form-control {
+    border-color: #d9534f;
+    border-width: 2px;
+}
+
+.has-danger .input-group-addon {
+    color: #d9534f;
+    border-color: #d9534f;
+    background-color: #fdf7f7;
+}
+
+.form-group {
+    margin-bottom: 45px;
+}
+
+small {
+    position: absolute;
+    font-weight: bold;
+}
+
+form .btn-form {
+    color: white;
+    background-color: #4CAF50;
+    padding: 4px 80px;
+}
+
+.contact-section {
+    display: flex;
+    align-items: center;
+    background-color: gray;
+    padding: 40px 0;
+    height: 400px;
+    color: white;
+}
+
+.form-title {
+    margin: 40px 0px;
+}
+
+
+/* PRUEBAS */
+
+hr {
+    border-width: 2px;
+    margin: 5rem 0;
+}
+
+.btn-user {
+    width: 7.6rem;
+    height: 7.6rem;
+    border: 1px solid #ccc;
+    margin-bottom: 40px;
+}
+
+h4.section-title {
+    margin-bottom: 40px;
+}
+
+.img-circle {
+    border-radius: 50%;
+}
+
+.img-responsiv {
+    max-width: 100%;
+}
+
+.component-follower div,
+.component-follower p {
+    margin: auto !important;
+}
+
+.component-follower img {
+    width: 100%;
+    min-height: 45px;
+    min-width: 45px;
+    max-width: 70px;
+    height: 100%;
+    background-size: cover;
+    margin-right: 2rem;
+}
+
+.component-follower .btn {
+    vertical-align: middle;
+}
+
+.following {
+    max-height: 23rem;
+    overflow: auto;
+}
+
+.component-review h6 {
+    margin-bottom: 2px !important;
+}
+
+.star {
+    font-size: 1.5rem;
+    color: #9c9c9c;
+}
+
+.filled {
+    color: #1e90ff;
+}
+
+.filled.bad {
+    color: #ff1e1e;
+}
+
+.list-group-item {
+    border: none !important;
+}
+
+@media (max-width: 576px) {
+    .form-group {
+        margin-bottom: 30px;
+    }
+    .component-photo {
+        text-align: center !important;
+    }
+    .component-follower img {
+        max-width: 40px !important;
+        margin-right: 1rem;
+    }
+    .component-follower .btn {
+        height: 1.8rem;
+        padding: 0 .5rem;
+        margin-right: 5px;
+    }
+    .component-follower .aling-right {
+        text-align: right;
+    }
+    .component-follower div {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .following {
+        max-height: 13rem;
+    }
+    .rating-heading h6 {
+        display: inline-block;
+        margin-top: .55rem;
+    }
+    .rating-heading {
+        padding-left: 0 !important;
+    }
+}
+
+@media (min-width: 576px) {
+    .rating-heading h6 {
+        display: inline-block;
+        margin-top: .55rem;
+    }
+}
+
+@media (min-width: 992px) {
+    .form-group {
+        margin-bottom: 45px;
+    }
+}
