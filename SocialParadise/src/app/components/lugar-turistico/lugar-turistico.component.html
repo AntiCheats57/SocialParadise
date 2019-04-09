@@ -25,8 +25,18 @@
     <div class="feature-component">
         <div class="container">
             <div class="row feature">
-                <div class="col-md-7">
-                    <h2 class="feature-heading">Valoraciones</h2>
+                <div class="col-md-7 mb-3">
+                    <h2 class="feature-heading">Reseñas</h2>
+                    <div class="row">
+                        <h3 class="col-md-12">Valoración general </h3>
+                        <div class="row rating col-md-12">
+                            <ngb-rating class="col-12 order-1 order-lg-2" [rate]="4">
+                                <ng-template let-fill="fill" let-index="index">
+                                    <span class="star" [class.filled]="fill === 100" [ngClass]="{'bad': '[rate]' <= 3}">&#9733;</span>
+                                </ng-template>
+                            </ngb-rating>
+                        </div>
+                    </div>
                 </div>
                 <div class="row">
                     <div id="agregar-comentario" class="col-12 p-3 back-gray">
