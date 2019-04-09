@@ -1,0 +1,78 @@
+[{
+        "id": 1,
+        "nombre": "Roscoe",
+        "apellidos": "Surgeoner",
+        "usuario": "rsurgeoner0",
+        "clave": "j2FNMYVxtvS",
+        "correo": "rsurgeoner0@gnu.org",
+        "foto": "https://robohash.org/aautemcorrupti.png",
+        "resenas": [{ "id": 1, "lugar": 1, "usuario": 1, "valoracion": 2, "comentario": "Nulla justo. Aliquam quis turpis eget elit sodales scelerisque.", "fecha": "02/02/2019" },
+            { "id": 2, "lugar": 2, "usuario": 2, "valoracion": 5, "comentario": "Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh. Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est.", "fecha": "13/02/2019" },
+            { "id": 3, "lugar": 3, "usuario": 3, "valoracion": 4, "comentario": "Vivamus in felis eu sapien cursus vestibulum.", "fecha": "23/02/2018" }
+        ],
+        "lugaresAsignados": [2, 3],
+        "lugaresSeguidos": [],
+        "admin": "N"
+    },
+    {
+        "id": 2,
+        "nombre": "Florida",
+        "apellidos": "Leatherland",
+        "usuario": "fleatherland1",
+        "clave": "BM58hlfbR22",
+        "correo": "fleatherland1@google.co.jp",
+        "foto": "https://robohash.org/deseruntcumquesit.png",
+        "resenas": [{ "id": 11, "lugar": 3, "usuario": 11, "valoracion": 3, "comentario": "Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus. Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis.", "fecha": "09/03/2019" },
+            { "id": 12, "lugar": 4, "usuario": 12, "valoracion": 2, "comentario": "Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem. Praesent id massa id nisl venenatis lacinia.", "fecha": "04/07/2018" },
+            { "id": 13, "lugar": 2, "usuario": 13, "valoracion": 5, "comentario": "Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est. Phasellus sit amet erat. Nulla tempus.", "fecha": "21/06/2018" },
+            { "id": 14, "lugar": 4, "usuario": 14, "valoracion": 1, "comentario": "Maecenas pulvinar lobortis est. Phasellus sit amet erat. Nulla tempus.", "fecha": "19/04/2018" },
+            { "id": 15, "lugar": 3, "usuario": 15, "valoracion": 3, "comentario": "Integer ac neque. Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus. In sagittis dui vel nisl.", "fecha": "26/12/2018" }
+        ],
+        "lugaresAsignados": [1],
+        "lugaresSeguidos": [2, 4],
+        "admin": "N"
+    },
+    { "id": 3, "nombre": "Doroteya", "apellidos": "Crocken", "usuario": "dcrocken2", "clave": "4BiQYo1pNham", "correo": "dcrocken2@networkadvertising.org", "foto": "https://robohash.org/utsinteos.png", "resenas": [], "lugaresAsignados": [], "lugaresSeguidos": [5, 4, 3], "admin" = "S" },
+    {
+        "id": 4,
+        "nombre": "Rebeca",
+        "apellidos": "Lindbergh",
+        "usuario": "rlindbergh3",
+        "clave": "pTuqpoAnkc",
+        "correo": "rlindbergh3@goo.ne.jp",
+        "foto": "https://robohash.org/etrepellatcorrupti.png",
+        "resenas": [{ "id": 1, "lugar": 1, "usuario": 1, "valoracion": 2, "comentario": "Nulla justo. Aliquam quis turpis eget elit sodales scelerisque.", "fecha": "02/02/2019" },
+            { "id": 2, "lugar": 2, "usuario": 2, "valoracion": 5, "comentario": "Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh. Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est.", "fecha": "13/02/2019" },
+            { "id": 3, "lugar": 3, "usuario": 3, "valoracion": 4, "comentario": "Vivamus in felis eu sapien cursus vestibulum.", "fecha": "23/02/2018" },
+            { "id": 7, "lugar": 5, "usuario": 7, "valoracion": 1, "comentario": "Morbi porttitor lorem id ligula.", "fecha": "24/03/2019" },
+            { "id": 8, "lugar": 3, "usuario": 8, "valoracion": 2, "comentario": "Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.", "fecha": "08/03/2018" },
+            { "id": 9, "lugar": 2, "usuario": 9, "valoracion": 4, "comentario": "Integer ac neque. Duis bibendum.", "fecha": "17/02/2019" },
+            { "id": 10, "lugar": 1, "usuario": 10, "valoracion": 4, "comentario": "Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis.", "fecha": "10/06/2018" }
+        ],
+        "lugaresAsignados": [3, 4],
+        "lugaresSeguidos": [1, 2],
+        "admin": "N"
+    },
+    {
+        "id": 5,
+        "nombre": "Gertruda",
+        "apellidos": "Lorey",
+        "usuario": "glorey4",
+        "clave": "tS3EotP",
+        "correo": "glorey4@bluehost.com",
+        "foto": "https://robohash.org/etquasiut.png",
+        "resenas": [{ "id": 1, "lugar": 1, "usuario": 1, "valoracion": 2, "comentario": "Nulla justo. Aliquam quis turpis eget elit sodales scelerisque.", "fecha": "02/02/2019" },
+            { "id": 2, "lugar": 2, "usuario": 2, "valoracion": 5, "comentario": "Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh. Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est.", "fecha": "13/02/2019" },
+            { "id": 3, "lugar": 3, "usuario": 3, "valoracion": 4, "comentario": "Vivamus in felis eu sapien cursus vestibulum.", "fecha": "23/02/2018" },
+            { "id": 4, "lugar": 4, "usuario": 4, "valoracion": 3, "comentario": "Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum.", "fecha": "28/03/2018" },
+            { "id": 5, "lugar": 5, "usuario": 5, "valoracion": 4, "comentario": "Nullam molestie nibh in lectus. Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.", "fecha": "10/01/2018" },
+            { "id": 6, "lugar": 5, "usuario": 6, "valoracion": 3, "comentario": "Pellentesque viverra pede ac diam.", "fecha": "11/01/2018" },
+            { "id": 7, "lugar": 5, "usuario": 7, "valoracion": 1, "comentario": "Morbi porttitor lorem id ligula.", "fecha": "24/03/2019" },
+            { "id": 8, "lugar": 3, "usuario": 8, "valoracion": 2, "comentario": "Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.", "fecha": "08/03/2018" },
+            { "id": 9, "lugar": 2, "usuario": 9, "valoracion": 4, "comentario": "Integer ac neque. Duis bibendum.", "fecha": "17/02/2019" }
+        ],
+        "lugaresAsignados": [],
+        "lugaresSeguidos": [1, 2, 4, 3],
+        "admin": "S"
+    }
+]

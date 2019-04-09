@@ -37,7 +37,8 @@ const routes: Routes = [
       {path : 'editar', component: EdicionLugarComponent, children:[]},    
       {path : 'nuevo', component: EdicionLugarComponent, children:[]}
     ]}
-  ]}
+  ]},
+  {path : '**', component: InicioComponent},
 ];
 
 @NgModule({

@@ -3,8 +3,8 @@ import {DecimalPipe} from '@angular/common';
 
 import {Observable} from 'rxjs';
 
-import {Noticias} from '../../models/noticias.model';
-import {CountryService} from '../../services/noticias.service';
+import {noticia} from '../../interfaces/noticia.interface';
+import {NoticiasService} from '../../services/noticias.service';
 import {NgbdSortableHeader, SortEvent} from '../../directives/sortable.directive';
 
 
@@ -12,17 +12,17 @@ import {NgbdSortableHeader, SortEvent} from '../../directives/sortable.directive
   selector: 'app-admin-noticia',
   templateUrl: './admin-noticia.component.html',
   styleUrls: ['./admin-noticia.component.css'],
-  providers: [CountryService, DecimalPipe]
+  providers: [NoticiasService, DecimalPipe]
 })
 export class AdminNoticiaComponent implements OnInit {
 
-  noticias$: Observable<Noticias[]>;
+  noticias$: Observable<noticia[]>;
   total$: Observable<number>;
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
-  constructor(public service: CountryService) {
-    this.noticias$ = service.countries$;
+  constructor(public service: NoticiasService) {
+    this.noticias$ = service.noticias$;
     this.total$ = service.total$;
   }
 
