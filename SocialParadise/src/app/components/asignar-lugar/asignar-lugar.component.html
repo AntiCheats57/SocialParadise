@@ -8,7 +8,7 @@
                 <input type="text" formControlName="nombre" class="form-control">
                 <div>
                     <small *ngIf="formulario.get('nombre').errors?.required && formulario.get('nombre').touched" class="form-control-feedback">Este campo es requerido.</small>
-                    <small *ngIf="formulario.get('nombre').errors?.pattern && formulario.get('nombre').touched" class="form-control-feedback">*******************</small>
+                    <small *ngIf="formulario.get('nombre').errors?.minlength && formulario.get('nombre').touched" class="form-control-feedback">Por lo menos {{formulario.controls['nombre'].errors?.minlength.requiredLength}} caracteres.</small>
                 </div>
             </div>
 
@@ -17,15 +17,18 @@
                 <input type="text" formControlName="editor" class="form-control">
                 <div>
                     <small *ngIf="formulario.get('editor').errors?.required && formulario.get('editor').touched" class="form-control-feedback">Este campo es requerido.</small>
-                    <small *ngIf="formulario.get('editor').errors?.pattern && formulario.get('editor').touched" class="form-control-feedback">El campo no tiene formato de editor</small>
                 </div>
             </div>
         </div>
 
 
-        <div class="text-right">
-            <button type="submit" class="btn btn-submit">Guardar</button>
+        <div class="btn-edit">
+            <div class="btn-group" role="group">
+                <div *ngIf="indexLugar != null">
+                    <button class="btn btn-danger ">Eliminar</button>
+                </div>
+                <button type="submit" class="btn btn-submit" routerLink="/admin/lugares">Guardar {{indexNoticias}}</button>
+            </div>
         </div>
-
     </form>
 </div>

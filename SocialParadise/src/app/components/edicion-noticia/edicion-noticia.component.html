@@ -10,7 +10,7 @@
                 <input type="text" formControlName="titulo" class="form-control">
                 <div>
                     <small *ngIf="formulario.get('titulo').errors?.required && formulario.get('titulo').touched" class="form-control-feedback">Este campo es requerido.</small>
-                    <small *ngIf="formulario.get('titulo').errors?.pattern && formulario.get('titulo').touched" class="form-control-feedback">El campo no tiene formato de titulo</small>
+                    <small *ngIf="formulario.get('titulo').errors?.minlength && formulario.get('titulo').touched" class="form-control-feedback">Por lo menos {{formulario.controls['titulo'].errors?.minlength.requiredLength}} caracteres.</small>
                 </div>
             </div>
             <div class="form-group col-12" [ngClass]="{'has-danger': !formulario.get('contenido').valid && formulario.get('contenido').touched}">
@@ -69,7 +69,7 @@
                 <div *ngIf="indexNoticia != null">
                     <button class="btn btn-danger ">Eliminar</button>
                 </div>
-                <button type="submit" class="btn btn-submit ">Guardar {{indexNoticias}}</button>
+                <button type="submit" class="btn btn-submit" routerLink="/admin/noticias">Guardar {{indexNoticias}}</button>
             </div>
         </div>
         <br><br><br><br><br>

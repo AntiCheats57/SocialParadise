@@ -51,6 +51,7 @@ form .btn-form {
 hr {
     border-width: 2px;
     margin: 5rem 0;
+    background-color: rgb(53, 126, 55);
 }
 
 .btn-user {
@@ -62,6 +63,8 @@ hr {
 
 h4.section-title {
     margin-bottom: 40px;
+    color: rgb(38, 85, 39);
+    font-weight: 600 !important;
 }
 
 .img-circle {
@@ -115,6 +118,12 @@ h4.section-title {
 
 .list-group-item {
     border: none !important;
+}
+
+.super-container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    background-color: #FAFAFA;
 }
 
 @media (max-width: 576px) {

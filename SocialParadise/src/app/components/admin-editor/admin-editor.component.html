@@ -15,7 +15,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let lugar of lugares$ | async">
+                <tr *ngFor="let lugar of lugares$ | async" [routerLink]="[ '/admin/lugar/editar', lugar.id]">
                     <td>
                         <ngb-highlight [result]="lugar.nombre" [term]="service.searchTerm"></ngb-highlight>
                     </td>
@@ -37,9 +37,6 @@
                     <option [ngValue]="8">8 por página</option>
                 </select>
             </div>
-        </div>
-        <div class="row btn-admin" style="justify-content: center;">
-            <button type="button" class="col btn btn-primary">Agregar</button>
         </div>
     </form>
 </div>

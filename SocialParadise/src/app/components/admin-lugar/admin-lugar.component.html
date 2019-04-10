@@ -10,13 +10,13 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th scope="col" sortable="nombre" (sort)="onSort($event)">nombre</th>
+                    <th scope="col" sortable="nombre" (sort)="onSort($event)">Lugar</th>
                     <th scope="col" sortable="asignado" (sort)="onSort($event)">Asignado</th>
                     <th scope="col" sortable="" (sort)="onSort($event)">Editor</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let lugar of lugares$ | async">
+                <tr *ngFor="let lugar of lugares$ | async" [routerLink]="[ '/admin/lugares/editar', lugar.id]">
                     <td>
                         <ngb-highlight [result]="lugar.nombre" [term]="service.searchTerm"></ngb-highlight>
                     </td>
@@ -43,7 +43,7 @@
             </div>
         </div>
         <div class="row btn-admin" style="justify-content: center;">
-            <button type="button" class="col btn btn-primary">Agregar</button>
+            <button type="button" class="col btn btn-primary" routerLink="/admin/lugares/nuevo">Agregar</button>
         </div>
     </form>
 </div>

@@ -31,6 +31,7 @@ import { AsignarLugarComponent } from './components/asignar-lugar/asignar-lugar.
 import { ComentarioComponent } from './components/comentario/comentario.component';
 
 import { FilterPipe} from './pipe/filter.pipe';
+import { ErrorComponent } from './components/error/error.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,7 @@ import { FilterPipe} from './pipe/filter.pipe';
     EdicionNoticiaComponent,
     AdminNoticiaComponent,
     AdminLugarComponent,
-    AdminEditorComponent,NgbdSortableHeader, AsignarLugarComponent, ComentarioComponent, FilterPipe
+    AdminEditorComponent,NgbdSortableHeader, AsignarLugarComponent, ComentarioComponent, FilterPipe, ErrorComponent
   ],
   imports: [
     BrowserModule,

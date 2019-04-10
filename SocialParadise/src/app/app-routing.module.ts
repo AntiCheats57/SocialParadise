@@ -17,6 +17,7 @@ import { AdminEditorComponent } from './components/admin-editor/admin-editor.com
 import {AuthGuard} from '../app/guards/auth.guard';
 import { RoleGuard } from './guards/role.guard';
 import { AsignarLugarComponent } from './components/asignar-lugar/asignar-lugar.component';
+import { ErrorComponent } from './components/error/error.component';
 
 
 const routes: Routes = [
@@ -33,12 +34,12 @@ const routes: Routes = [
   {path : 'admin/noticias/editar/:id', component: EdicionNoticiaComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}},
   {path : 'admin/noticias/nuevo', component: EdicionNoticiaComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}},
   {path : 'admin/lugares', component: AdminLugarComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}},
-  {path : 'admin/lugares/editar', component: AsignarLugarComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}},
+  {path : 'admin/lugares/editar/:id', component: AsignarLugarComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}},
   {path : 'admin/lugares/nuevo', component: AsignarLugarComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}},
   {path : 'admin/lugar', component: AdminEditorComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'editor'}},
-  {path : 'admin/lugar/editar', component: EdicionLugarComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'editor'}},
+  {path : 'admin/lugar/editar/:id', component: EdicionLugarComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'editor'}},
   {path : 'admin/lugar/nuevo', component: EdicionLugarComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'editor'}},
-  {path : '**', component: InicioComponent}
+  {path : '**', component: ErrorComponent}
 ];
 
 @NgModule({

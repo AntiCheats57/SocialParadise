@@ -7,9 +7,9 @@ tbody tr {
 }
 
 tbody tr:hover {
-    background-color: rgba(76, 175, 79, 0.185);
+    background-color: rgba(76, 175, 79, 0.185) !important;
 }
 
 tbody tr:active {
-    background-color: rgba(76, 175, 79, 0.274);
+    background-color: rgba(76, 175, 79, 0.274) !important;
 }

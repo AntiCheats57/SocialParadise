@@ -16,7 +16,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let noticia of noticias$ | async" (click)="onClickMe(noticia)" [routerLink]="[ '/admin/noticias/editar', noticia.id]">
+                <tr *ngFor="let noticia of noticias$ | async" (click)="editar(noticia)" [routerLink]="[ '/admin/noticias/editar', noticia.id]">
                     <td>
                         <ngb-highlight [result]="noticia.titulo" [term]="service.searchTerm"></ngb-highlight>
                     </td>
@@ -44,7 +44,7 @@
             </div>
         </div>
         <div class="row btn-admin" style="justify-content: center;">
-            <button type="button" class="col btn btn-primary">Agregar</button>
+            <button type="button" class="col btn btn-primary" routerLink="/admin/noticias/nuevo">Agregar</button>
         </div>
     </form>
 </div>

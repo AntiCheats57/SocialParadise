@@ -18,11 +18,11 @@ export class EdicionLugarComponent implements OnInit {
                                 ]),
     'descripcion':new FormControl('', [
                                   Validators.required,
-                                  Validators.minLength(10)
+                                  Validators.minLength(15)
                                 ]),
     'video':new FormControl('', [
                                   Validators.required,
-                                  Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$")
+                                  Validators.pattern("^http:\/\/(.*\.(com$|net$|org$))")
                                 ])
   }); }
   

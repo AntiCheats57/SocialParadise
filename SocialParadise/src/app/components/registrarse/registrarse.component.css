@@ -1,3 +1,27 @@
+.has-danger .form-control-feedback,
+.has-danger .form-control-label,
+.has-danger .col-form-label,
+.has-danger .form-check-label,
+.has-danger .custom-control {
+    color: #d9534f;
+}
+
+.has-danger .form-control {
+    border-color: #d9534f;
+    border-width: 2px;
+}
+
+.has-danger .input-group-addon {
+    color: #d9534f;
+    border-color: #d9534f;
+    background-color: #fdf7f7;
+}
+
+small {
+    position: absolute;
+    font-weight: bold;
+}
+
 a {
     display: inline-block;
     text-decoration: none;

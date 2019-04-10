@@ -67,6 +67,10 @@ input[type=file] {
     display: none;
 }
 
+.img-thumbnail {
+    margin-bottom: 1rem;
+}
+
 @media (max-width: 768px) {
     .gallery {
         max-height: 23rem;

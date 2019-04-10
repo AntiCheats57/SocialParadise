@@ -15,7 +15,7 @@ export class EdicionNoticiaComponent implements OnInit {
     this.formulario = new FormGroup({
     'titulo':new FormControl('', [
                                   Validators.required,
-                                  Validators.minLength(4)
+                                  Validators.minLength(8)
                                 ]),
     'contenido':new FormControl('', [
                                   Validators.required,
