@@ -1,7 +1,7 @@
 import { resena } from './resena.interface';
 import { lugar } from './lugar.interface';
 
-export interface usuario {
+export class usuario {
     id: number;
     nombre: string;
     apellidos: string;
@@ -13,4 +13,8 @@ export interface usuario {
     lugaresAsignados: Array<lugar>;
     lugaresSeguidos: Array<lugar>;
     admin: string;
+
+    constructor(){
+
+    }
 }
