@@ -1,3 +1,15 @@
 .margin-nav {
     margin-top: 4.5rem !important;
 }
+
+tbody tr {
+    cursor: pointer;
+}
+
+tbody tr:hover {
+    background-color: rgba(76, 175, 79, 0.185);
+}
+
+tbody tr:active {
+    background-color: rgba(76, 175, 79, 0.274);
+}

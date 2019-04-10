@@ -16,7 +16,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let noticia of noticias$ | async">
+                <tr *ngFor="let noticia of noticias$ | async" (click)="onClickMe(noticia)" [routerLink]="[ '/admin/noticias/editar', noticia.id]">
                     <td>
                         <ngb-highlight [result]="noticia.titulo" [term]="service.searchTerm"></ngb-highlight>
                     </td>

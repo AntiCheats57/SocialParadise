@@ -68,15 +68,39 @@ input[type=file] {
     display: none;
 }
 
+
+/* **** */
+
+.btn-group .btn {
+    border-radius: .375rem;
+}
+
+.btn-group .btn[type=submit] {
+    margin-left: 1rem;
+}
+
+.btn-edit {
+    text-align: right !important;
+}
+
+
+/* **** */
+
 @media (max-width: 768px) {
     .gallery {
         max-height: 23rem;
+    }
+    .btn-edit {
+        text-align: center !important;
     }
 }
 
 @media (max-width: 576px) {
     .gallery {
         max-height: 16rem;
+    }
+    .btn-edit {
+        text-align: center !important;
     }
 }
 

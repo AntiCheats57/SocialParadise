@@ -42,4 +42,8 @@ export class AdminNoticiaComponent implements OnInit {
   ngOnInit() {
   }
 
+  onClickMe(object:noticia) {
+    // console.log(object);
+  }
+  
 }

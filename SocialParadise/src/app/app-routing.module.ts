@@ -30,7 +30,7 @@ const routes: Routes = [
   {path : 'admin', component: AdminComponent, canActivate: [AuthGuard]},
   {path : 'admin/perfil', component: PerfilComponent, canActivate: [AuthGuard]},
   {path : 'admin/noticias', component: AdminNoticiaComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}},
-  {path : 'admin/noticias/editar', component: EdicionNoticiaComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}},
+  {path : 'admin/noticias/editar/:id', component: EdicionNoticiaComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}},
   {path : 'admin/noticias/nuevo', component: EdicionNoticiaComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}},
   {path : 'admin/lugares', component: AdminLugarComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}},
   {path : 'admin/lugares/editar', component: AsignarLugarComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}},

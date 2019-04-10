@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-edicion-noticia',
@@ -9,8 +10,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class EdicionNoticiaComponent implements OnInit {
 
   formulario:FormGroup;
-
-  constructor() {
+  indexNoticia:string;
+  constructor(private router:Router, private route:ActivatedRoute) {
     this.formulario = new FormGroup({
     'titulo':new FormControl('', [
                                   Validators.required,
@@ -24,6 +25,8 @@ export class EdicionNoticiaComponent implements OnInit {
   
 
   ngOnInit() {
+    this.indexNoticia = this.route.snapshot.params['id'];
+    console.log(this.indexNoticia);
   }
   guardar() {
 
