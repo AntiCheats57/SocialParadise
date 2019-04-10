@@ -30,6 +30,8 @@ import { AdminEditorComponent } from './components/admin-editor/admin-editor.com
 import { AsignarLugarComponent } from './components/asignar-lugar/asignar-lugar.component';
 import { ComentarioComponent } from './components/comentario/comentario.component';
 
+import { FilterPipe} from './pipe/filter.pipe';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,7 +54,7 @@ import { ComentarioComponent } from './components/comentario/comentario.componen
     EdicionNoticiaComponent,
     AdminNoticiaComponent,
     AdminLugarComponent,
-    AdminEditorComponent,NgbdSortableHeader, AsignarLugarComponent, ComentarioComponent
+    AdminEditorComponent,NgbdSortableHeader, AsignarLugarComponent, ComentarioComponent, FilterPipe
   ],
   imports: [
     BrowserModule,

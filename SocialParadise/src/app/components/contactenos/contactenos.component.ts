@@ -18,21 +18,15 @@ export class ContactenosComponent implements OnInit {
                                     Validators.required,
                                     Validators.minLength(4)
                                   ]),
-      'asunto':new FormControl('', [
-                                    Validators.required,
-                                    Validators.minLength(6)
-                                  ]),
       'mensaje':new FormControl('', [
                                     Validators.required,
-                                    Validators.minLength(10)
+                                    Validators.minLength(15)
                                   ]),
       'correo':new FormControl('', [
                                     Validators.required,
                                     Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$")
                                   ])
     });
-
-    // this.formulario.setValue(this.not);
   }
   
 

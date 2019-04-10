@@ -19,9 +19,7 @@ export class LoguearseComponent implements OnInit {
     this.error = "";
   }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() { }
   
   loguearse():boolean {
     if(this.usuario != "" && this.clave != ""){

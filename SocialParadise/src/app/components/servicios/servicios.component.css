@@ -1,8 +1,68 @@
-.contact-section {
+.service-section {
     display: flex;
     align-items: center;
     background-color: gray;
     padding: 40px 0;
     height: 400px;
     color: white;
+}
+
+.service-section h2 {
+    font-size: 2.3rem;
+    font-weight: 400;
+    color: black;
+}
+
+.service-section p {
+    font-size: 1.1rem;
+    font-weight: 400;
+    letter-spacing: .08rem;
+    color: black;
+}
+
+.service-section {
+    display: flex;
+    align-items: center;
+    background-color: gray;
+    padding: 40px 0;
+    height: 230px;
+    color: white;
+    background: url('src/assets/images/servicios.jpg') no-repeat center;
+    background-size: cover;
+}
+
+@media (min-width: 440px) {
+    .service-section {
+        height: 280px;
+    }
+}
+
+@media (min-width: 660px) {
+    .service-section {
+        height: 400px;
+    }
+}
+
+@media (min-width: 992px) {
+    .service-section {
+        height: 400px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .service-section {
+        height: 600px;
+    }
+    .service-section h2 {
+        font-size: 4.2rem;
+        margin-left: 8rem;
+        text-transform: uppercase;
+        text-align: left;
+    }
+    .service-section p {
+        font-size: 1.4rem;
+        color: rgba(0, 0, 0, 0.911);
+        margin-left: 8rem;
+        text-align: left;
+    }
 }

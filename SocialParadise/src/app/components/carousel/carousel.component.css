@@ -37,9 +37,37 @@
 
 /* ----------------------------- */
 
+.carousel-caption {
+    text-align: left;
+    z-index: 1;
+}
+
+.carousel-caption h1 {
+    font-size: 1rem;
+}
+
+.carousel-caption p {
+    font-size: .8rem;
+}
+
+.back-caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 13rem;
+    background-color: rgba(0, 0, 0, 0.61);
+}
+
 @media (min-width: 576px) {
     .img-slider {
         height: 375px;
+    }
+    .carousel-caption h1 {
+        font-size: 1.7rem;
+    }
+    .carousel-caption p {
+        font-size: 1rem;
     }
 }
 
@@ -52,6 +80,12 @@
 @media (min-width: 992px) {
     .img-slider {
         height: 450px;
+    }
+    .carousel-caption h1 {
+        font-size: 2.5rem;
+    }
+    .carousel-caption p {
+        font-size: 1.2rem;
     }
 }
 

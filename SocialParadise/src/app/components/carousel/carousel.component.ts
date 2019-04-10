@@ -11,8 +11,7 @@ export class CarouselComponent implements OnInit {
   showNavigationArrows = false;
   showNavigationIndicators = false;
   
-  images: string[] = ["../../../assets/images/im-contact.jpg","../../../assets/images/im-about.jpg","../../../assets/images/im-contacto.jpg"];
-
+  images: string[] = ["../../../assets/images/carousel1.jpg","../../../assets/images/carousel2.jpg","../../../assets/images/carousel3.jpg"];
   constructor(config: NgbCarouselConfig) { 
     config.showNavigationArrows = true;
     config.showNavigationIndicators = false;

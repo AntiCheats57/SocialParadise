@@ -6,9 +6,12 @@ a {
 
 h2 {
     text-align: center;
-    font-size: 16px;
+    font-size: 1.5rem;
     text-transform: uppercase;
     display: inline-block;
+    color: #196F3D;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
 }
 
 #login-container {
@@ -27,6 +30,10 @@ h2 {
     margin-right: 5px;
 }
 
+button[type="submit"] {
+    margin-top: 1rem;
+}
+
 @media (max-width: 768px) {
     form {
         padding-right: 10px;
@@ -37,4 +44,13 @@ h2 {
 #error {
     font-size: 14px;
     color: red;
+}
+
+small {
+    position: absolute;
+    left: 0;
+    right: 0;
+    padding-left: 0.5rem;
+    font-weight: bold;
+    color: #d9534f;
 }

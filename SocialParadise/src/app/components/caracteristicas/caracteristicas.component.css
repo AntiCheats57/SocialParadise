@@ -25,7 +25,6 @@
     font-weight: 300;
     line-height: 1;
     letter-spacing: -.05rem;
-    font-size: 41px;
     padding-bottom: .65em;
 }
 
@@ -33,15 +32,24 @@
     background-color: #FAFAFA;
 }
 
+@media (max-width: 576px) {
+    .feature-component {
+        padding: 0.3rem 0 !important;
+    }
+}
+
 @media (min-width: 576px) {
     .feature-heading {
         font-size: 45px;
+    }
+    .feature-component {
+        padding: 1rem 0 !important;
     }
 }
 
 @media (min-width: 768px) {
     .feature-heading {
-        font-size: 50px;
+        font-size: 2.6rem;
     }
 }
 
