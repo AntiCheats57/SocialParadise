@@ -1,4 +1,5 @@
 import { resena } from './resena.interface';
+import { usuario } from './usuario.interface';
 
 export interface lugar {
     id: number;
@@ -8,4 +9,5 @@ export interface lugar {
     seguidores: number;
     resenas: Array<resena>;
     imagenes: Array<string>;
+    usuario: usuario;
 }

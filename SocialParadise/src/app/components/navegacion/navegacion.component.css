@@ -19,10 +19,14 @@
 }
 
 nav a {
-    color: black !important;
+    color: black;
     font-family: 'Gill Sans', sans-serif;
     font-size: 0.9em;
     letter-spacing: .08em;
+}
+
+.white a {
+    color: white !important;
 }
 
 nav a:hover {

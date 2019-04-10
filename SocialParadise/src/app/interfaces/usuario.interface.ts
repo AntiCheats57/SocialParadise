@@ -9,8 +9,8 @@ export interface usuario {
     clave: string;
     correo: string;
     foto: string;
-    admin: string;
     resenas: Array<resena>;
     lugaresAsignados: Array<lugar>;
     lugaresSeguidos: Array<lugar>;
+    admin: string;
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, Input } from '@angular/core';
 
 @Component({
   selector: 'app-navegacion',
@@ -7,8 +7,9 @@ import { Component, OnInit, HostListener } from '@angular/core';
 })
 export class NavegacionComponent implements OnInit {
   
+  @Input() public color: string;
   navbarOpaco:boolean;
-
+  
   constructor() { }
 
   ngOnInit() {

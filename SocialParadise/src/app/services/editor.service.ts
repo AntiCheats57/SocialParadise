@@ -44,7 +44,7 @@ function matches(lugares: lugar, term: string, pipe: PipeTransform) {
 }
 
 @Injectable({providedIn: 'root'})
-export class LugaresService {
+export class EditorService {
   private _loading$ = new BehaviorSubject<boolean>(true);
   private _search$ = new Subject<void>();
   private _lugares$ = new BehaviorSubject<lugar[]>([]);

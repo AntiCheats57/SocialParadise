@@ -32,7 +32,7 @@
         "lugaresSeguidos": [2, 4],
         "admin": "N"
     },
-    { "id": 3, "nombre": "Doroteya", "apellidos": "Crocken", "usuario": "dcrocken2", "clave": "4BiQYo1pNham", "correo": "dcrocken2@networkadvertising.org", "foto": "https://robohash.org/utsinteos.png", "resenas": [], "lugaresAsignados": [], "lugaresSeguidos": [5, 4, 3], "admin" = "S" },
+    { "id": 3, "nombre": "Doroteya", "apellidos": "Crocken", "usuario": "dcrocken2", "clave": "4BiQYo1pNham", "correo": "dcrocken2@networkadvertising.org", "foto": "https://robohash.org/utsinteos.png", "resenas": [], "lugaresAsignados": [], "lugaresSeguidos": [5, 4, 3], "admin": "S" },
     {
         "id": 4,
         "nombre": "Rebeca",

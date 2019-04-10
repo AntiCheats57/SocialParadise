@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
+import { NgbdSortableHeader } from '../app/directives/sortable.directive';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ContactenosComponent } from './components/contactenos/contactenos.component';
@@ -25,6 +27,7 @@ import { EdicionNoticiaComponent } from './components/edicion-noticia/edicion-no
 import { AdminNoticiaComponent } from './components/admin-noticia/admin-noticia.component';
 import { AdminLugarComponent } from './components/admin-lugar/admin-lugar.component';
 import { AdminEditorComponent } from './components/admin-editor/admin-editor.component';
+import { AsignarLugarComponent } from './components/asignar-lugar/asignar-lugar.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +51,7 @@ import { AdminEditorComponent } from './components/admin-editor/admin-editor.com
     EdicionNoticiaComponent,
     AdminNoticiaComponent,
     AdminLugarComponent,
-    AdminEditorComponent
+    AdminEditorComponent,NgbdSortableHeader, AsignarLugarComponent
   ],
   imports: [
     BrowserModule,
