@@ -26,29 +26,18 @@ const routes: Routes = [
   {path : 'contactenos', component: ContactenosComponent},
   {path : 'lugar', component: LugarTuristicoComponent},
   {path : 'loguearse', component: LoguearseComponent},
-  {path : 'registrarse', component: RegistrarseComponent},
-  {path : 'admin', component: InicioComponent, children:[
-    {path : 'perfil', component: PerfilComponent, canActivate: [AuthGuard]},
-    {path : 'noticias', component: AdminNoticiaComponent, 
-      children:[
-        {path : 'editar', component: EdicionNoticiaComponent, children:[], canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}},    
-        {path : 'nuevo', component: EdicionNoticiaComponent, children:[], canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}}
-      ], canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}
-    },
-    {path : 'lugares', component: AdminLugarComponent, 
-      children:[
-        {path : 'editar', component: AsignarLugarComponent, children:[], canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}},    
-        {path : 'nuevo', component: AsignarLugarComponent, children:[], canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}}
-      ], canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}
-    },
-    {path : 'lugar', component: AdminEditorComponent, 
-      children:[
-        {path : 'editar', component: EdicionLugarComponent, children:[], canActivate: [AuthGuard, RoleGuard], data: {role: 'editor'}},    
-        {path : 'nuevo', component: EdicionLugarComponent, children:[], canActivate: [AuthGuard, RoleGuard], data: {role: 'editor'}}
-      ], canActivate: [AuthGuard, RoleGuard], data: {role: 'editor'}
-    }
-  ]
-},
+  {path : 'registrarse', component: RegistrarseComponent},  
+  {path : 'admin', component: AdminComponent, canActivate: [AuthGuard]},
+  {path : 'admin/perfil', component: PerfilComponent, canActivate: [AuthGuard]},
+  {path : 'admin/noticias', component: AdminNoticiaComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}},
+  {path : 'admin/noticias/editar', component: EdicionNoticiaComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}},
+  {path : 'admin/noticias/nuevo', component: EdicionNoticiaComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}},
+  {path : 'admin/lugares', component: AdminLugarComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}},
+  {path : 'admin/lugares/editar', component: AsignarLugarComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}},
+  {path : 'admin/lugares/nuevo', component: AsignarLugarComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}},
+  {path : 'admin/lugar', component: AdminEditorComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'editar'}},
+  {path : 'admin/lugar/editar', component: EdicionLugarComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'editar'}},
+  {path : 'admin/lugar/nuevo', component: EdicionLugarComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'editar'}},
   {path : '**', component: InicioComponent},
 ];
 

@@ -19,7 +19,7 @@ export class AuthService {
     for(let i of this.usuariosJson){
         if(i.usuario === usuario && i.clave === clave){
           this.usuarioActual = i;
-          localStorage.setItem("usuario", i.id.toString());
+          localStorage.setItem("usuario", JSON.stringify(this.usuarioActual));
         }
     }
     return this.usuarioActual != null;
