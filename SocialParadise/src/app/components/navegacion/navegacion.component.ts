@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, Input } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -8,7 +8,6 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class NavegacionComponent implements OnInit {
   
-  @Input() public tema: string;
   navbarOpaco:boolean;
   
   constructor(private auth: AuthService) { }

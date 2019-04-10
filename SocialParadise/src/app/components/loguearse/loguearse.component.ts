@@ -24,7 +24,7 @@ export class LoguearseComponent implements OnInit {
   loguearse():boolean {
     if(this.usuario != "" && this.clave != ""){
       if(this.auth.autentificarse(this.usuario, this.clave)){
-        this.router.navigate(["perfil"])
+        this.router.navigate([""])
       }
       else{
         this.error = "Usuario y/o contraseña incorrectos";
