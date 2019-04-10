@@ -1,4 +1,5 @@
 import { Component, OnInit, HostListener, Input } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-navegacion',
@@ -10,7 +11,7 @@ export class NavegacionComponent implements OnInit {
   @Input() public color: string;
   navbarOpaco:boolean;
   
-  constructor() { }
+  constructor(private auth: AuthService) { }
 
   ngOnInit() {
   }
@@ -23,5 +24,4 @@ export class NavegacionComponent implements OnInit {
       this.navbarOpaco = false;
     }
   }
-
 }

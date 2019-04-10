@@ -13,17 +13,20 @@
             <li class="nav-item">
                 <a class="nav-link" routerLink="/servicios">SERVICIOS</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" *ngIf="!auth.estaAutentificado">
                 <a class="nav-link" routerLink="/nosotros">NOSOTROS</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" *ngIf="!auth.estaAutentificado">
                 <a class="nav-link" routerLink="/contactenos">CONTÁCTENOS</a>
             </li>
-            <li class="nav-item item-bold">
+            <li class="nav-item item-bold" *ngIf="!auth.estaAutentificado">
                 <a class="nav-link" routerLink="/loguearse">INICIAR SESIÓN</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" *ngIf="!auth.estaAutentificado">
                 <a class="nav-link btn" routerLink="/registrarse">REGISTRARME</a>
+            </li>
+            <li class="nav-item item-bold" *ngIf="auth.estaAutentificado">
+                <a class="nav-link" routerLink="/loguearse">PERFIL</a>
             </li>
         </ul>
     </div>
