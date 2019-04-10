@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { usuario } from '../interfaces/usuario.interface';
 import usuarios from '../../assets/json/usuarios.json'
+import { LocalDataService } from './local-data.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,27 +9,29 @@ import usuarios from '../../assets/json/usuarios.json'
 export class AuthService {
  
   private usuarioActual: usuario;  
-  private usuariosJson: usuario[];
 
-  constructor() { 
-    this.usuariosJson = usuarios;
+  constructor(private localDataService: LocalDataService) { 
+    this.localDataService.cargarDatos();
   }
 
   autentificarse(usuario: string, clave: string) : boolean {
     this.usuarioActual = null;
-    for(let i of this.usuariosJson){
-        if(i.usuario === usuario && i.clave === clave){
-          this.usuarioActual = i;
-          localStorage.setItem("usuario", JSON.stringify(this.usuarioActual));
-        }
-    }
+    if(localStorage.getItem("usuarios") == null){
+      this.localDataService.cargarDatos();
+    } 
+    for(let i of <usuario[]> JSON.parse(localStorage.getItem("usuarios"))){;
+      if(i.usuario === usuario && i.clave === clave){
+        this.usuarioActual = i;
+        localStorage.setItem("usuario", JSON.stringify(this.usuarioActual));
+      }
+  }
     return this.usuarioActual != null;
   }
 
   estaAutentificado() : boolean{
     this.usuarioActual = null;
     if(localStorage.getItem("usuario") != null){
-      this.usuarioActual = this.buscarUsuario(localStorage.getItem("usuario"));
+      this.usuarioActual = JSON.parse(localStorage.getItem("usuario"));
     }
     return this.usuarioActual != null;
   }
@@ -54,18 +57,11 @@ export class AuthService {
   }
 
   esEditor():boolean {
-    return this.estaAutentificado() && this.usuarioActual.lugaresAsignados != null && this.usuarioActual.lugaresAsignados.length > 0;
+    return this.estaAutentificado() && this.usuarioActual.lugaresAsignados != null && (this.usuarioActual.lugaresAsignados.length > 0);
   }
 
-  buscarUsuario(id : string):usuario{
-    let usuario: usuario = null;
-    if(id != null && this.usuariosJson != null && this.usuariosJson.length > 0){
-      for(let i of this.usuariosJson){
-        if(i.id.toString() === id){
-            usuario = i;
-          }
-      }
-    }
-    return usuario;
-  }
+  cerrarSesion():void{
+    localStorage.setItem("usuario", null);
+    this.usuarioActual = null;
+  } 
 }

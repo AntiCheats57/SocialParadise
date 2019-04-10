@@ -29,8 +29,8 @@
         "id": 2,
         "nombre": "Florida",
         "apellidos": "Leatherland",
-        "usuario": "fleatherland1",
-        "clave": "BM58hlfbR22",
+        "usuario": "editor",
+        "clave": "editor",
         "correo": "fleatherland1@google.co.jp",
         "foto": "https://robohash.org/deseruntcumquesit.png",
         "resenas": [{ "id": 11, "lugar": 3, "usuario": 11, "valoracion": 3, "comentario": "Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus. Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis.", "fecha": "09/03/2019" },
@@ -160,6 +160,6 @@
             "imagenes": [],
             "usuario": null
         }],
-        "admin": "S"
+        "admin": "N"
     }
 ]

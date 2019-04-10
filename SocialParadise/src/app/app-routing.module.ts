@@ -35,10 +35,10 @@ const routes: Routes = [
   {path : 'admin/lugares', component: AdminLugarComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}},
   {path : 'admin/lugares/editar', component: AsignarLugarComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}},
   {path : 'admin/lugares/nuevo', component: AsignarLugarComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}},
-  {path : 'admin/lugar', component: AdminEditorComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'editar'}},
-  {path : 'admin/lugar/editar', component: EdicionLugarComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'editar'}},
-  {path : 'admin/lugar/nuevo', component: EdicionLugarComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'editar'}},
-  {path : '**', component: InicioComponent},
+  {path : 'admin/lugar', component: AdminEditorComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'editor'}},
+  {path : 'admin/lugar/editar', component: EdicionLugarComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'editor'}},
+  {path : 'admin/lugar/nuevo', component: EdicionLugarComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'editor'}},
+  {path : '**', component: InicioComponent}
 ];
 
 @NgModule({
