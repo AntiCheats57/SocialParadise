@@ -32,37 +32,14 @@
                         <div class="row rating col-md-12">
                             <ngb-rating class="col-12 order-1 order-lg-2" [rate]="4">
                                 <ng-template let-fill="fill" let-index="index">
-                                    <span class="star" [class.filled]="fill === 100" [ngClass]="{'bad': '[rate]' <= 3}">&#9733;</span>
+                                    <span class="star" [class.filled]="fill === 100" [class.bad]="4 <= 3">&#9733;</span>
                                 </ng-template>
                             </ngb-rating>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div id="agregar-comentario" class="col-12 p-3 back-gray">
-                        <div class="col-12 mb-3">
-                            <h4 class="section-title">Escribe un comentario</h4>
-                        </div>
-                        <div class="row component-review col-12">
-                            <div id="div-img-comentario" class="col-md-2 col-sm-12 my-auto">
-                                <div class="mb-2">
-                                    <img src="../../../assets/images/seguidos.jpg" alt="" class="img-responsiv img-fluid img-circle" />
-                                </div>
-                            </div>
-                            <div class="col-md-10">
-                                <h5>Nombre de usuario</h5>
-                                <div class="row rating mb-2">
-                                    <ngb-rating class="col-12 order-1 order-lg-2" [rate]="4">
-                                        <ng-template let-fill="fill" let-index="index">
-                                            <span class="star" [class.filled]="fill === 100" [ngClass]="{'bad': '[rate]' <= 3}">&#9733;</span>
-                                        </ng-template>
-                                    </ngb-rating>
-                                </div>
-                                <textarea rows="5" class="col-12 form-control mb-2" formControlName="Comentario" placeholder="Comentario..."></textarea>
-                                <button type="submit" class="btn btn-primary">Enviar</button>
-                            </div>
-                        </div>
-                    </div>
+                    <app-comentario class="col-12"></app-comentario>
                     <div class="col-12 mt-4">
                         <h3 class="section-title">Comentarios</h3>
                     </div>
@@ -76,9 +53,9 @@
                                                 <div class="col-8 col-sm-9">
                                                     <img src="../../../assets/images/seguidos.jpg" alt="" class="img-responsiv img-fluid img-circle" />
                                                 </div>
-                                                <ngb-rating class="col-12 order-1 order-lg-2" [rate]="4">
+                                                <ngb-rating class="col-12 order-1 order-lg-2" [rate]="2">
                                                     <ng-template let-fill="fill" let-index="index">
-                                                        <span class="star" [class.filled]="fill === 100" [ngClass]="{'bad': '[rate]' <= 3}">&#9733;</span>
+                                                        <span class="star" [class.filled]="fill === 100" [ngClass]="{'bad': 2 <= 3}">&#9733;</span>
                                                     </ng-template>
                                                 </ngb-rating>
                                             </div>
@@ -100,7 +77,7 @@
                                                 </div>
                                                 <ngb-rating class="col-12 order-1 order-lg-2" [rate]="4">
                                                     <ng-template let-fill="fill" let-index="index">
-                                                        <span class="star" [class.filled]="fill === 100" [ngClass]="{'bad': '[rate]' <= 3}">&#9733;</span>
+                                                        <span class="star" [class.filled]="fill === 100" [class.bad]="4 <= 3">&#9733;</span>
                                                     </ng-template>
                                                 </ngb-rating>
                                             </div>

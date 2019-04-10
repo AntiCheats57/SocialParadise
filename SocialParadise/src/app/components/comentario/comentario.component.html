@@ -1,0 +1,26 @@
+<div class="row">
+    <div id="agregar-comentario" class="col-12 p-3 back-gray">
+        <div class="col-12 mb-3">
+            <h4 class="section-title">Escribe un comentario</h4>
+        </div>
+        <div class="row component-review col-12">
+            <div id="div-img-comentario" class="col-md-2 col-sm-12 my-auto">
+                <div class="mb-2">
+                    <img src="../../../assets/images/seguidos.jpg" alt="" class="img-responsiv img-fluid img-circle" />
+                </div>
+            </div>
+            <div class="col-md-10">
+                <h5>Nombre de usuario</h5>
+                <div class="row rating mb-2">
+                    <ngb-rating class="col-12 order-1 order-lg-2" [(rate)]="currentRate">
+                        <ng-template let-fill="fill" let-index="index">
+                            <span class="star" [class.filled]="fill === 100" [ngClass]="{'bad': currentRate <= 3}">&#9733;</span>
+                        </ng-template>
+                    </ngb-rating>
+                </div>
+                <textarea rows="5" class="col-12 form-control mb-2" placeholder="Comentario..."></textarea>
+                <button type="submit" class="btn btn-primary">Enviar</button>
+            </div>
+        </div>
+    </div>
+</div>

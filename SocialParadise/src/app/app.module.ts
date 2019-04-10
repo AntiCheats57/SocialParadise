@@ -28,6 +28,7 @@ import { AdminNoticiaComponent } from './components/admin-noticia/admin-noticia.
 import { AdminLugarComponent } from './components/admin-lugar/admin-lugar.component';
 import { AdminEditorComponent } from './components/admin-editor/admin-editor.component';
 import { AsignarLugarComponent } from './components/asignar-lugar/asignar-lugar.component';
+import { ComentarioComponent } from './components/comentario/comentario.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,7 @@ import { AsignarLugarComponent } from './components/asignar-lugar/asignar-lugar.
     EdicionNoticiaComponent,
     AdminNoticiaComponent,
     AdminLugarComponent,
-    AdminEditorComponent,NgbdSortableHeader, AsignarLugarComponent
+    AdminEditorComponent,NgbdSortableHeader, AsignarLugarComponent, ComentarioComponent
   ],
   imports: [
     BrowserModule,

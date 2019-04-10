@@ -181,7 +181,7 @@
                                     </div>
                                     <ngb-rating class="col-5 col-md-2 col-sm-3 col-lg-12 order-1 order-lg-2" [(rate)]="currentRate">
                                         <ng-template let-fill="fill" let-index="index">
-                                            <span class="star" [class.filled]="fill === 100" [ngClass]="{'bad': currentRate <= 3}">&#9733;</span>
+                                            <span class="star" [class.filled]="fill >= 100" [ngClass]="{'bad': currentRate <= 3}">&#9733;</span>
                                         </ng-template>
                                     </ngb-rating>
                                 </div>
@@ -202,9 +202,9 @@
                                     <div class="col col-md-10 col-lg-12 order-2 order-lg-1 rating-heading">
                                         <h6>Lugar turístico</h6>
                                     </div>
-                                    <ngb-rating class="col-5 col-md-2 col-sm-3 col-lg-12 order-1 order-lg-2" [rate]="4">
+                                    <ngb-rating class="col-5 col-md-2 col-sm-3 col-lg-12 order-1 order-lg-2" [rate]="1">
                                         <ng-template let-fill="fill" let-index="index">
-                                            <span class="star" [class.filled]="fill === 100" [ngClass]="{'bad': '[rate]' <= 3}">&#9733;</span>
+                                            <span class="star" [class.filled]="fill === 100" [ngClass]="{'bad': '[rate]' < 3}">&#9733;</span>
                                         </ng-template>
                                     </ngb-rating>
                                 </div>

@@ -1,0 +1,48 @@
+.back-gray {
+    background-color: #FAFAFA;
+}
+
+.star {
+    font-size: 1.5rem;
+    color: #9c9c9c;
+}
+
+.filled {
+    color: #1e90ff;
+}
+
+.filled.bad {
+    color: #ff1e1e;
+}
+
+.list-group-item {
+    border: none !important;
+}
+
+@media (min-width: 768px) {
+    #agregar-comentario .img-circle {
+        width: 65%;
+    }
+    #div-img-comentario {
+        text-align: center;
+    }
+}
+
+iframe {
+    width: 90%;
+    height: 90vh;
+}
+
+.img-responsiv {
+    max-width: 100%;
+}
+
+.img-circle {
+    border-radius: 50%;
+}
+
+#agregar-comentario {
+    border: 2px;
+    -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
+}

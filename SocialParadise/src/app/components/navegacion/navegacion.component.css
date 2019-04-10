@@ -4,13 +4,13 @@
     right: 0;
     left: 0;
     top: 0;
-    z-index: 2;
+    z-index: 100;
 }
 
 .navbar-fixed {
     background-color: white !important;
     box-shadow: 0 1px 3px #ccc;
-    transition: background-color 100ms;
+    transition: background-color 1000ms;
 }
 
 .nav-link {

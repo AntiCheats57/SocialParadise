@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class NavegacionComponent implements OnInit {
   
-  @Input() public color: string;
+  @Input() public tema: string;
   navbarOpaco:boolean;
   
   constructor(private auth: AuthService) { }

@@ -1,20 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-
 import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
-
 @Component({
-  selector: 'app-lugar-turistico',
-  templateUrl: './lugar-turistico.component.html',
-  styleUrls: ['./lugar-turistico.component.css'],
+  selector: 'app-comentario',
+  templateUrl: './comentario.component.html',
+  styleUrls: ['./comentario.component.css'],
   providers: [NgbRatingConfig]
 })
-export class LugarTuristicoComponent implements OnInit {
+export class ComentarioComponent implements OnInit {
 
   currentRate:number = 3;
   
   constructor(config: NgbRatingConfig) { 
     config.max = 5;
-    config.readonly = true;
+    config.readonly = false;
   }
 
   ngOnInit() {

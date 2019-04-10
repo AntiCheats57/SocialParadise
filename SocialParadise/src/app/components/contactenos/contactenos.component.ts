@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
@@ -8,20 +8,9 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class ContactenosComponent implements OnInit {
 
- /* notificacion:Object = {
-    nombre: "Jose Brenes",
-    correo: "jbrenesarroyo@gmail.com",
-    asunto: "Mensaje urgente",
-    mensaje: "Este es un mensaje de ejemplo"
-  }*/
-  formulario:FormGroup;
+  @Output() public tipoTema = new EventEmitter<string>();
 
-  not:Object = {
-    nombre: "Jose Brenes",
-    asunto:"Mensaje urgente",
-    mensaje:"Este es un mensaje de ejemplo",
-    correo: "jose@gmail.com"
-  }
+  formulario:FormGroup;
 
   constructor() {
     this.formulario = new FormGroup({
@@ -48,13 +37,10 @@ export class ContactenosComponent implements OnInit {
   
 
   ngOnInit() {
+    this.tipoTema.emit("claro");
   }
   
   enviar(){
-    console.log(this.formulario.value);
-    console.log(this.formulario);
-
-    this.formulario.reset({nombre:'', mensaje:'',asunto:'', correo:''});
   }
 
 
