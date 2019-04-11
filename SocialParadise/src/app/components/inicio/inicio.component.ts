@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-inicio',
@@ -13,7 +14,7 @@ export class InicioComponent implements OnInit {
   collectionSize : number;
   maxSize = 5;
 
-  constructor() {
+  constructor(private router: Router) {
     this.items = ["Bertiolo","Poggiodomo","Leduc","Bruderheim","Tintigny","Lebach","Birkenhead","Vancouver","SanVitoChietino","Vannes","Nasino","Greymouth","SanAntonio","Lamont","Gore","ChartersTowers","Serrata","Castanhal","Estevan","Torgny","Glendon","Norman","Augusta","Berloz","Toruń","Chalon-sur-Saone","Hekelgem","Villeneuve-dAscq","Olcenengo","SunshineCoastRegionalDistrict","Urbe","SanLorenzoNuovo","Llanidloes","St.JohanninTirol","Basildon","Segovia","Anghiari","Pontevedra"]
     // for (let i = 0; i < this.items.length; i++) {
     //   this.items[i] = (i+1).toString();
@@ -23,5 +24,9 @@ export class InicioComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  lugar():void{
+    this.router.navigate(["/lugar"]);
+  }  
 
 }
