@@ -47,7 +47,7 @@
                     </div>
                     <div class="col-12 form-group" [ngClass]="{'has-danger': !formulario.get('clave').valid && formulario.get('clave').touched}">
                         <label for="clave">Contraseña</label>
-                        <input type="clave" class="form-control" id="clave" formControlName="clave" placeholder="Contraseña">
+                        <input type="password" class="form-control" id="clave" formControlName="clave" placeholder="Contraseña">
                         <div>
                             <small *ngIf="formulario.get('clave').errors?.required && formulario.get('clave').touched" class="form-control-feedback">Este campo es requerido.</small>
                             <small *ngIf="formulario.get('clave').errors?.minlength && formulario.get('clave').touched" class="form-control-feedback">Por lo menos {{formulario.controls['clave'].errors?.minlength.requiredLength}} caracteres.</small>

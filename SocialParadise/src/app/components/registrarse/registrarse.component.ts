@@ -70,7 +70,7 @@ export class RegistrarseComponent implements OnInit {
     cont2 = (<usuario[]> this.localDataService.getUsuarios()).length;
     if(cont < cont2){
       if(this.auth.autentificarse(this.formulario.controls['usuario'].value, this.formulario.controls['clave'].value)){        
-        this.router.navigate(["perfil"])
+        this.router.navigate([""])
       }
     } 
    }
