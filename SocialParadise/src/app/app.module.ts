@@ -29,9 +29,12 @@ import { AdminLugarComponent } from './components/admin-lugar/admin-lugar.compon
 import { AdminEditorComponent } from './components/admin-editor/admin-editor.component';
 import { AsignarLugarComponent } from './components/asignar-lugar/asignar-lugar.component';
 import { ComentarioComponent } from './components/comentario/comentario.component';
+import {AngularFireModule} from '@angular/fire';
+import {AngularFirestoreModule, AngularFirestore} from '@angular/fire/firestore';
 
 import { FilterPipe} from './pipe/filter.pipe';
 import { ErrorComponent } from './components/error/error.component';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -55,14 +58,21 @@ import { ErrorComponent } from './components/error/error.component';
     EdicionNoticiaComponent,
     AdminNoticiaComponent,
     AdminLugarComponent,
-    AdminEditorComponent,NgbdSortableHeader, AsignarLugarComponent, ComentarioComponent, FilterPipe, ErrorComponent
+    AdminEditorComponent,
+    NgbdSortableHeader, 
+    AsignarLugarComponent,
+    ComentarioComponent, 
+    FilterPipe, 
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbModule    
+    NgbModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule    
   ],
   providers: [],
   bootstrap: [AppComponent]
