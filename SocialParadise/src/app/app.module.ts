@@ -40,6 +40,9 @@ import { AuthGuard } from 'src/app/guards/auth/auth.guard';
 import { RoleGuard } from 'src/app/guards/role/role.guard';
 import { HomeComponent } from './components/home/home.component';
 
+import {AngularFireModule} from '@angular/fire';
+import {AngularFirestoreModule, AngularFirestore} from '@angular/fire/firestore';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,8 +63,14 @@ import { HomeComponent } from './components/home/home.component';
     EdicionLugarComponent,
     EdicionNoticiaComponent,
     AdminNoticiaComponent,
-    AdminLugarComponent,
-    AdminEditorComponent, NgbdSortableHeader, AsignarLugarComponent, ComentarioComponent, FilterPipe, ErrorComponent, HomeComponent
+    AdminLugarComponent, 
+    AdminEditorComponent,
+    NgbdSortableHeader, 
+    AsignarLugarComponent,
+    ComentarioComponent, 
+    FilterPipe, 
+    ErrorComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -69,6 +78,8 @@ import { HomeComponent } from './components/home/home.component';
     ReactiveFormsModule,
     NgbModule,
     AppRoutingModule
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule    
   ],
   providers: [
     AuthService,
