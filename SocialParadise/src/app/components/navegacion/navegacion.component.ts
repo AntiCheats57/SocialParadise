@@ -1,15 +1,15 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-navegacion',
   templateUrl: './navegacion.component.html',
   styleUrls: ['./navegacion.component.css']
 })
+
 export class NavegacionComponent implements OnInit {
-  
-  navbarOpaco:boolean;
-  
+  navbarOpaco: boolean;
+
   constructor(private auth: AuthService) { }
 
   ngOnInit() {
@@ -23,4 +23,5 @@ export class NavegacionComponent implements OnInit {
       this.navbarOpaco = false;
     }
   }
+
 }

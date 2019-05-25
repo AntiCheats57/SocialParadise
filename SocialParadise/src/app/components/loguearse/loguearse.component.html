@@ -16,10 +16,6 @@
                     <input type="password" class="form-control col-12" id="password" placeholder="Contraseña" [(ngModel)]="clave" [ngModelOptions]="{standalone: true}" required>
                     <small id="error" class="form-control-feedback">{{error}}</small>
                 </div>
-                <!-- <div class="col-md-8 text-right mb-2">
-                    <span id="error">{{error}}</span>
-
-                </div> -->
                 <div class="col-12">
                     <button type="submit" class="btn btn-primary col-md-4">Entrar</button>
                 </div>
@@ -36,7 +32,7 @@
                     <app-btn-social (click)="loginFacebook()" [imgUrl]="'../../../assets/images/facebook.png'" [imgAlt]="'Facebook'" [text]="'Entrar con Facebook'" [background]="'rgb(56, 24, 173)'" [textColor]="'rgb(255, 255, 255)'"></app-btn-social>
                 </div>
                 <div class="col-md-12">
-                    <app-btn-social [imgUrl]="'../../../assets/images/google.png'" [imgAlt]="'Google'" [text]="'Entrar con Google'" [background]="'rgb(255, 255, 255)'" [textColor]="'rgb(0, 0, 0)'"></app-btn-social>
+                    <app-btn-social [imgUrl]="'assets/images/google.png'" [imgAlt]="'Google'" [text]="'Entrar con Google'" [background]="'rgb(255, 255, 255)'" [textColor]="'rgb(0, 0, 0)'"></app-btn-social>
                 </div>
             </div>
         </div>

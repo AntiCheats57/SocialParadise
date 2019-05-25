@@ -7,30 +7,29 @@ import { Router, ActivatedRoute } from '@angular/router';
   templateUrl: './edicion-noticia.component.html',
   styleUrls: ['./edicion-noticia.component.css']
 })
-export class EdicionNoticiaComponent implements OnInit {
 
-  formulario:FormGroup;
-  indexNoticia:string;
-  constructor(private router:Router, private route:ActivatedRoute) {
+export class EdicionNoticiaComponent implements OnInit {
+  formulario: FormGroup;
+  indexNoticia: string;
+
+  constructor(private router: Router, private route: ActivatedRoute) {
     this.formulario = new FormGroup({
-    'titulo':new FormControl('', [
-                                  Validators.required,
-                                  Validators.minLength(8)
-                                ]),
-    'contenido':new FormControl('', [
-                                  Validators.required,
-                                  Validators.minLength(10)
-                                ])
-  }); }
-  
+      'titulo': new FormControl('', [
+                                    Validators.required,
+                                    Validators.minLength(8)
+                                  ]),
+      'contenido': new FormControl('', [
+                                    Validators.required,
+                                    Validators.minLength(10)
+                                  ])
+    });
+  }
 
   ngOnInit() {
     this.indexNoticia = this.route.snapshot.params['id'];
-    console.log(this.indexNoticia);
   }
+
   guardar() {
-
   }
-
 
 }

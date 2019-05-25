@@ -1,35 +1,35 @@
 import { Injectable } from '@angular/core';
-import { usuario } from '../interfaces/usuario.interface';
 
 import {AngularFireDatabase, AngularFireObject, AngularFireList} from 'angularfire2/database'
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase';
-import { UsuariosService } from './usuarios/usuarios.service';
 import { map } from 'rxjs/operators';
+import { usuario } from 'src/app/interfaces/usuario.interface';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService {
  
   private usuarioActual: usuario;  
   private usuarios: AngularFireList<any>;
 
-  constructor(private fireAuth: AngularFireAuth, private firestore: AngularFirestore, private usuariosService: UsuariosService) { 
+  constructor(/*private fireAuth: AngularFireAuth, private firestore: AngularFirestore, private usuariosService: UsuariosService*/) { 
     
   }
   
   loginFacebook() {
-    return this.fireAuth.auth.signInWithPopup(new auth.FacebookAuthProvider())
-      .then(credential => this.usuariosService.actualizarUsuario(credential.user))
+    /*return this.fireAuth.auth.signInWithPopup(new auth.FacebookAuthProvider())
+      .then(credential => this.usuariosService.actualizarUsuario(credential.user))*/
   }
 
   loginGoogle() {
-    return this.fireAuth.auth.signInWithPopup(new auth.GoogleAuthProvider())
-      .then(credential => this.usuariosService.actualizarUsuario(credential.user))
+    /*return this.fireAuth.auth.signInWithPopup(new auth.GoogleAuthProvider())
+      .then(credential => this.usuariosService.actualizarUsuario(credential.user))*/
   }
-
+/*
   logout() {
     return this.fireAuth.auth.signOut();
   }
@@ -70,7 +70,7 @@ export class AuthService {
 
 
 
-/*
+
 
   autentificarse(usuario: string, clave: string) : boolean {
     this.usuarios = this.firebase.list('usuarios');
@@ -79,51 +79,51 @@ export class AuthService {
     }
     
     this.usuarioActual = null;
-    if(localStorage.getItem("usuarios") == null){
+    if (localStorage.getItem("usuarios") == null) {
       this.localDataService.cargarDatos();
-    } 
-    for(let i of <usuario[]> JSON.parse(localStorage.getItem("usuarios"))){;
-      if(i.usuario === usuario && i.clave === clave){
+    }
+    for (let i of <usuario[]> JSON.parse(localStorage.getItem("usuarios"))) {;
+      if (i.usuario === usuario && i.clave === clave) {
         this.usuarioActual = i;
         localStorage.setItem("usuario", JSON.stringify(this.usuarioActual));
       }
-  }
+    }
     return this.usuarioActual != null;
   }
 
-  estaAutentificado() : boolean{
+  estaAutentificado(): boolean{
     this.usuarioActual = null;
-    if(localStorage.getItem("usuario") != null){
+    if (localStorage.getItem("usuario") != null) {
       this.usuarioActual = JSON.parse(localStorage.getItem("usuario"));
     }
     return this.usuarioActual != null;
   }
-
-  getRol() : string{
+  
+  getRol(): string{
     let salida: string = "normal";
-    if(this.estaAutentificado()){
-      if(this.esAdmin()){
+    if (this.estaAutentificado()) {
+      if (this.esAdmin()) {
         salida = "admin";
       }
-      else if(this.esEditor()){
+      else if (this.esEditor()) {
         salida = "editor";
       }
     }
-    else{
-      salida = "nulo";    
-    }    
+    else {
+      salida = "nulo";
+    }
     return salida;
   }
 
-  esAdmin():boolean {
+  esAdmin(): boolean {
     return this.estaAutentificado() && this.usuarioActual.admin === "S";
   }
 
-  esEditor():boolean {
+  esEditor(): boolean {
     return this.estaAutentificado() && this.usuarioActual.lugaresAsignados != null && (this.usuarioActual.lugaresAsignados.length > 0);
   }
 
-  cerrarSesion():void{
+  cerrarSesion(): void{
     localStorage.setItem("usuario", null);
     this.usuarioActual = null;
   } */

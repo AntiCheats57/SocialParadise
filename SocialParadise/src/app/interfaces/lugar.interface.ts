@@ -1,5 +1,5 @@
-import { resena } from './resena.interface';
-import { usuario } from './usuario.interface';
+import { resena } from 'src/app/interfaces/resena.interface';
+import { usuario } from 'src/app/interfaces/usuario.interface';
 
 export interface lugar {
     id: number;

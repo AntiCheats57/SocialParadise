@@ -1,4 +1,4 @@
-import {Directive, EventEmitter, Input, Output} from '@angular/core';
+import { Directive, EventEmitter, Input, Output } from '@angular/core';
 
 export type SortDirection = 'asc' | 'desc' | '';
 const rotate: {[key: string]: SortDirection} = { 'asc': 'desc', 'desc': '', '': 'asc' };
@@ -16,8 +16,8 @@ export interface SortEvent {
     '(click)': 'rotate()'
   }
 })
-export class NgbdSortableHeader {
 
+export class NgbdSortableHeader {
   @Input() sortable: string;
   @Input() direction: SortDirection = '';
   @Output() sort = new EventEmitter<SortEvent>();

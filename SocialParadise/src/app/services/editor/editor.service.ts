@@ -1,15 +1,13 @@
-import {Injectable, PipeTransform} from '@angular/core';
-
-import {BehaviorSubject, Observable, of, Subject} from 'rxjs';
-
-import { noticia } from '../interfaces/noticia.interface';
-import noticias from '../../assets/json/noticias.json';
-import {DecimalPipe} from '@angular/common';
-import {debounceTime, delay, switchMap, tap} from 'rxjs/operators';
-import {SortDirection} from '../directives/sortable.directive';
+import { Injectable, PipeTransform } from '@angular/core';
+import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
+import { lugar } from 'src/app/interfaces/lugar.interface';
+import lugares from 'src/assets/json/lugares.json';
+import { DecimalPipe } from '@angular/common';
+import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
+import { SortDirection } from 'src/app/directives/sortable.directive';
 
 interface SearchResult {
-  noticiasSorted: noticia[];
+  lugaresSorted: lugar[];
   total: number;
 }
 
@@ -25,29 +23,27 @@ function compare(v1, v2) {
   return v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
 }
 
-function sort(noticias: noticia[], column: string, direction: string): noticia[] {
+function sort(lugares: lugar[], column: string, direction: string): lugar[] {
   if (direction === '') {
-    return noticias;
+    return lugares;
   } else {
-    return [...noticias].sort((a, b) => {
+    return [...lugares].sort((a, b) => {
       const res = compare(a[column], b[column]);
       return direction === 'asc' ? res : -res;
     });
   }
 }
 
-function matches(noticias: noticia, term: string, pipe: PipeTransform) {
-  return noticias.titulo.toLowerCase().includes(term)
-    || noticias.contenido.toLowerCase().includes(term)
-    || noticias.fechaCreacion.toLowerCase().includes(term);
-    // || pipe.transform(noticias.creacion).includes(term);
+function matches(lugares: lugar, term: string, pipe: PipeTransform) {
+  return lugares.nombre.toLowerCase().includes(term)
+    || lugares.descripcion.toLowerCase().includes(term);
 }
 
 @Injectable({providedIn: 'root'})
-export class NoticiasService {
+export class EditorService {
   private _loading$ = new BehaviorSubject<boolean>(true);
   private _search$ = new Subject<void>();
-  private _noticias$ = new BehaviorSubject<noticia[]>([]);
+  private _lugares$ = new BehaviorSubject<lugar[]>([]);
   private _total$ = new BehaviorSubject<number>(0);
 
   private _state: State = {
@@ -58,10 +54,10 @@ export class NoticiasService {
     sortDirection: ''
   };
 
-  private noticiasItems: noticia[];
+  private lugaresItems: lugar[];
 
   constructor(private pipe: DecimalPipe) {
-    this.noticiasItems = noticias;
+   // this.lugaresItems = lugares;
 
     this._search$.pipe(
       tap(() => this._loading$.next(true)),
@@ -70,14 +66,14 @@ export class NoticiasService {
       delay(200),
       tap(() => this._loading$.next(false))
     ).subscribe(result => {
-      this._noticias$.next(result.noticiasSorted);
+      this._lugares$.next(result.lugaresSorted);
       this._total$.next(result.total);
     });
 
     this._search$.next();
   }
 
-  get noticias$() { return this._noticias$.asObservable(); }
+  get lugares$() { return this._lugares$.asObservable(); }
   get total$() { return this._total$.asObservable(); }
   get loading$() { return this._loading$.asObservable(); }
   get page() { return this._state.page; }
@@ -98,15 +94,12 @@ export class NoticiasService {
   private _search(): Observable<SearchResult> {
     const {sortColumn, sortDirection, pageSize, page, searchTerm} = this._state;
 
-    // 1. sort
-    let noticiasSorted = sort(this.noticiasItems, sortColumn, sortDirection);
+    let lugaresSorted = sort(this.lugaresItems, sortColumn, sortDirection);
 
-    // 2. filter
-    noticiasSorted = noticiasSorted.filter(noticia => matches(noticia, searchTerm, this.pipe));
-    const total = noticiasSorted.length;
+    lugaresSorted = lugaresSorted.filter(noticia => matches(noticia, searchTerm, this.pipe));
+    const total = lugaresSorted.length;
 
-    // 3. paginate
-    noticiasSorted = noticiasSorted.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize);
-    return of({noticiasSorted, total});
+    lugaresSorted = lugaresSorted.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize);
+    return of({lugaresSorted, total});
   }
 }

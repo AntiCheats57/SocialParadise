@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -8,11 +7,11 @@ import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./lugar-turistico.component.css'],
   providers: [NgbRatingConfig]
 })
-export class LugarTuristicoComponent implements OnInit {
 
-  currentRate:number = 3;
-  
-  constructor(config: NgbRatingConfig) { 
+export class LugarTuristicoComponent implements OnInit {
+  currentRate = 3;
+
+  constructor(config: NgbRatingConfig) {
     config.max = 5;
     config.readonly = true;
   }

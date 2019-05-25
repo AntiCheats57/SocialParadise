@@ -1,38 +1,36 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ContactenosComponent } from './components/contactenos/contactenos.component';
-import { NosotrosComponent } from './components/nosotros/nosotros.component';
-import { InicioComponent } from './components/inicio/inicio.component';
-import { LoguearseComponent } from './components/loguearse/loguearse.component';
-import { RegistrarseComponent } from './components/registrarse/registrarse.component';
-import { ServiciosComponent } from './components/servicios/servicios.component';
-import { LugarTuristicoComponent } from './components/lugar-turistico/lugar-turistico.component';
-import { PerfilComponent } from './components/perfil/perfil.component';
-import { AdminComponent } from './components/admin/admin.component';
-import { EdicionLugarComponent } from './components/edicion-lugar/edicion-lugar.component';
-import { EdicionNoticiaComponent } from './components/edicion-noticia/edicion-noticia.component';
-import { AdminNoticiaComponent } from './components/admin-noticia/admin-noticia.component';
-import { AdminLugarComponent } from './components/admin-lugar/admin-lugar.component';
-import { AdminEditorComponent } from './components/admin-editor/admin-editor.component';
-import {AuthGuard} from '../app/guards/auth.guard';
-import { RoleGuard } from './guards/role.guard';
-import { AsignarLugarComponent } from './components/asignar-lugar/asignar-lugar.component';
-import { ErrorComponent } from './components/error/error.component';
-
+import { ContactenosComponent } from 'src/app/components/contactenos/contactenos.component';
+import { NosotrosComponent } from 'src/app/components/nosotros/nosotros.component';
+import { InicioComponent } from 'src/app/components/inicio/inicio.component';
+import { LoguearseComponent } from 'src/app/components/loguearse/loguearse.component';
+import { RegistrarseComponent } from 'src/app/components/registrarse/registrarse.component';
+import { ServiciosComponent } from 'src/app/components/servicios/servicios.component';
+import { LugarTuristicoComponent } from 'src/app/components/lugar-turistico/lugar-turistico.component';
+import { PerfilComponent } from 'src/app/components/perfil/perfil.component';
+import { EdicionLugarComponent } from 'src/app/components/edicion-lugar/edicion-lugar.component';
+import { EdicionNoticiaComponent } from 'src/app/components/edicion-noticia/edicion-noticia.component';
+import { AdminNoticiaComponent } from 'src/app/components/admin-noticia/admin-noticia.component';
+import { AdminLugarComponent } from 'src/app/components/admin-lugar/admin-lugar.component';
+import { AdminEditorComponent } from 'src/app/components/admin-editor/admin-editor.component';
+import { AuthGuard } from 'src/app/guards/auth/auth.guard';
+import { RoleGuard } from 'src/app/guards/role/role.guard';
+import { AsignarLugarComponent } from 'src/app/components/asignar-lugar/asignar-lugar.component';
+import { ErrorComponent } from 'src/app/components/error/error.component';
+import { HomeComponent } from 'src/app/components/home/home.component';
 
 const routes: Routes = [
   {path : '', component: InicioComponent},
-  {path : 'servicios', component: ServiciosComponent},
   {path : 'nosotros', component: NosotrosComponent},
+  {path : 'servicios', component: ServiciosComponent},
   {path : 'contactenos', component: ContactenosComponent},
   {path : 'lugar', component: LugarTuristicoComponent},
   {path : 'loguearse', component: LoguearseComponent},
-  {path : 'registrarse', component: RegistrarseComponent},  
-  {path : 'admin', component: AdminComponent, canActivate: [AuthGuard]},
+  {path : 'registrarse', component: RegistrarseComponent},
   {path : 'admin/perfil', component: PerfilComponent, canActivate: [AuthGuard]},
-  {path : 'admin/noticias', component: AdminNoticiaComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}},
-  {path : 'admin/noticias/editar/:id', component: EdicionNoticiaComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}},
-  {path : 'admin/noticias/nuevo', component: EdicionNoticiaComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}},
+  {path : 'noticias', component: AdminNoticiaComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}},
+  {path : 'noticias/editar/:id', component: EdicionNoticiaComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}},
+  {path : 'noticias/nuevo', component: EdicionNoticiaComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}},
   {path : 'admin/lugares', component: AdminLugarComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}},
   {path : 'admin/lugares/editar/:id', component: AsignarLugarComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}},
   {path : 'admin/lugares/nuevo', component: AsignarLugarComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}},
@@ -46,4 +44,6 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
+
 export class AppRoutingModule { }
+

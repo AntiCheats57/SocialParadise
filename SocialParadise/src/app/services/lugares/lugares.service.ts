@@ -1,12 +1,10 @@
-import {Injectable, PipeTransform} from '@angular/core';
-
-import {BehaviorSubject, Observable, of, Subject} from 'rxjs';
-
-import { lugar } from '../interfaces/lugar.interface';
-import lugares from '../../assets/json/lugares.json';
-import {DecimalPipe} from '@angular/common';
-import {debounceTime, delay, switchMap, tap} from 'rxjs/operators';
-import {SortDirection} from '../directives/sortable.directive';
+import { Injectable, PipeTransform } from '@angular/core';
+import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
+import { lugar } from 'src/app/interfaces/lugar.interface';
+import lugares from 'src/assets/json/lugares.json';
+import { DecimalPipe } from '@angular/common';
+import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
+import { SortDirection } from 'src/app/directives/sortable.directive';
 
 interface SearchResult {
   lugaresSorted: lugar[];
@@ -25,17 +23,6 @@ function compare(v1, v2) {
   return v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
 }
 
-// function sort(lugare: lugar[], column: string, direction: string): lugar[] {
-//   if (direction === '') {
-//     return lugare;
-//   } else {
-//     return [...lugare].sort((a, b) => {
-//       const res = compare(a[column], b[column]);
-//       return direction === 'asc' ? res : -res;
-//     });
-//   }
-// }
-
 function sort(countries: lugar[], column: string, direction: string): lugar[] {
   if (direction === '') {
     return countries;
@@ -50,8 +37,6 @@ function sort(countries: lugar[], column: string, direction: string): lugar[] {
 function matches(lugares: lugar, term: string, pipe: PipeTransform) {
   return lugares.nombre.toLowerCase().includes(term)
     || lugares.descripcion.toLowerCase().includes(term);
-    // || noticias.fechaCreacion.toLowerCase().includes(term);
-    // || pipe.transform(noticias.creacion).includes(term);
 }
 
 @Injectable({providedIn: 'root'})
@@ -109,14 +94,11 @@ export class LugaresService {
   private _search(): Observable<SearchResult> {
     const {sortColumn, sortDirection, pageSize, page, searchTerm} = this._state;
 
-    // 1. sort
     let lugaresSorted = sort(this.lugaresItems, sortColumn, sortDirection);
 
-    // 2. filter
     lugaresSorted = lugaresSorted.filter(lugar => matches(lugar, searchTerm, this.pipe));
     const total = lugaresSorted.length;
 
-    // 3. paginate
     lugaresSorted = lugaresSorted.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize);
     return of({lugaresSorted, total});
   }

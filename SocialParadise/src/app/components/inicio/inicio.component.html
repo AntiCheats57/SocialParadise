@@ -9,7 +9,7 @@
                     <input type="text" class="form-control" name="lugar" [(ngModel)]="buscarTexto" placeholder="Buscar lugar turístico">
                 </div>
                 <div class="col-sm-3 col-md-2 text-center">
-                    <button type="submit" class="btn btn-primary" style="width: 100%">Buscar</button>
+                    <button type="submit" class="btn btn-primary">Buscar</button>
                 </div>
             </div>
         </form>
@@ -17,7 +17,7 @@
         <div class="row">
             <div class="col-sm-6  col-lg-4" *ngFor="let item of items | filter : buscarTexto | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
                 <div class="card place-card" (click)="lugar()">
-                    <img src="../../../assets/images/im-contact.jpg" class="card-img-top img-fluid" alt="">
+                    <img src="assets/images/im-contact.jpg" class="card-img-top img-fluid" alt="">
                     <div class="card-body">
                         <span>UBICACIÓN</span>
                         <h5 class="card-title">{{item}}</h5>

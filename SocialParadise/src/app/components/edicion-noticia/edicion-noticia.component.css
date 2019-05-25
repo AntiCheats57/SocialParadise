@@ -68,8 +68,9 @@ input[type=file] {
     display: none;
 }
 
-
-/* **** */
+.form-title {
+    color: #196F3D;
+}
 
 .btn-group .btn {
     border-radius: .375rem;
@@ -82,9 +83,6 @@ input[type=file] {
 .btn-edit {
     text-align: right !important;
 }
-
-
-/* **** */
 
 @media (max-width: 768px) {
     .gallery {
@@ -111,9 +109,6 @@ input[type=file] {
     .gallery img {
         max-height: 24rem !important;
     }
-    /* .form-group {
-        margin-bottom: 3rem;
-    } */
 }
 
 @media (min-width: 992px) and (max-width: 1090px) {

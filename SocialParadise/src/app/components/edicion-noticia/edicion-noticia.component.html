@@ -1,9 +1,7 @@
 <br><br><br><br>
 <div class="container">
-    <h2 class="text-center form-title" style="color: #196F3D;">NOTICIA</h2>
+    <h2 class="text-center form-title">NOTICIA</h2>
     <form [formGroup]="formulario" (ngSubmit)="guardar()">
-        <!-- <div class="row"> -->
-        <!-- <div class="col-12 col-lg-6"> -->
         <div class="row">
             <div class="form-group col-12" [ngClass]="{'has-danger': !formulario.get('titulo').valid && formulario.get('titulo').touched}">
                 <label for="titulo" class="col-form-label">Título</label>
@@ -22,8 +20,7 @@
                 </div>
             </div>
         </div>
-        <!-- </div> -->
-        <!-- <div class="col-12 col-lg-6"> -->
+
         <div>
             <label for="imagenes" class="col-form-label">Imagen</label>
             <div class="row gallery-component form-group">
@@ -32,13 +29,13 @@
 
                     <div class="">
                         <a href="#" data-toggle="modal" data-target="#image-gallery">
-                            <img class="img-thumbnail" src="../../../assets/images/im-about.jpg" alt="place">
+                            <img class="img-thumbnail" src="assets/images/im-about.jpg" alt="place">
                         </a>
                     </div>
-                    <!--  -->
+
                     <input type="file" #file>
                     <button class="btn btn-secondary gallery-btn" (click)="file.click()"><i class="fas fa-plus"></i></button>
-                    <!--  -->
+
                     <div class="modal" id="image-gallery" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
@@ -57,12 +54,10 @@
                             </div>
                         </div>
                     </div>
-                    <!--  -->
+
                 </div>
             </div>
         </div>
-        <!-- </div> -->
-        <!-- </div> -->
 
         <div class="btn-edit">
             <div class="btn-group" role="group">

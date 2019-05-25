@@ -6,7 +6,6 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./btn-social.component.css']
 })
 export class BtnSocialComponent implements OnInit {
-  
   @Input() public imgUrl: string;
   @Input() public imgAlt: string;
   @Input() public text: string;

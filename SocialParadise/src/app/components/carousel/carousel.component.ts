@@ -5,14 +5,15 @@ import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
   selector: 'app-carousel',
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.css'],
-  providers: [NgbCarouselConfig] 
+  providers: [NgbCarouselConfig]
 })
+
 export class CarouselComponent implements OnInit {
   showNavigationArrows = false;
   showNavigationIndicators = false;
-  
-  images: string[] = ["../../../assets/images/carousel1.jpg","../../../assets/images/carousel2.jpg","../../../assets/images/carousel3.jpg"];
-  constructor(config: NgbCarouselConfig) { 
+  images: string[] = ["assets/images/carousel1.jpg", "assets/images/carousel2.jpg", "assets/images/carousel3.jpg"];
+
+  constructor(config: NgbCarouselConfig) {
     config.showNavigationArrows = true;
     config.showNavigationIndicators = false;
   }

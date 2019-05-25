@@ -1,12 +1,9 @@
-import {  Component, OnInit,QueryList, ViewChildren } from '@angular/core';
-
-import {DecimalPipe} from '@angular/common';
-
-import {Observable} from 'rxjs';
-
-import {lugar} from '../../interfaces/lugar.interface';
-import {EditorService} from '../../services/editor.service';
-import {NgbdSortableHeader, SortEvent} from '../../directives/sortable.directive';
+import {  Component, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { DecimalPipe } from '@angular/common';
+import { Observable } from 'rxjs';
+import { lugar } from 'src/app/interfaces/lugar.interface';
+import { EditorService } from 'src/app/services/editor/editor.service';
+import { NgbdSortableHeader, SortEvent } from 'src/app/directives/sortable.directive';
 
 @Component({
   selector: 'app-admin-editor',
@@ -14,8 +11,8 @@ import {NgbdSortableHeader, SortEvent} from '../../directives/sortable.directive
   styleUrls: ['./admin-editor.component.css'],
   providers: [EditorService, DecimalPipe]
 })
-export class AdminEditorComponent implements OnInit {
 
+export class AdminEditorComponent implements OnInit {
   lugares$: Observable<lugar[]>;
   total$: Observable<number>;
 
@@ -26,17 +23,15 @@ export class AdminEditorComponent implements OnInit {
     this.total$ = service.total$;
   }
 
-    onSort({column, direction}: SortEvent) {
-      // resetting other headers
-      this.headers.forEach(header => {
-        if (header.sortable !== column) {
-          header.direction = '';
-        }
-      });
-  
-      this.service.sortColumn = column;
-      this.service.sortDirection = direction;
-    }
+  onSort({column, direction}: SortEvent) {
+    this.headers.forEach(header => {
+      if (header.sortable !== column) {
+        header.direction = '';
+      }
+    });
+    this.service.sortColumn = column;
+    this.service.sortDirection = direction;
+  }
 
   ngOnInit() {
   }

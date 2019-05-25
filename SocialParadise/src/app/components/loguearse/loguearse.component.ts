@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from '../../services/auth.service'
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
   templateUrl: './loguearse.component.html',
   styleUrls: ['./loguearse.component.css']
 })
+
 export class LoguearseComponent implements OnInit {
 
 
@@ -17,12 +18,13 @@ export class LoguearseComponent implements OnInit {
   ngOnInit() { }
   
   loginFacebook() {
-    this.auth.loginFacebook()
+    /*this.auth.loginFacebook()
       .then((res) => {
         console.log('loginFacebook', 'logueado');
       })
       .catch(error => {      
         console.log('loginFacebook', error);
-    });
+    });*/
   }
+
 }
