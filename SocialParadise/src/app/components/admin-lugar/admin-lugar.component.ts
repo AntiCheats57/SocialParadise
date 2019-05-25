@@ -51,7 +51,7 @@ export class AdminLugarComponent implements OnInit {
 
   usuario(usuario: usuario) {
     if(usuario) {
-      return usuario.usuario;
+      return usuario.correo;
     } else {
       return "";
     }

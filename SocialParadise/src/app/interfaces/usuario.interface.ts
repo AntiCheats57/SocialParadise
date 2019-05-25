@@ -5,7 +5,6 @@ export class usuario {
     id: number;
     nombre: string;
     apellidos: string;
-    usuario: string;
     clave: string;
     correo: string;
     foto: string;
@@ -15,6 +14,6 @@ export class usuario {
     admin: string;
 
     constructor(){
-
     }
+
 }

@@ -1,7 +1,12 @@
 import { Injectable } from '@angular/core';
 import { usuario } from '../interfaces/usuario.interface';
-import usuarios from '../../assets/json/usuarios.json'
-import { LocalDataService } from './local-data.service';
+
+import {AngularFireDatabase, AngularFireObject, AngularFireList} from 'angularfire2/database'
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { auth } from 'firebase';
+import { UsuariosService } from './usuarios/usuarios.service';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -9,12 +14,70 @@ import { LocalDataService } from './local-data.service';
 export class AuthService {
  
   private usuarioActual: usuario;  
+  private usuarios: AngularFireList<any>;
 
-  constructor(private localDataService: LocalDataService) { 
-    this.localDataService.cargarDatos();
+  constructor(private fireAuth: AngularFireAuth, private firestore: AngularFirestore, private usuariosService: UsuariosService) { 
+    
+  }
+  
+  loginFacebook() {
+    return this.fireAuth.auth.signInWithPopup(new auth.FacebookAuthProvider())
+      .then(credential => this.usuariosService.actualizarUsuario(credential.user))
   }
 
+  loginGoogle() {
+    return this.fireAuth.auth.signInWithPopup(new auth.GoogleAuthProvider())
+      .then(credential => this.usuariosService.actualizarUsuario(credential.user))
+  }
+
+  logout() {
+    return this.fireAuth.auth.signOut();
+  }
+
+  registrarUsuarioCorreoClave(correo: string, clave: string) {
+    return new Promise((resolve, reject) => {
+      this.fireAuth.auth.createUserWithEmailAndPassword(correo, clave)
+        .then(userData => {
+          resolve(userData),
+            this.usuariosService.actualizarUsuario(userData.user)
+        }).catch(err => console.log(reject(err)))
+    });
+  }
+
+  loginCorreoClave(email: string, pass: string) {
+    return new Promise((resolve, reject) => {
+      this.fireAuth.auth.signInWithEmailAndPassword(email, pass)
+        .then(userData => resolve(userData),
+        err => reject(err));
+    });
+  }
+
+  estaAutentificado() {
+    //return this.fireAuth.authState.pipe(map(auth => auth));
+    return true;
+  }
+
+  esAdmin(userUid) {
+    return this.firestore.doc<usuario>(`usuarios/${userUid}`).valueChanges();
+  }
+
+  esEditor() {
+    return true;
+  }
+
+
+
+
+
+
+/*
+
   autentificarse(usuario: string, clave: string) : boolean {
+    this.usuarios = this.firebase.list('usuarios');
+    for(i in this.usuarios){
+
+    }
+    
     this.usuarioActual = null;
     if(localStorage.getItem("usuarios") == null){
       this.localDataService.cargarDatos();
@@ -63,5 +126,5 @@ export class AuthService {
   cerrarSesion():void{
     localStorage.setItem("usuario", null);
     this.usuarioActual = null;
-  } 
+  } */
 }

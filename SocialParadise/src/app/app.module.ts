@@ -29,8 +29,12 @@ import { AdminLugarComponent } from './components/admin-lugar/admin-lugar.compon
 import { AdminEditorComponent } from './components/admin-editor/admin-editor.component';
 import { AsignarLugarComponent } from './components/asignar-lugar/asignar-lugar.component';
 import { ComentarioComponent } from './components/comentario/comentario.component';
-import {AngularFireModule} from '@angular/fire';
-import {AngularFirestoreModule, AngularFirestore} from '@angular/fire/firestore';
+
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestore';
 
 import { FilterPipe} from './pipe/filter.pipe';
 import { ErrorComponent } from './components/error/error.component';
@@ -72,9 +76,11 @@ import { environment } from 'src/environments/environment';
     ReactiveFormsModule,
     NgbModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule    
+    AngularFirestoreModule ,
+    AngularFireDatabaseModule,
+    AngularFireStorageModule,   
   ],
-  providers: [],
+  providers: [AngularFireAuth, AngularFirestore],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

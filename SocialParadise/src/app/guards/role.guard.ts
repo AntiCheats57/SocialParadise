@@ -12,7 +12,7 @@ export class RoleGuard implements CanActivate {
   }
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    if(this.authService.getRol() === next.data.role){
+    if(/*this.authService.esAdmin()*/ 'Admin' === next.data.role){
       return true;
     }
     else{

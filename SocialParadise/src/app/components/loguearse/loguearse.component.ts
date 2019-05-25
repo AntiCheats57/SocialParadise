@@ -8,31 +8,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./loguearse.component.css']
 })
 export class LoguearseComponent implements OnInit {
-  
-  private usuario:string;
-  private clave:string;
-  private error:string;
+
 
   constructor(private auth: AuthService, private router:Router) { 
-    this.usuario = "";
-    this.clave = "";
-    this.error = "";
+
   }
 
   ngOnInit() { }
   
-  loguearse():boolean {
-    if(this.usuario != "" && this.clave != ""){
-      if(this.auth.autentificarse(this.usuario, this.clave)){
-        this.router.navigate([""])
-      }
-      else{
-        this.error = "Usuario y/o contraseña incorrectos";
-      }
-    }
-    else{
-      this.error = "Complete todos los campos";
-    }
-    return this.auth.estaAutentificado();
+  loginFacebook() {
+    this.auth.loginFacebook()
+      .then((res) => {
+        console.log('loginFacebook', 'logueado');
+      })
+      .catch(error => {      
+        console.log('loginFacebook', error);
+    });
   }
 }

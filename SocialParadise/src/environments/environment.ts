@@ -12,7 +12,7 @@ export const environment = {
     storageBucket: "socialparadiseuna.appspot.com",
     messagingSenderId: "65776206699",
     appId: "1:65776206699:web:40f037a07c129a42"
-    }  
+  }  
 };
 
 /*

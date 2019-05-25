@@ -13,7 +13,7 @@
         ]
     },
     "hosting": {
-        "site": "socialparadise-una",
+        "site": "socialparadiseuna",
         "public": "public",
         "ignore": [
             "firebase.json",
