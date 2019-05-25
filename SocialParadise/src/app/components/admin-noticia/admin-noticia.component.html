@@ -1,5 +1,5 @@
 <div class="container margin-nav2">
-    <h1 class="text-center" style="color: #196F3D;">LISTA DE NOTICIAS</h1>
+    <h1 class="text-center">LISTA DE NOTICIAS</h1>
     <form>
         <div class="form-group form-inline">
             <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="service.searchTerm" placeholder="Buscar" />
@@ -24,7 +24,6 @@
                     </td>
                     <td>
                         <ngb-highlight [result]="noticia.fechaCreacion" [term]="service.searchTerm"></ngb-highlight>
-                        <!-- <ngb-highlight [result]="noticia.creacion | number" [term]="service.searchTerm"></ngb-highlight> -->
                     </td>
                 </tr>
             </tbody>
@@ -35,15 +34,15 @@
                 </ngb-pagination>
             </div>
             <div class="col-12 col-sm-6 items-page">
-                <select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="service.pageSize">
+                <select class="custom-select" name="pageSize" [(ngModel)]="service.pageSize">
                     <option [ngValue]="2">2 por página</option>
                     <option [ngValue]="4">4 por página</option>
                     <option [ngValue]="8">8 por página</option>
                 </select>
             </div>
         </div>
-        <div class="row btn-admin" style="justify-content: center;">
-            <button type="button" class="col btn btn-primary" routerLink="/admin/noticias/nuevo">Agregar</button>
+        <div class="row btn-admin">
+            <button type="button" class="col btn btn-primary" [routerLink]="[ '/noticias/nuevo' ]">Agregar</button>
         </div>
     </form>
 </div>

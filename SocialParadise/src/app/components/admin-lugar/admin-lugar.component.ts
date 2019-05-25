@@ -1,13 +1,10 @@
-import { Component, OnInit,QueryList, ViewChildren } from '@angular/core';
-import {DecimalPipe} from '@angular/common';
-
-import {Observable} from 'rxjs';
-
-import {lugar} from '../../interfaces/lugar.interface';
-import {LugaresService} from '../../services/Lugares.service';
-import {NgbdSortableHeader, SortEvent} from '../../directives/sortable.directive';
+import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { DecimalPipe } from '@angular/common';
+import { Observable } from 'rxjs';
+import { lugar } from 'src/app/interfaces/lugar.interface';
+import { LugaresService } from 'src/app/services/lugares/lugares.service';
+import { NgbdSortableHeader, SortEvent } from 'src/app/directives/sortable.directive';
 import { usuario } from 'src/app/interfaces/usuario.interface';
-
 
 @Component({
   selector: 'app-admin-lugar',
@@ -15,8 +12,8 @@ import { usuario } from 'src/app/interfaces/usuario.interface';
   styleUrls: ['./admin-lugar.component.css'],
   providers: [LugaresService, DecimalPipe]
 })
-export class AdminLugarComponent implements OnInit {
 
+export class AdminLugarComponent implements OnInit {
   lugares$: Observable<lugar[]>;
   total$: Observable<number>;
 
@@ -28,7 +25,6 @@ export class AdminLugarComponent implements OnInit {
   }
 
   onSort({column, direction}: SortEvent) {
-    // resetting other headers
     this.headers.forEach(header => {
       if (header.sortable !== column) {
         header.direction = '';
@@ -37,12 +33,9 @@ export class AdminLugarComponent implements OnInit {
     this.service.sortColumn = column;
     this.service.sortDirection = direction;
   }
-  
-  ngOnInit() {
-  }
-  
+
   asignado(objeto: any) {
-    if(objeto) {
+    if (objeto) {
       return "Si";
     } else {
       return "No";
@@ -50,10 +43,14 @@ export class AdminLugarComponent implements OnInit {
   }
 
   usuario(usuario: usuario) {
-    if(usuario) {
+    if (usuario) {
       return usuario.usuario;
     } else {
       return "";
     }
   }
+
+  ngOnInit() {
+  }
+
 }

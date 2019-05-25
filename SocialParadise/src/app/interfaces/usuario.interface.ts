@@ -1,5 +1,5 @@
-import { resena } from './resena.interface';
-import { lugar } from './lugar.interface';
+import { resena } from 'src/app/interfaces/resena.interface';
+import { lugar } from 'src/app/interfaces/lugar.interface';
 
 export class usuario {
     id: number;
@@ -14,7 +14,6 @@ export class usuario {
     lugaresSeguidos: Array<lugar>;
     admin: string;
 
-    constructor(){
-
+    constructor() {
     }
 }

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navdar-dark navbar-fixed-top" [ngClass]="{'navbar-fixed':navbarOpaco}">
     <a class="navbar-brand" href="#">
-        <img src="../../../assets/images/logo.svg" width="140" height="45" alt="logo">
+        <img src="assets/images/logo.svg" width="140" height="45" alt="logo">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -26,7 +26,7 @@
                 <a class="nav-link btn" routerLink="/registrarse">REGISTRARME</a>
             </li>
             <li class="nav-item" *ngIf="this.auth.estaAutentificado() && this.auth.esAdmin()">
-                <a class="nav-link" routerLink="/admin/noticias">NOTICIAS</a>
+                <a class="nav-link" routerLink="/noticias">NOTICIAS</a>
             </li>
             <li class="nav-item" *ngIf="this.auth.estaAutentificado() && this.auth.esAdmin()">
                 <a class="nav-link" routerLink="/admin/lugares">ASIGNAR LUGARES</a>

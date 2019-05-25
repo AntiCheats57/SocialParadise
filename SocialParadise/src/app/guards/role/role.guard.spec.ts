@@ -1,6 +1,6 @@
-import { TestBed, async, inject } from '@angular/core/testing';
+import { TestBed, inject } from '@angular/core/testing';
 
-import { RoleGuard } from './role.guard';
+import { RoleGuard } from 'src/app/guards/role/role.guard';
 
 describe('RoleGuard', () => {
   beforeEach(() => {

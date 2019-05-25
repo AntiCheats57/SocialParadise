@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-
-import {NgbRatingConfig} from '@ng-bootstrap/ng-bootstrap';
+import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-perfil',
@@ -9,22 +8,22 @@ import {NgbRatingConfig} from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./perfil.component.css'],
   providers: [NgbRatingConfig]
 })
-export class PerfilComponent implements OnInit {
 
-  formulario:FormGroup;
-  currentRate:number = 3;
+export class PerfilComponent implements OnInit {
+  formulario: FormGroup;
+  currentRate = 3;
 
   constructor(config: NgbRatingConfig) {
     this.formulario = new FormGroup({
-      'nombre':new FormControl('', [
+      'nombre': new FormControl('', [
                                     Validators.required,
                                     Validators.minLength(4)
                                   ]),
-      'apellidos':new FormControl('', [
+      'apellidos': new FormControl('', [
                                     Validators.required,
                                     Validators.minLength(5)
                                   ]),
-      'descripcion':new FormControl('', [
+      'descripcion': new FormControl('', [
                                     Validators.required,
                                     Validators.minLength(15)
                                   ])
@@ -32,15 +31,13 @@ export class PerfilComponent implements OnInit {
 
     config.max = 5;
     config.readonly = true;
-    
-   }
+  }
 
   ngOnInit() {
   }
-  enviar(){
-    console.log(this.formulario.value);
-    console.log(this.formulario);
 
-    this.formulario.reset({nombre:'', mensaje:'',asunto:'', correo:''});
+  enviar() {
+    this.formulario.reset({nombre: '', mensaje: '', asunto: '', correo: ''});
   }
+
 }

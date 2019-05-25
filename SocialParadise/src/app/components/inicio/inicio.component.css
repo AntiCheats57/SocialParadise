@@ -44,9 +44,6 @@
     margin-top: 3rem;
 }
 
-
-/*  FORMULARIO DE BÚSQUEDA */
-
 .form-search {
     margin-bottom: 40px;
 }
@@ -58,6 +55,7 @@
 .form-search .btn {
     background-color: #4CAF50;
     box-shadow: 0 0 4px #ccc;
+    width: 100%
 }
 
 .form-search .btn:hover {
@@ -67,6 +65,3 @@
 .form-search input {
     box-shadow: 0 0 8px #eee;
 }
-
-
-/* ----------------------------- */

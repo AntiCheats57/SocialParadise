@@ -33,6 +33,10 @@ form .btn-submit {
     padding-right: 15px;
 }
 
+.form-title {
+    color: #196F3D;
+}
+
 .gallery {
     background-color: #fff;
     border: 1px solid #CED4DA;

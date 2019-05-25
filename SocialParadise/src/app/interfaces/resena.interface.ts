@@ -4,5 +4,5 @@ export interface resena {
     usuario: number;
     valoracion: number;
     comentario: string;
-    fecha: string;	
+    fecha: string;
 }

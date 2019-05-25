@@ -1,6 +1,6 @@
 <br><br>
 <div class="container">
-    <h2 class="text-center form-title" style="color: #196F3D;">LUGAR TURÍSTICO</h2>
+    <h2 class="text-center form-title">LUGAR TURÍSTICO</h2>
     <form [formGroup]="formulario" (ngSubmit)="guardar()">
         <div class="row">
             <div class="form-group col-12" [ngClass]="{'has-danger': !formulario.get('nombre').valid && formulario.get('nombre').touched}">
@@ -20,7 +20,6 @@
                 </div>
             </div>
         </div>
-
 
         <div class="btn-edit">
             <div class="btn-group" role="group">

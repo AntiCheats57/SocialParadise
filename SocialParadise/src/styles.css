@@ -17,3 +17,7 @@ tbody tr:hover {
 tbody tr:active {
     background-color: rgba(76, 175, 79, 0.274) !important;
 }
+
+.custom-select {
+    width: auto;
+}

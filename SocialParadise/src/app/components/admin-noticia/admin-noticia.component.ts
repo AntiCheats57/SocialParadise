@@ -1,12 +1,9 @@
-import { Component, OnInit,QueryList, ViewChildren } from '@angular/core';
-import {DecimalPipe} from '@angular/common';
-
-import {Observable} from 'rxjs';
-
-import {noticia} from '../../interfaces/noticia.interface';
-import {NoticiasService} from '../../services/noticias.service';
-import {NgbdSortableHeader, SortEvent} from '../../directives/sortable.directive';
-
+import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { DecimalPipe } from '@angular/common';
+import { Observable } from 'rxjs';
+import { noticia } from 'src/app/interfaces/noticia.interface';
+import { NoticiasService } from 'src/app/services/noticias/noticias.service';
+import { NgbdSortableHeader, SortEvent } from 'src/app/directives/sortable.directive';
 
 @Component({
   selector: 'app-admin-noticia',
@@ -14,6 +11,7 @@ import {NgbdSortableHeader, SortEvent} from '../../directives/sortable.directive
   styleUrls: ['./admin-noticia.component.css'],
   providers: [NoticiasService, DecimalPipe]
 })
+
 export class AdminNoticiaComponent implements OnInit {
 
   noticias$: Observable<noticia[]>;
@@ -27,23 +25,19 @@ export class AdminNoticiaComponent implements OnInit {
   }
 
   onSort({column, direction}: SortEvent) {
-    // resetting other headers
     this.headers.forEach(header => {
       if (header.sortable !== column) {
         header.direction = '';
       }
     });
-
     this.service.sortColumn = column;
     this.service.sortDirection = direction;
   }
 
-
   ngOnInit() {
   }
 
-  editar(object:noticia) {
-    // console.log(object);
+  editar(object: noticia) {
   }
-  
+
 }
