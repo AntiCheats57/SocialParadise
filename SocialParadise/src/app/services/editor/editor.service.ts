@@ -57,7 +57,7 @@ export class EditorService {
   private lugaresItems: lugar[];
 
   constructor(private pipe: DecimalPipe) {
-   // this.lugaresItems = lugares;
+    this.lugaresItems = lugares;
 
     this._search$.pipe(
       tap(() => this._loading$.next(true)),
@@ -96,7 +96,7 @@ export class EditorService {
 
     let lugaresSorted = sort(this.lugaresItems, sortColumn, sortDirection);
 
-    lugaresSorted = lugaresSorted.filter(noticia => matches(noticia, searchTerm, this.pipe));
+    lugaresSorted = lugaresSorted.filter(lugar => matches(lugar, searchTerm, this.pipe));
     const total = lugaresSorted.length;
 
     lugaresSorted = lugaresSorted.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize);

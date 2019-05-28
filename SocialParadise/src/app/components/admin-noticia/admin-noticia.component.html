@@ -15,7 +15,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let noticia of noticias$ | async" (click)="editar(noticia)" [routerLink]="[ '/admin/noticias/editar', noticia.id]">
+                <tr data-toggle="modal" data-target="#noticiaModal" *ngFor="let noticia of noticias$ | async" (click)="editar(noticia)" [routerLink]="[ 'editar', noticia.id]">
                     <td>
                         <ngb-highlight [result]="noticia.titulo" [term]="service.searchTerm"></ngb-highlight>
                     </td>
@@ -42,7 +42,8 @@
             </div>
         </div>
         <div class="row btn-admin">
-            <button type="button" class="col btn btn-primary" [routerLink]="[ '/noticias/nuevo' ]">Agregar</button>
+            <button data-toggle="modal" data-target="#noticiaModal" type="button" class="col btn btn-primary" [routerLink]="[ 'nuevo' ]">Agregar</button>
         </div>
     </form>
+    <router-outlet></router-outlet>
 </div>

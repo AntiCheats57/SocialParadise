@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+declare var $: any;
 
 @Component({
   selector: 'app-asignar-lugar',
@@ -9,9 +10,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 
 export class AsignarLugarComponent implements OnInit {
-
   formulario: FormGroup;
   indexLugar: string;
+  encabezadoModal: string;
 
   constructor(private router: Router, private route: ActivatedRoute) {
     this.formulario = new FormGroup({
@@ -19,7 +20,7 @@ export class AsignarLugarComponent implements OnInit {
                                     Validators.required,
                                     Validators.minLength(4)
                                   ]),
-        'editor': new FormControl('', [
+      'editor': new FormControl('', [
                                     Validators.required
                                   ])
     });
@@ -27,6 +28,14 @@ export class AsignarLugarComponent implements OnInit {
 
   ngOnInit() {
     this.indexLugar = this.route.snapshot.params['id'];
+    if (this.indexLugar) {
+      this.encabezadoModal = "Editar lugar";
+    } else {
+      this.encabezadoModal = "Agregar lugar";
+    }
+    $(document).ready(function() {
+      $("#lugarModal").modal("show");
+    });
   }
 
   guardar() {

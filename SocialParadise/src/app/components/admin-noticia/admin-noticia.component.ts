@@ -13,7 +13,6 @@ import { NgbdSortableHeader, SortEvent } from 'src/app/directives/sortable.direc
 })
 
 export class AdminNoticiaComponent implements OnInit {
-
   noticias$: Observable<noticia[]>;
   total$: Observable<number>;
 

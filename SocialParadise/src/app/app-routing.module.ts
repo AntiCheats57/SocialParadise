@@ -13,30 +13,35 @@ import { EdicionNoticiaComponent } from 'src/app/components/edicion-noticia/edic
 import { AdminNoticiaComponent } from 'src/app/components/admin-noticia/admin-noticia.component';
 import { AdminLugarComponent } from 'src/app/components/admin-lugar/admin-lugar.component';
 import { AdminEditorComponent } from 'src/app/components/admin-editor/admin-editor.component';
-import { AuthGuard } from 'src/app/guards/auth/auth.guard';
-import { RoleGuard } from 'src/app/guards/role/role.guard';
 import { AsignarLugarComponent } from 'src/app/components/asignar-lugar/asignar-lugar.component';
 import { ErrorComponent } from 'src/app/components/error/error.component';
-import { HomeComponent } from 'src/app/components/home/home.component';
+import { RaizComponent } from 'src/app/components/raiz/raiz.component';
+
+import { AuthGuard } from 'src/app/guards/auth/auth.guard';
+import { RoleGuard } from 'src/app/guards/role/role.guard';
 
 const routes: Routes = [
-  {path : '', component: InicioComponent}, //LISTO
-  {path : 'nosotros', component: NosotrosComponent}, //LISTO
-  {path : 'servicios', component: ServiciosComponent}, //LISTO
-  {path : 'contactenos', component: ContactenosComponent}, //LISTO
-  {path : 'lugar/:id', component: LugarTuristicoComponent},
-  {path : 'loguearse', component: LoguearseComponent},
-  {path : 'registrarse', component: RegistrarseComponent},
-  {path : 'admin/perfil', component: PerfilComponent, canActivate: [AuthGuard]}, 
-  {path : 'noticias', component: AdminNoticiaComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}},
-  {path : 'noticias/editar/:id', component: EdicionNoticiaComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}},
-  {path : 'noticias/nuevo', component: EdicionNoticiaComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}},
-  {path : 'admin/lugares', component: AdminLugarComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}},
-  {path : 'admin/lugares/editar/:id', component: AsignarLugarComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}},
-  {path : 'admin/lugares/nuevo', component: AsignarLugarComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}},
-  {path : 'admin/lugar', component: AdminEditorComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'editor'}},
-  {path : 'admin/lugar/editar/:id', component: EdicionLugarComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'editor'}},
-  {path : 'admin/lugar/nuevo', component: EdicionLugarComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'editor'}},
+  {path : '', component: RaizComponent, children: [
+    {path : '', component: InicioComponent},
+    {path : 'nosotros', component: NosotrosComponent},
+    {path : 'servicios', component: ServiciosComponent},
+    {path : 'contactenos', component: ContactenosComponent},
+    {path : 'lugar/:id', component: LugarTuristicoComponent},
+    {path : 'loguearse', component: LoguearseComponent},
+    {path : 'registrarse', component: RegistrarseComponent},
+    {path : 'perfil', component: PerfilComponent/*, canActivate: [AuthGuard]*/},
+    {path : 'noticias', component: AdminNoticiaComponent, /*canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'},*/ children: [
+      {path : 'nuevo', component: EdicionNoticiaComponent},
+      {path : 'editar/:id', component: EdicionNoticiaComponent}
+    ]},
+    {path : 'asignacionLugares', component: AdminLugarComponent, /*canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'},*/ children: [
+      {path : 'nuevo', component: AsignarLugarComponent},
+      {path : 'editar/:id', component: AsignarLugarComponent}
+    ]},
+    {path : 'lugares', component: AdminEditorComponent, /*canActivate: [AuthGuard, RoleGuard], data: {role: 'editor'},*/ children: [
+      {path : 'editar/:id', component: EdicionLugarComponent}
+    ]},
+  ]},
   {path : '**', component: ErrorComponent}
 ];
 
@@ -46,4 +51,3 @@ const routes: Routes = [
 })
 
 export class AppRoutingModule { }
-

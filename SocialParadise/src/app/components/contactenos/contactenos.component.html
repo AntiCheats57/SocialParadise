@@ -6,10 +6,8 @@
 </div>
 
 <div class="container">
-
     <h2 class="text-center form-title">Contáctenos</h2>
-
-    <form [formGroup]="formulario" (ngSubmit)="enviar()">
+    <form [formGroup]="formulario" #f="ngForm" (ngSubmit)="f.form.valid && enviar()">
         <div>
             <div class="row">
 

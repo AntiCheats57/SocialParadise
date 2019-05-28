@@ -4,6 +4,7 @@ import { LocalDataService } from 'src/app/services/local-data/local-data.service
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-registrarse',
@@ -13,6 +14,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 export class RegistrarseComponent implements OnInit {
   formulario: FormGroup;
+  usuario: usuario;
 
   constructor(private localDataService: LocalDataService, private router: Router, private auth: AuthService) {
 
@@ -27,8 +29,8 @@ export class RegistrarseComponent implements OnInit {
                                   ]),
       'usuario': new FormControl('', [
                                     Validators.required,
-                                    Validators.minLength(4)
-                                  ]),
+                                    Validators.minLength(6)
+                                  ]),                           
       'clave': new FormControl('', [
                                     Validators.required,
                                     Validators.minLength(4)
@@ -41,30 +43,58 @@ export class RegistrarseComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.formulario.setValue({nombre: "Dana", apellidos: "Vargas", usuario: "dvargas", clave: "1234567", email: "404danavargas@gmail.com" });
+    this.usuario = {
+      id : 0,
+      idFB : "0",
+      correo : "",
+      admin : false,
+      apellidos : "",
+      clave : "",
+      foto : "",
+      lugaresAsignados : [],
+      lugaresSeguidos : [],
+      nombre : "",
+      resenas : [],
+      usuario : "" 
+    };
   }
 
-  registrarse(): void {
-    this.localDataService.cargarDatos();
-    let user: usuario;
-    user.id = null;
-    user.nombre = this.formulario.controls['nombre'].value;
-    user.apellidos = this.formulario.controls['apellidos'].value;
-    user.correo = this.formulario.controls['correo'].value;
-    user.clave = this.formulario.controls['clave'].value;
-    user.correo = this.formulario.controls['email'].value;
-    user.resenas = [];
-    user.lugaresSeguidos = [];
-    user.lugaresAsignados = [];
-    user.admin = false;
-    user.foto = "";
-    let cont = (<usuario[]> this.localDataService.getUsuarios()).length, cont2 = 0;
-    this.localDataService.addUsuario(user);
-    cont2 = (<usuario[]> this.localDataService.getUsuarios()).length;
-    /*if(cont < cont2){
-      if(this.auth.autentificarse(this.formulario.controls['usuario'].value, this.formulario.controls['clave'].value)){        
-        this.router.navigate([""])
-      }
-    } */
-   }
+  registrarEmail(): void {
+    this.usuario.nombre = this.formulario.controls['nombre'].value;
+    this.usuario.apellidos = this.formulario.controls['apellidos'].value;
+    this.usuario.usuario = this.formulario.controls['usuario'].value;
+    this.usuario.clave = this.formulario.controls['clave'].value;
+    this.usuario.correo = this.formulario.controls['email'].value;
+    
+    Swal.fire({
+      allowOutsideClick: false,
+      type: 'info',
+      text: 'Espere por favor...'
+    });
+    Swal.showLoading();
+    this.auth.registrarUsuario(this.usuario).then((res) => {
+      Swal.close();
+      this.router.navigateByUrl('');
+    }).catch ( err => {
+      Swal.fire({
+          type: 'error',
+          title: 'Error al registrarse',
+          text: err.message
+        });
+    });
+  }
+
+  registrarGoogle() {
+    this.auth.loginGoogle().then((res) => {
+      this.router.navigateByUrl('');
+    }).catch ( err => console.log(err));
+  }
+
+  registrarFacebook() {
+    this.auth.loginFacebook().then((res) => {
+      this.router.navigateByUrl('');      
+    }).catch ( err => console.log(err));
+  }
 
 }

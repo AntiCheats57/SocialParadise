@@ -9,10 +9,10 @@
             <div class="col-md-5 my-auto">
                 <div>
                     <div>
-                        <app-btn-social [imgUrl]="'assets/images/facebook.png'" [imgAlt]="'Facebook'" [text]="'Registrarse con Facebook'" [background]="'rgb(56, 24, 173)'" [textColor]="'rgb(255, 255, 255)'"></app-btn-social>
+                        <app-btn-social (click)="registrarFacebook()" [imgUrl]="'assets/images/facebook.png'" [imgAlt]="'Facebook'" [text]="'Registrarse con Facebook'" [background]="'rgb(56, 24, 173)'" [textColor]="'rgb(255, 255, 255)'"></app-btn-social>
                     </div>
                     <div class="mt-3 mb-3">
-                        <app-btn-social [imgUrl]="'assets/images/google.png'" [imgAlt]="'Google'" [text]="'Registrarse con Google'" [background]="'rgb(255, 255, 255)'" [textColor]="'rgb(0, 0, 0)'"></app-btn-social>
+                        <app-btn-social (click)="registrarGoogle()" [imgUrl]="'assets/images/google.png'" [imgAlt]="'Google'" [text]="'Registrarse con Google'" [background]="'rgb(255, 255, 255)'" [textColor]="'rgb(0, 0, 0)'"></app-btn-social>
                     </div>
                 </div>
             </div>
@@ -20,7 +20,7 @@
                 <div class=""></div>
             </div>
             <div class="container col-md-6">
-                <form class="row" [formGroup]="formulario" (ngSubmit)="registrarse()">
+                <form class="row" [formGroup]="formulario" #f="ngForm" (ngSubmit)="f.form.valid && registrarEmail()">
                     <div class="col-sm-6 form-group" [ngClass]="{'has-danger': !formulario.get('nombre').valid && formulario.get('nombre').touched}">
                         <label for="nombre">Nombre</label>
                         <input type="text" class="form-control" id="nombre" formControlName="nombre" placeholder="Nombre">

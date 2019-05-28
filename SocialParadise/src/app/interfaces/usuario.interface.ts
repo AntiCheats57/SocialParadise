@@ -3,6 +3,7 @@ export interface usuario {
     idFB: string;
     nombre: string;
     apellidos: string;
+    usuario: string;
     clave: string;
     correo: string;
     foto: string;
