@@ -1,10 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbdSortableHeader } from 'src/app/directives/sortable.directive';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { AppComponent } from 'src/app/app.component';
+import { environment } from 'src/environments/environment';
+
 import { ContactenosComponent } from 'src/app/components/contactenos/contactenos.component';
 import { NavegacionComponent } from 'src/app/components/navegacion/navegacion.component';
 import { FooterComponent } from 'src/app/components/footer/footer.component';
@@ -26,9 +28,10 @@ import { AdminLugarComponent } from 'src/app/components/admin-lugar/admin-lugar.
 import { AdminEditorComponent } from 'src/app/components/admin-editor/admin-editor.component';
 import { AsignarLugarComponent } from 'src/app/components/asignar-lugar/asignar-lugar.component';
 import { ComentarioComponent } from 'src/app/components/comentario/comentario.component';
+import { RaizComponent } from 'src/app/components/raiz/raiz.component';
 import { ErrorComponent } from 'src/app/components/error/error.component';
-import { FilterPipe} from 'src/app/pipe/filter.pipe';
 
+import { FilterPipe} from 'src/app/pipe/filter.pipe';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { EditorService } from 'src/app/services/editor/editor.service';
 import { LocalDataService } from 'src/app/services/local-data/local-data.service';
@@ -36,14 +39,14 @@ import { LugaresService } from 'src/app/services/lugares/lugares.service';
 import { NoticiasService } from 'src/app/services/noticias/noticias.service';
 import { AuthGuard } from 'src/app/guards/auth/auth.guard';
 import { RoleGuard } from 'src/app/guards/role/role.guard';
-import { HomeComponent } from './components/home/home.component';
 
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestore';
-import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire';
+
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -72,7 +75,7 @@ import { AngularFireModule } from '@angular/fire';
     ComentarioComponent, 
     FilterPipe, 
     ErrorComponent,
-    HomeComponent
+    RaizComponent
   ],
   imports: [
     BrowserModule,
@@ -83,7 +86,8 @@ import { AngularFireModule } from '@angular/fire';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule ,
     AngularFireDatabaseModule,
-    AngularFireStorageModule,   
+    AngularFireStorageModule,
+    HttpClientModule
   ],
   providers: [
     AuthService,
@@ -96,7 +100,6 @@ import { AngularFireModule } from '@angular/fire';
     AngularFireAuth, 
     AngularFirestore
   ],
-
   bootstrap: [AppComponent]
 })
 

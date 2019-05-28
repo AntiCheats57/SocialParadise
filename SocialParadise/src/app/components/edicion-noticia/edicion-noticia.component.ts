@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+declare var $: any;
 
 @Component({
   selector: 'app-edicion-noticia',
@@ -11,6 +12,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class EdicionNoticiaComponent implements OnInit {
   formulario: FormGroup;
   indexNoticia: string;
+  encabezadoModal: string;
 
   constructor(private router: Router, private route: ActivatedRoute) {
     this.formulario = new FormGroup({
@@ -27,6 +29,14 @@ export class EdicionNoticiaComponent implements OnInit {
 
   ngOnInit() {
     this.indexNoticia = this.route.snapshot.params['id'];
+    if (this.indexNoticia) {
+      this.encabezadoModal = "Editar noticia";
+    } else {
+      this.encabezadoModal = "Agregar noticia";
+    }
+    $(document).ready(function() {
+      $("#noticiaModal").modal("show");
+    });
   }
 
   guardar() {

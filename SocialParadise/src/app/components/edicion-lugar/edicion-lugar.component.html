@@ -1,110 +1,123 @@
-<br><br>
-<div class="container">
-    <h2 class="text-center form-title">LUGAR TURÍSTICO</h2>
-    <form [formGroup]="formulario" (ngSubmit)="guardar()">
-        <div class="row">
-            <div class="form-group col-12">
-                <label for="nombre" class="col-form-label">Nombre</label>
-                <input type="text" formControlName="nombre" class="form-control" disabled>
+<div class="modal fade" id="lugarModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title form-title" id="modalLabel">Editar lugar turísticos</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"  [routerLink]="[ '/lugares']">&times;</span>
+                </button>
             </div>
+            <div class="modal-body">
+                <div class="container">
+                    <form [formGroup]="formulario" (ngSubmit)="guardar()">
+                        <div class="row">
+                            <div class="form-group col-12">
+                                <label for="nombre" class="col-form-label">Nombre</label>
+                                <input type="text" formControlName="nombre" class="form-control" disabled>
+                            </div>
 
-            <div class="form-group col-12" [ngClass]="{'has-danger': !formulario.get('video').valid && formulario.get('video').touched}">
-                <label for="video" class="col-form-label">URL video</label>
-                <input type="text" formControlName="video" class="form-control">
-                <div>
-                    <small *ngIf="formulario.get('video').errors?.required && formulario.get('video').touched" class="form-control-feedback">Este campo es requerido.</small>
-                    <small *ngIf="formulario.get('video').errors?.pattern && formulario.get('video').touched" class="form-control-feedback">El campo no tiene formato de URL</small>
-                </div>
-            </div>
-            <div class="form-group col-12" [ngClass]="{'has-danger': !formulario.get('descripcion').valid && formulario.get('descripcion').touched}">
-                <label for="descripcion" class="col-form-label">Descripcion</label>
-                <textarea rows="6" formControlName='descripcion' class="form-control"></textarea>
-                <div>
-                    <small *ngIf="formulario.get('descripcion').errors?.required && formulario.get('descripcion').touched" class="form-control-feedback">Este campo es requerido.</small>
-                    <small *ngIf="formulario.get('descripcion').errors?.minlength && formulario.get('descripcion').touched" class="form-control-feedback">Por lo menos {{formulario.controls['descripcion'].errors?.minlength.requiredLength}} caracteres.</small>
-                </div>
-            </div>
-        </div>
-
-        <div>
-            <label for="imagenes" class="col-form-label">Imagenes</label>
-            <div class="row gallery-component form-group">
-                <div class="col gallery">
-
-                    <div class="row">
-                        <div class="col-6 col-md-4 col-lg-3">
-                            <a class="thumbnail" href="#" data-toggle="modal" data-target="#image-gallery">
-                                <img class="img-thumbnail" src="assets/images/im-contact.jpg" alt="place">
-                            </a>
-                        </div>
-                        <div class="col-6 col-md-4 col-lg-3">
-                            <a class="thumbnail" href="#" data-toggle="modal" data-target="#image-gallery">
-                                <img class="img-thumbnail" src="assets/images/im-contact.jpg" alt="place">
-                            </a>
-                        </div>
-                        <div class="col-6 col-md-4 col-lg-3">
-                            <a class="thumbnail" href="#" data-toggle="modal" data-target="#image-gallery">
-                                <img class="img-thumbnail" src="assets/images/im-contact.jpg" alt="place">
-                            </a>
-                        </div>
-                        <div class="col-6 col-md-4 col-lg-3">
-                            <a class="thumbnail" href="#" data-toggle="modal" data-target="#image-gallery">
-                                <img class="img-thumbnail" src="assets/images/im-contact.jpg" alt="place">
-                            </a>
-                        </div>
-                        <div class="col-6 col-md-4 col-lg-3">
-                            <a class="thumbnail" href="#" data-toggle="modal" data-target="#image-gallery">
-                                <img class="img-thumbnail" src="assets/images/im-contact.jpg" alt="place">
-                            </a>
-                        </div>
-                        <div class="col-6 col-md-4 col-lg-3">
-                            <a class="thumbnail" href="#" data-toggle="modal" data-target="#image-gallery">
-                                <img class="img-thumbnail" src="assets/images/im-contact.jpg" alt="place">
-                            </a>
-                        </div>
-                        <div class="col-6 col-md-4 col-lg-3">
-                            <a class="thumbnail" href="#" data-toggle="modal" data-target="#image-gallery">
-                                <img class="img-thumbnail" src="assets/images/im-contact.jpg" alt="place">
-                            </a>
-                        </div>
-                    </div>
-
-                    <input type="file" #file>
-                    <button class="btn btn-secondary gallery-btn" (click)="file.click()"><i class="fas fa-plus"></i></button>
-
-                    <div class="modal" id="image-gallery" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title"></h4>
-                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                            <div class="form-group col-12" [ngClass]="{'has-danger': !formulario.get('video').valid && formulario.get('video').touched}">
+                                <label for="video" class="col-form-label">URL video</label>
+                                <input type="text" formControlName="video" class="form-control">
+                                <div>
+                                    <small *ngIf="formulario.get('video').errors?.required && formulario.get('video').touched" class="form-control-feedback">Este campo es requerido.</small>
+                                    <small *ngIf="formulario.get('video').errors?.pattern && formulario.get('video').touched" class="form-control-feedback">El campo no tiene formato de URL</small>
                                 </div>
-                                <div class="modal-body">
-                                    <img src="">
+                            </div>
+                            <div class="form-group col-12" [ngClass]="{'has-danger': !formulario.get('descripcion').valid && formulario.get('descripcion').touched}">
+                                <label for="descripcion" class="col-form-label">Descripcion</label>
+                                <textarea rows="6" formControlName='descripcion' class="form-control"></textarea>
+                                <div>
+                                    <small *ngIf="formulario.get('descripcion').errors?.required && formulario.get('descripcion').touched" class="form-control-feedback">Este campo es requerido.</small>
+                                    <small *ngIf="formulario.get('descripcion').errors?.minlength && formulario.get('descripcion').touched" class="form-control-feedback">Por lo menos {{formulario.controls['descripcion'].errors?.minlength.requiredLength}} caracteres.</small>
                                 </div>
-                                <div class="modal-footer">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="imagenes" class="col-form-label">Imagenes</label>
+                            <div class="row gallery-component form-group">
+                                <div class="col gallery">
                                     <div class="row">
-                                        <div class="col-4 text-left">
-                                            <button type="button" class="btn btn-secondary"><i class="fa fa-arrow-left"></i></button>
+                                        <div class="col-6 col-md-4 col-lg-3">
+                                            <a class="thumbnail" href="#" data-toggle="modal" data-target="#image-gallery">
+                                                <img class="img-thumbnail" src="assets/images/im-contact.jpg" alt="place">
+                                            </a>
                                         </div>
-                                        <div class="col-4 text-center">
-                                            <button type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                        <div class="col-6 col-md-4 col-lg-3">
+                                            <a class="thumbnail" href="#" data-toggle="modal" data-target="#image-gallery">
+                                                <img class="img-thumbnail" src="assets/images/im-contact.jpg" alt="place">
+                                            </a>
                                         </div>
-                                        <div class="col-4 text-right">
-                                            <button type="button" class="btn btn-secondary"><i class="fa fa-arrow-right"></i></button>
+                                        <div class="col-6 col-md-4 col-lg-3">
+                                            <a class="thumbnail" href="#" data-toggle="modal" data-target="#image-gallery">
+                                                <img class="img-thumbnail" src="assets/images/im-contact.jpg" alt="place">
+                                            </a>
+                                        </div>
+                                        <div class="col-6 col-md-4 col-lg-3">
+                                            <a class="thumbnail" href="#" data-toggle="modal" data-target="#image-gallery">
+                                                <img class="img-thumbnail" src="assets/images/im-contact.jpg" alt="place">
+                                            </a>
+                                        </div>
+                                        <div class="col-6 col-md-4 col-lg-3">
+                                            <a class="thumbnail" href="#" data-toggle="modal" data-target="#image-gallery">
+                                                <img class="img-thumbnail" src="assets/images/im-contact.jpg" alt="place">
+                                            </a>
+                                        </div>
+                                        <div class="col-6 col-md-4 col-lg-3">
+                                            <a class="thumbnail" href="#" data-toggle="modal" data-target="#image-gallery">
+                                                <img class="img-thumbnail" src="assets/images/im-contact.jpg" alt="place">
+                                            </a>
+                                        </div>
+                                        <div class="col-6 col-md-4 col-lg-3">
+                                            <a class="thumbnail" href="#" data-toggle="modal" data-target="#image-gallery">
+                                                <img class="img-thumbnail" src="assets/images/im-contact.jpg" alt="place">
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <input type="file" #file>
+                                    <button class="btn btn-secondary gallery-btn" (click)="file.click()"><i class="fas fa-plus"></i></button>
+
+                                    <div class="modal" id="image-gallery" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title"></h4>
+                                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <img src="">
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <div class="row">
+                                                        <div class="col-4 text-left">
+                                                            <button type="button" class="btn btn-secondary"><i class="fa fa-arrow-left"></i></button>
+                                                        </div>
+                                                        <div class="col-4 text-center">
+                                                            <button type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                                        </div>
+                                                        <div class="col-4 text-right">
+                                                            <button type="button" class="btn btn-secondary"><i class="fa fa-arrow-right"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
+                        <div class="text-right">
+                            <button type="submit" class="btn btn-submit" data-dismiss="modal" [routerLink]="[ '/lugares']">Guardar</button>
+                        </div>
+                    </form>
                 </div>
             </div>
+            <!-- <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Send message</button>
+                    </div> -->
         </div>
-        <div class="text-right">
-            <button type="submit" class="btn btn-submit" [routerLink]="[ '/admin/lugar']">Guardar</button>
-        </div>
-
-    </form>
+    </div>
 </div>

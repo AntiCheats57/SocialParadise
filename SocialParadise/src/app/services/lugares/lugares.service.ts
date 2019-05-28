@@ -57,7 +57,7 @@ export class LugaresService {
   private lugaresItems: lugar[];
 
   constructor(private pipe: DecimalPipe) {
-    //this.lugaresItems = lugares;
+    this.lugaresItems = lugares;
 
     this._search$.pipe(
       tap(() => this._loading$.next(true)),

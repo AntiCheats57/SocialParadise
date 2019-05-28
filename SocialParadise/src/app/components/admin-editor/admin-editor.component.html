@@ -14,7 +14,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let lugar of lugares$ | async" [routerLink]="[ '/admin/lugar/editar', lugar.id]">
+                <tr data-toggle="modal" data-target="#lugarModal" *ngFor="let lugar of lugares$ | async" [routerLink]="[ 'editar', lugar.id]">
                     <td>
                         <ngb-highlight [result]="lugar.nombre" [term]="service.searchTerm"></ngb-highlight>
                     </td>
@@ -38,4 +38,5 @@
             </div>
         </div>
     </form>
+    <router-outlet></router-outlet>
 </div>

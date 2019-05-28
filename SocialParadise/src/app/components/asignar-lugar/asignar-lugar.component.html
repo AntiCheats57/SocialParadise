@@ -1,33 +1,49 @@
-<br><br>
-<div class="container">
-    <h2 class="text-center form-title">LUGAR TURÍSTICO</h2>
-    <form [formGroup]="formulario" (ngSubmit)="guardar()">
-        <div class="row">
-            <div class="form-group col-12" [ngClass]="{'has-danger': !formulario.get('nombre').valid && formulario.get('nombre').touched}">
-                <label for="nombre" class="col-form-label">Lugar</label>
-                <input type="text" formControlName="nombre" class="form-control">
-                <div>
-                    <small *ngIf="formulario.get('nombre').errors?.required && formulario.get('nombre').touched" class="form-control-feedback">Este campo es requerido.</small>
-                    <small *ngIf="formulario.get('nombre').errors?.minlength && formulario.get('nombre').touched" class="form-control-feedback">Por lo menos {{formulario.controls['nombre'].errors?.minlength.requiredLength}} caracteres.</small>
-                </div>
+<div class="modal fade" id="lugarModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title form-title" id="modalLabel">{{encabezadoModal}}</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" [routerLink]="[ '/asignacionLugares']">&times;</span>
+                </button>
             </div>
+            <div class="modal-body">
+                <div class="container">
+                    <form [formGroup]="formulario" (ngSubmit)="guardar()">
+                        <div class="row">
+                            <div class="form-group col-12" [ngClass]="{'has-danger': !formulario.get('nombre').valid && formulario.get('nombre').touched}">
+                                <label for="nombre" class="col-form-label">Lugar</label>
+                                <input type="text" formControlName="nombre" class="form-control">
+                                <div>
+                                    <small *ngIf="formulario.get('nombre').errors?.required && formulario.get('nombre').touched" class="form-control-feedback">Este campo es requerido.</small>
+                                    <small *ngIf="formulario.get('nombre').errors?.minlength && formulario.get('nombre').touched" class="form-control-feedback">Por lo menos {{formulario.controls['nombre'].errors?.minlength.requiredLength}} caracteres.</small>
+                                </div>
+                            </div>
 
-            <div class="form-group col-12" [ngClass]="{'has-danger': !formulario.get('editor').valid && formulario.get('editor').touched}">
-                <label for="editor" class="col-form-label">Editor</label>
-                <input type="text" formControlName="editor" class="form-control">
-                <div>
-                    <small *ngIf="formulario.get('editor').errors?.required && formulario.get('editor').touched" class="form-control-feedback">Este campo es requerido.</small>
-                </div>
-            </div>
-        </div>
+                            <div class="form-group col-12" [ngClass]="{'has-danger': !formulario.get('editor').valid && formulario.get('editor').touched}">
+                                <label for="editor" class="col-form-label">Editor</label>
+                                <input type="text" formControlName="editor" class="form-control">
+                                <div>
+                                    <small *ngIf="formulario.get('editor').errors?.required && formulario.get('editor').touched" class="form-control-feedback">Este campo es requerido.</small>
+                                </div>
+                            </div>
+                        </div>
 
-        <div class="btn-edit">
-            <div class="btn-group" role="group">
-                <div *ngIf="indexLugar != null">
-                    <button class="btn btn-danger ">Eliminar</button>
+                        <div class="btn-edit">
+                            <div class="btn-group" role="group">
+                                <div *ngIf="indexLugar != null">
+                                    <button data-dismiss="modal" class="btn btn-danger" [routerLink]="[ '/asignacionLugares']">Eliminar</button>
+                                </div>
+                                <button data-dismiss="modal" type="submit" class="btn btn-submit" [routerLink]="[ '/asignacionLugares']">Guardar {{indexNoticias}}</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <button type="submit" class="btn btn-submit" routerLink="/admin/lugares">Guardar {{indexNoticias}}</button>
             </div>
+            <!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Send message</button>
+                </div> -->
         </div>
-    </form>
+    </div>
 </div>

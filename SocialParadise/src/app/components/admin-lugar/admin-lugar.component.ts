@@ -20,7 +20,7 @@ export class AdminLugarComponent implements OnInit {
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
   constructor(public service: LugaresService) {
-    //this.lugares$ = service.lugares$;
+    this.lugares$ = service.lugares$;
     this.total$ = service.total$;
   }
 

@@ -28,7 +28,6 @@ export class PerfilComponent implements OnInit {
                                     Validators.minLength(15)
                                   ])
     });
-
     config.max = 5;
     config.readonly = true;
   }

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+declare var $: any;
 
 @Component({
   selector: 'app-edicion-lugar',
@@ -9,8 +11,9 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 export class EdicionLugarComponent implements OnInit {
   formulario: FormGroup;
+  indexNoticia: string;
 
-  constructor() {
+  constructor(private router: Router, private route: ActivatedRoute) {
     this.formulario = new FormGroup({
       'nombre': new FormControl('', [
                                     Validators.required,
@@ -28,6 +31,10 @@ export class EdicionLugarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.indexNoticia = this.route.snapshot.params['id'];
+    $(document).ready(function() {
+      $("#lugarModal").modal("show");
+    });
   }
 
   guardar() {

@@ -8,8 +8,6 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 
 export class ContactenosComponent implements OnInit {
-  @Output() public tipoTema = new EventEmitter<string>();
-
   formulario: FormGroup;
 
   constructor() {
@@ -30,7 +28,6 @@ export class ContactenosComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.tipoTema.emit("claro");
   }
 
   enviar() {
