@@ -3,10 +3,9 @@ import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription, Observable } from 'rxjs';
 import { DatosService } from 'src/app/services/datos/datos.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DomSanitizer } from '@angular/platform-browser';
 import { resena } from 'src/app/interfaces/resena.interface';
+import { AngularFirestoreCollection } from '@angular/fire/firestore';
 import { usuario } from 'src/app/interfaces/usuario.interface';
-import { lugar } from 'src/app/interfaces/lugar.interface';
 
 @Component({
   selector: 'app-lugar-turistico',
@@ -24,13 +23,16 @@ export class LugarTuristicoComponent implements OnInit, OnDestroy {
   private suscripcionUsuario : Subscription;
   private lugar : any;
   private resenas : resena[];
+  private resenasTemp : resena[];
+  private usuarios : any[]
   private refrescar : boolean;
-  private refrescar2 : boolean;
+  private lugarId : number;
 
   constructor(config: NgbRatingConfig, private datosService : DatosService, private rutaActual: ActivatedRoute, private router: Router) {
     config.max = 5;
     config.readonly = true;
     this.refrescar = true;
+    this.lugarId = parseInt(this.rutaActual.snapshot.paramMap.get("id"));
   }
 
   ngOnInit() {
@@ -45,19 +47,34 @@ export class LugarTuristicoComponent implements OnInit, OnDestroy {
       "seguidores":[],
       "imagenes":[""]
     }
-    this.suscripcionLugar = this.datosService.obtenerElementoId("lugares", this.rutaActual.snapshot.paramMap.get("id")).subscribe(datos => {
+    this.suscripcionLugar = this.datosService.obtenerElementoId("lugares", this.lugarId.toString()).subscribe(datos => {
         if(this.refrescar){
           if(datos[0] != undefined){
             this.lugar = datos[0];
             this.suscripcionResena = this.datosService.obtenerColeccion("resenas").subscribe(elementos => {
-              this.resenas = elementos;
+              this.resenasTemp = elementos;
+              this.resenas = []
               if(this.resenas != undefined){                
                 this.valoracionGeneral = 0;
                 var cantidadResenas = 0;
-                this.resenas.forEach(r => {
+                this.resenasTemp.sort((x, y) => {
+                  return -1 * ((new Date(x.fechaPublicacion)).getTime() - (new Date(y.fechaPublicacion)).getTime())
+
+                }).forEach(r => {
                   if(r.lugar === this.lugar.id){
+                    this.resenas.push(r)
                     this.valoracionGeneral = this.valoracionGeneral + r.valoracion;
-                    cantidadResenas++;                  
+                    cantidadResenas++;     
+                    this.usuarios = []             
+                    this.suscripcionUsuario = this.datosService.obtenerElementoId("usuarios", r.usuario.toString()).subscribe(usu => {
+                      if(datos != undefined){
+                        this.usuarios.push({
+                          nombre: (<usuario> usu[0]).nombre + " " + (<usuario> usu[0]).apellidos, 
+                          id: (<usuario> usu[0]).id,
+                          foto: (<usuario> usu[0]).foto
+                        });
+                      }
+                  }, error => {}, ()=> {this.suscripcionUsuario.unsubscribe()});
                   }              
                 });        
                 this.valoracionGeneral = this.valoracionGeneral / (cantidadResenas != 0? cantidadResenas : 1);  
@@ -88,16 +105,23 @@ export class LugarTuristicoComponent implements OnInit, OnDestroy {
     }
   }
 
-  getNombre(usuarioId: string){
-    var nombre = null;
-    this.refrescar2 = true;
-    this.suscripcionUsuario = this.datosService.obtenerElementoId("usuarios", usuarioId).subscribe(datos => {
-        if(nombre == null && datos != undefined && this.refrescar2){
-          nombre = (<usuario> datos[0]).nombre + " " + (<usuario> datos[0]).apellidos
-          this.refrescar2 = false;
+  getAtributoUsuario(usuarioId: number, atributo : string): string {
+    var salida = "";
+    if(this.usuarios){
+      this.usuarios.forEach(x => {
+        if(x.id == usuarioId){
+          switch(atributo){
+            case "nombre":
+                salida = x.nombre;
+              break;
+            case "foto":
+                salida = x.foto;
+              break;
+          }          
         }
-    });
-    return nombre;
+      });
+    }
+    return salida;
   }
 
 }

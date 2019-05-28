@@ -30,7 +30,7 @@ export class DatosService {
   obtenerElementoId(coleccion : string, elementoId : string) {
     return this.firestore.collection(coleccion, ref => ref.where('id','==', parseInt(elementoId))).valueChanges();
   }
-
+  
   /*obtenerElementoIdFB(coleccion : string, elementoIdFB : string) {
     return this.firestore.collection(coleccion).doc(elementoIdFB).snapshotChanges();
   }*/ 

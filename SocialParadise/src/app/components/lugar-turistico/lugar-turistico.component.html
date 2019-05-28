@@ -51,7 +51,7 @@
                                         <div class="col-12 col-lg-3">
                                             <div class="row rating">
                                                 <div class="col-8 col-sm-9">
-                                                    <img src="assets/images/seguidos.jpg" alt="" class="img-responsiv img-fluid img-circle" />
+                                                    <img [src]="getAtributoUsuario(resena.usuario.toString(), 'foto')" alt="" class="img-responsiv img-fluid img-circle" width="150" />
                                                 </div>
                                                 <ngb-rating class="col-12 order-1 order-lg-2" [rate]="resena.valoracion">
                                                     <ng-template let-fill="fill" let-index="index">
@@ -59,11 +59,11 @@
                                                     </ng-template>
                                                 </ngb-rating>
                                             </div>
-                                            <span>{{resena.fechaPublicacion}}</span>
+                                            <span>{{resena.fechaPublicacion | date: "dd/MM/yyyy hh:mm a"}}</span>
                                         </div>
                                         <div class="col-12 col-lg-9">
-                                            <h4>{{getNombre(resena.usuario)}}</h4>
-                                            <p>{{resena.comentario}} </p>
+                                            <h4>{{getAtributoUsuario(resena.usuario.toString(), 'nombre')}}</h4>
+                                            <p>{{resena.comentario}}</p>
                                         </div>
                                     </div>
                                 </li>
