@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { lugar } from 'src/app/interfaces/lugar.interface';
+import { DatosService } from 'src/app/services/datos/datos.service';
+import { Observable, Subscription } from 'rxjs';
+import { AngularFireList } from 'angularfire2/database';
 
 @Component({
   selector: 'app-inicio',
@@ -7,23 +11,34 @@ import { Router } from '@angular/router';
   styleUrls: ['./inicio.component.css']
 })
 
-export class InicioComponent implements OnInit {
-  items: string[];
-  page = 1;
-  pageSize = 9;
-  collectionSize: number;
-  maxSize = 5;
+export class InicioComponent implements OnInit, OnDestroy {
+  
+  private pagina = 1;
+  private cantidadPorPagina = 9;
+  private cantidadMaxima = 5;
+  private cantidadPaginas: number;
+  private suscripcion : Subscription;
+  private lugares: lugar[];   
 
-  constructor(private router: Router) {
-    this.items = ["Bertiolo", "Poggiodomo", "Leduc", "Bruderheim", "Tintigny", "Lebach","Birkenhead", "Vancouver", "SanVitoChietino", "Vannes","Nasino","Greymouth","SanAntonio","Lamont","Gore","ChartersTowers","Serrata","Castanhal","Estevan","Torgny","Glendon","Norman","Augusta","Berloz","Toruń","Chalon-sur-Saone","Hekelgem","Villeneuve-dAscq","Olcenengo","SunshineCoastRegionalDistrict","Urbe","SanLorenzoNuovo","Llanidloes","St.JohanninTirol","Basildon","Segovia","Anghiari","Pontevedra"]
-    this.collectionSize = ((this.items.length / this.pageSize) * 10);
+  constructor(private router: Router, private datosService : DatosService) {
+    this.cantidadPaginas = (((this.lugares != null? this.lugares.length : 1)/ this.cantidadPorPagina) * 10);
+    this.suscripcion = null;
   }
 
   ngOnInit() {
+    this.suscripcion = this.datosService.obtenerColeccion("lugares").subscribe(datos => {
+      this.lugares = datos;
+      this.cantidadPaginas = (((this.lugares != null? this.lugares.length : 1)/ this.cantidadPorPagina) * 10);
+    });
   }
 
-  lugar(): void{
-    this.router.navigate(["/lugar"]);
+  verLugar(id: string): void{
+    this.router.navigate(["lugar/", id]);
   }
 
+  ngOnDestroy(): void{
+    if(this.suscripcion){
+      this.suscripcion.unsubscribe();
+    }
+  }
 }

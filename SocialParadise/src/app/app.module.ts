@@ -27,8 +27,7 @@ import { AdminEditorComponent } from 'src/app/components/admin-editor/admin-edit
 import { AsignarLugarComponent } from 'src/app/components/asignar-lugar/asignar-lugar.component';
 import { ComentarioComponent } from 'src/app/components/comentario/comentario.component';
 import { ErrorComponent } from 'src/app/components/error/error.component';
-import { FilterPipe} from 'src/app/pipe/filter.pipe';
-
+import { FilterPipe} from 'src/app/pipe/filter/filter.pipe';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { EditorService } from 'src/app/services/editor/editor.service';
 import { LocalDataService } from 'src/app/services/local-data/local-data.service';
@@ -37,13 +36,15 @@ import { NoticiasService } from 'src/app/services/noticias/noticias.service';
 import { AuthGuard } from 'src/app/guards/auth/auth.guard';
 import { RoleGuard } from 'src/app/guards/role/role.guard';
 import { HomeComponent } from './components/home/home.component';
-
-import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireDatabaseModule, AngularFireDatabase } from '@angular/fire/database';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire';
+import { DatosService } from './services/datos/datos.service';
+import { UrlSegura } from './pipe/url/url-segura';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { AngularFireModule } from '@angular/fire';
     ComentarioComponent, 
     FilterPipe, 
     ErrorComponent,
-    HomeComponent
+    HomeComponent, 
+    UrlSegura 
   ],
   imports: [
     BrowserModule,
@@ -83,7 +85,8 @@ import { AngularFireModule } from '@angular/fire';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule ,
     AngularFireDatabaseModule,
-    AngularFireStorageModule,   
+    AngularFireStorageModule,
+    HttpClientModule
   ],
   providers: [
     AuthService,
@@ -94,7 +97,9 @@ import { AngularFireModule } from '@angular/fire';
     AuthGuard,
     RoleGuard, 
     AngularFireAuth, 
-    AngularFirestore
+    AngularFirestore,
+    AngularFireDatabase,
+    DatosService
   ],
 
   bootstrap: [AppComponent]

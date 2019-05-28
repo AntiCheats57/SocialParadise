@@ -39,7 +39,7 @@ function sort(noticias: noticia[], column: string, direction: string): noticia[]
 function matches(noticias: noticia, term: string, pipe: PipeTransform) {
   return noticias.titulo.toLowerCase().includes(term)
     || noticias.contenido.toLowerCase().includes(term)
-    || noticias.fechaCreacion.toLowerCase().includes(term);
+    || noticias.fechaCreacion.toString().toLowerCase().includes(term);
 }
 
 @Injectable({providedIn: 'root'})
@@ -60,7 +60,7 @@ export class NoticiasService {
   private noticiasItems: noticia[];
 
   constructor(private pipe: DecimalPipe) {
-    this.noticiasItems = noticias;
+   // this.noticiasItems = noticias;
 
     this._search$.pipe(
       tap(() => this._loading$.next(true)),

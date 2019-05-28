@@ -1,19 +1,14 @@
-import { resena } from 'src/app/interfaces/resena.interface';
-import { lugar } from 'src/app/interfaces/lugar.interface';
-
-export class usuario {
+export interface usuario {
     id: number;
+    idFB: string;
     nombre: string;
     apellidos: string;
     clave: string;
     correo: string;
     foto: string;
-    resenas: Array<resena>;
-    lugaresAsignados: Array<lugar>;
-    lugaresSeguidos: Array<lugar>;
-    admin: string;
-
-    constructor(){
-    }
-
+    usuario: string;
+    resenas: number[];
+    lugaresAsignados: number[];
+    lugaresSeguidos: number[];
+    admin: boolean;
 }

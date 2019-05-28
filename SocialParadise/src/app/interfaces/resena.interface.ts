@@ -1,8 +1,9 @@
 export interface resena {
     id: number;
+    idFB: string;
     lugar: number;
     usuario: number;
     valoracion: number;
     comentario: string;
-    fecha: string;
+    fechaPublicacion: string;
 }

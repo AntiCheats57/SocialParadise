@@ -1,38 +1,19 @@
-<ngb-carousel *ngIf="images">
-
-    <ng-template ngbSlide>
+<ngb-carousel *ngIf="esTipoElemento('noticias')">
+    <ng-template ngbSlide *ngFor="let noticia of noticias">
         <div class="img-slider">
-            <img [src]="images[0]" alt="Random first slide">
+            <img [src]="noticia.imagen" [alt]="'Imagen noticia' + noticia.titulo">
         </div>
         <div class="back-caption"></div>
         <div class="carousel-caption">
-            <h1>Título Noticia 1</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc feugiat nibh sed sapien vestibulum, ac auctor nibh vehicula. Pellentesque aliquet tempus tellus, sed congue diam consectetur eu. </p>
+            <h1>{{noticia.titulo}}</h1>
+            <p>{{noticia.contenido}}</p>
         </div>
     </ng-template>
-
-    <ng-template ngbSlide>
+</ngb-carousel>
+<ngb-carousel *ngIf="esTipoElemento('lugar')">
+    <ng-template ngbSlide *ngFor="let imagen of lugar.imagenes">
         <div class="img-slider">
-            <img [src]="images[1]" alt="Random second slide">
-        </div>
-
-        <div class="back-caption"></div>
-        <div class="carousel-caption">
-            <h1>Título Noticia 2</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc feugiat nibh sed sapien vestibulum, ac auctor nibh vehicula. Pellentesque aliquet tempus tellus, sed congue diam consectetur eu. </p>
+            <img [src]="imagen" [alt]="'Imagen lugar' + lugar.nombre">
         </div>
     </ng-template>
-
-    <ng-template ngbSlide>
-        <div class="img-slider">
-            <img [src]="images[2]" alt="Random third slide">
-        </div>
-
-        <div class="back-caption"></div>
-        <div class="carousel-caption">
-            <h1>Título Noticia 3</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc feugiat nibh sed sapien vestibulum, ac auctor nibh vehicula. Pellentesque aliquet tempus tellus, sed congue diam consectetur eu. </p>
-        </div>
-    </ng-template>
-
 </ngb-carousel>

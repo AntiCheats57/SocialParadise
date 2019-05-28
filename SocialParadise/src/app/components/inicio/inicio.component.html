@@ -1,6 +1,6 @@
 <div class="margin-nav">
 
-    <app-carousel></app-carousel>
+    <app-carousel [tipoElemento]="'noticias'"></app-carousel>
 
     <div class="container">
         <form class="form-search">
@@ -15,13 +15,13 @@
         </form>
 
         <div class="row">
-            <div class="col-sm-6  col-lg-4" *ngFor="let item of items | filter : buscarTexto | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
-                <div class="card place-card" (click)="lugar()">
-                    <img src="assets/images/im-contact.jpg" class="card-img-top img-fluid" alt="">
+            <div class="col-sm-6  col-lg-4" *ngFor="let lugar of lugares">
+                <div class="card place-card" (click)="verLugar(lugar.id)">
+                    <img [src]="lugar.imagenes != null? lugar.imagenes[0] : '/assets/images/im-contact.jpg'" class="card-img-top img-fluid" alt="">
                     <div class="card-body">
-                        <span>UBICACIÓN</span>
-                        <h5 class="card-title">{{item}}</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content. Proin eget tristique justo. Proin at lacus leo.</p>
+                        <span>{{lugar.ubicacion}}</span>
+                        <h5 class="card-title">{{lugar.nombre}}</h5>
+                        <p class="card-text">{{lugar.descripcion}}</p>
                     </div>
                 </div>
             </div>
@@ -29,6 +29,6 @@
 
     </div>
 
-    <ngb-pagination class="d-flex justify-content-center" [collectionSize]="collectionSize" [(page)]="page" [maxSize]="maxSize" [rotate]="true" [ellipses]="false" [boundaryLinks]="true">
+    <ngb-pagination class="d-flex justify-content-center" [collectionSize]="cantidadPaginas" [(page)]="pagina" [maxSize]="cantidadMaxima" [rotate]="true" [ellipses]="false" [boundaryLinks]="true">
     </ngb-pagination>
 </div>

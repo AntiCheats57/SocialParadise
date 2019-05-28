@@ -51,20 +51,21 @@ export class AuthService {
         err => reject(err));
     });
   }
-
+*/
   estaAutentificado() {
     //return this.fireAuth.authState.pipe(map(auth => auth));
     return true;
   }
 
   esAdmin(userUid) {
-    return this.firestore.doc<usuario>(`usuarios/${userUid}`).valueChanges();
+   // return this.firestore.doc<usuario>(`usuarios/${userUid}`).valueChanges();
+   return true;
   }
 
   esEditor() {
     return true;
   }
-
+/*
 
 
 

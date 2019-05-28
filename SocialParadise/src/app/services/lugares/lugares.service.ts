@@ -1,7 +1,6 @@
 import { Injectable, PipeTransform } from '@angular/core';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { lugar } from 'src/app/interfaces/lugar.interface';
-import lugares from 'src/assets/json/lugares.json';
 import { DecimalPipe } from '@angular/common';
 import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
 import { SortDirection } from 'src/app/directives/sortable.directive';

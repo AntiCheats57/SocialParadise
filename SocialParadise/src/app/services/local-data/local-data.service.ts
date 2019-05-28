@@ -19,7 +19,7 @@ export class LocalDataService {
   }
 
   cargarDatos(): void{
-    if (localStorage.getItem("usuarios") == null) {
+   /* if (localStorage.getItem("usuarios") == null) {
       localStorage.setItem("usuarios", JSON.stringify(usuarios));
     }
     if (localStorage.getItem("noticias") == null) {
@@ -30,11 +30,11 @@ export class LocalDataService {
     }
     if (localStorage.getItem("resenas") == null) {
       localStorage.setItem("resenas", JSON.stringify(resenas));
-    }
+    }*/
   }
 
   eliminarUsuario(id: string): boolean {
-    let index = -1, cont = 1;
+   /* let index = -1, cont = 1;
     for (let i of JSON.parse(localStorage.getItem("usuarios"))) {
       if ((<usuario> i).id.toString() === id) {
         index = cont;
@@ -47,11 +47,12 @@ export class LocalDataService {
     }
     else { 
       return false;
-    }
+    }*/
+    return true;
   }
 
   eliminarNoticia(id: string): boolean{
-    let index = -1, cont = 1;
+    /*let index = -1, cont = 1;
     for (let i of JSON.parse(localStorage.getItem("noticias"))) {
       if ((<noticia> i).id.toString() === id) {
         index = cont;
@@ -64,11 +65,12 @@ export class LocalDataService {
     }
     else {
       return false;
-    }
+    }*/
+    return true;
   }
 
   eliminarResenas(id: string): boolean{
-    let index = -1, cont = 1;
+    /*let index = -1, cont = 1;
     for (let i of JSON.parse(localStorage.getItem("resenas"))) {
       if ((<resena> i).id.toString() === id) {
         index = cont;
@@ -81,11 +83,12 @@ export class LocalDataService {
     }
     else {
       return false;
-    }
+    }*/
+    return true;
   }
 
   eliminarLugar(id: string): boolean {
-    let index = -1, cont = 1;
+   /* let index = -1, cont = 1;
     for (let i of JSON.parse(localStorage.getItem("lugares"))) {
       if ((<lugar> i).id.toString() === id) {
         index = cont;
@@ -98,11 +101,12 @@ export class LocalDataService {
     }
     else {
       return false;
-    }
+    }*/
+    return true;
   }
 
   addUsuario(usu: usuario): void{
-    if (usu.id != null) {
+    /*if (usu.id != null) {
       (<usuario[]> JSON.parse(localStorage.getItem("usuarios")))[(<usuario[]> JSON.parse(localStorage.getItem("usuarios"))).indexOf(usu)] = usu;
     }
     else {    
@@ -117,11 +121,11 @@ export class LocalDataService {
         usuarios.push(usu);
         localStorage.setItem("usuarios", JSON.stringify(usuarios));
       }  
-    }
+    }*/
   }
 
   addNoticia(not: noticia): void{
-    if (not.id != null) {
+    /*if (not.id != null) {
       (<noticia[]> JSON.parse(localStorage.getItem("noticias")))[(<noticia[]> JSON.parse(localStorage.getItem("noticias"))).indexOf(not)] = not;
     }
     else {
@@ -136,11 +140,11 @@ export class LocalDataService {
         noticias.push(not);
         localStorage.setItem("noticias", JSON.stringify(noticias));
       }
-    }
+    }*/
   }
 
   addLugar(lug: lugar): void{
-    if (lug.id != null) {
+    /*if (lug.id != null) {
       (<lugar[]> JSON.parse(localStorage.getItem("lugares")))[(<lugar[]> JSON.parse(localStorage.getItem("lugares"))).indexOf(lug)] = lug;
     }
     else {
@@ -155,11 +159,11 @@ export class LocalDataService {
         lugares.push(lug);
         localStorage.setItem("lugares", JSON.stringify(lugares));
       }
-    }
+    }*/
   }
 
   addResena(res: resena): void {
-    if (res.id != null) {
+    /*if (res.id != null) {
       (<resena[]> JSON.parse(localStorage.getItem("resenas")))[(<resena[]> JSON.parse(localStorage.getItem("resenas"))).indexOf(res)] = res;
     }
     else {
@@ -174,42 +178,42 @@ export class LocalDataService {
         resenas.push(res);
         localStorage.setItem("resenas", JSON.stringify(resenas));
       }
-    }
+    }*/
   }
 
   getUsuario(id: string): usuario{
-    for (let i of JSON.parse(localStorage.getItem("usuarios"))) {
+    /*for (let i of JSON.parse(localStorage.getItem("usuarios"))) {
       if((<usuario> i).id.toString() === id){
         return i;
       }
-    }
+    }*/
     return null;
   }
 
   getNoticia(id: string): noticia{
-    for (let i of JSON.parse(localStorage.getItem("noticias"))) {
+    /*for (let i of JSON.parse(localStorage.getItem("noticias"))) {
       if ((<noticia> i).id.toString() === id) {
         return i;
       }
-    }
+    }*/
     return null;
   }
 
   getLugar(id: string): noticia{
-    for (let i of JSON.parse(localStorage.getItem("lugares"))) {
+    /*for (let i of JSON.parse(localStorage.getItem("lugares"))) {
       if((<lugar> i).id.toString() === id){
         return i;
       }
-    }
+    }*/
     return null;
   }
 
   getResena(id: string): resena{
-    for (let i of JSON.parse(localStorage.getItem("resena"))) {
+    /*for (let i of JSON.parse(localStorage.getItem("resena"))) {
       if ((<resena> i).id.toString() === id) {
         return i;
       }
-    }
+    }*/
     return null;
   }
 

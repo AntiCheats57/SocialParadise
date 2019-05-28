@@ -46,7 +46,6 @@ export class RegistrarseComponent implements OnInit {
   registrarse(): void {
     this.localDataService.cargarDatos();
     let user: usuario;
-    user = new usuario();
     user.id = null;
     user.nombre = this.formulario.controls['nombre'].value;
     user.apellidos = this.formulario.controls['apellidos'].value;
@@ -56,7 +55,7 @@ export class RegistrarseComponent implements OnInit {
     user.resenas = [];
     user.lugaresSeguidos = [];
     user.lugaresAsignados = [];
-    user.admin = "N";
+    user.admin = false;
     user.foto = "";
     let cont = (<usuario[]> this.localDataService.getUsuarios()).length, cont2 = 0;
     this.localDataService.addUsuario(user);

@@ -3,12 +3,12 @@
         <div class="container">
             <div class="row feature">
                 <div class="col-md-5">
-                    <h2 class="feature-heading">Título lugar turístico</h2>
-                    <h3 class="feature-subheading">Seguidores <span>1.000.000</span></h3>
-                    <p class="feature-description">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+                    <h2 class="feature-heading">{{lugar.nombre}}</h2>
+                    <h3 class="feature-subheading">Seguidores <span><strong>{{lugar.seguidores? lugar.seguidores.length : 0}}</strong></span></h3>
+                    <p class="feature-description">{{lugar.descripcion}}</p>
                 </div>
                 <div class="col-md-7">
-                    <app-carousel></app-carousel>
+                    <app-carousel [tipoElemento]="'lugar'"></app-carousel>
                 </div>
             </div>
         </div>
@@ -17,7 +17,7 @@
         <div class="container">
             <div class="row feature text-center">
                 <div class="col-md-12 order-md-2">
-                    <iframe src="https://www.youtube.com/embed/y9u4LAUV488" frameborder="0" allowfullscreen></iframe>
+                    <iframe [src]="lugar.video | urlSegura" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
         </div>
@@ -30,7 +30,7 @@
                     <div class="row">
                         <h3 class="col-md-12">Valoración general </h3>
                         <div class="row rating col-md-12">
-                            <ngb-rating class="col-12 order-1 order-lg-2" [rate]="4">
+                            <ngb-rating class="col-12 order-1 order-lg-2" [rate]="valoracionGeneral">
                                 <ng-template let-fill="fill" let-index="index">
                                     <span class="star" [class.filled]="fill === 100" [class.bad]="4 <= 3">&#9733;</span>
                                 </ng-template>
@@ -46,47 +46,24 @@
                     <div class="col-12">
                         <div class="following">
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item">
+                                <li class="list-group-item" *ngFor="let resena of resenas">
                                     <div class="row component-review">
                                         <div class="col-12 col-lg-3">
                                             <div class="row rating">
                                                 <div class="col-8 col-sm-9">
                                                     <img src="assets/images/seguidos.jpg" alt="" class="img-responsiv img-fluid img-circle" />
                                                 </div>
-                                                <ngb-rating class="col-12 order-1 order-lg-2" [rate]="2">
+                                                <ngb-rating class="col-12 order-1 order-lg-2" [rate]="resena.valoracion">
                                                     <ng-template let-fill="fill" let-index="index">
                                                         <span class="star" [class.filled]="fill === 100" [ngClass]="{'bad': 2 <= 3}">&#9733;</span>
                                                     </ng-template>
                                                 </ngb-rating>
                                             </div>
-                                            <span>10 ene 2019</span>
+                                            <span>{{resena.fechaPublicacion}}</span>
                                         </div>
                                         <div class="col-12 col-lg-9">
-                                            <h4>Nombre de usuario</h4>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent non velit ex. Nulla tempus tincidunt tempor. Cras ultrices felis sit amet turpis blandit egestas. Ut at leo efficitur, convallis arcu et, laoreet
-                                                ex. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi volutpat bibendum volutpat. </p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="row component-review">
-                                        <div class="col-12 col-lg-3">
-                                            <div class="row rating">
-                                                <div class="col-8 col-sm-9">
-                                                    <img src="assets/images/seguidos.jpg" alt="" class="img-responsiv img-fluid img-circle" />
-                                                </div>
-                                                <ngb-rating class="col-12 order-1 order-lg-2" [rate]="4">
-                                                    <ng-template let-fill="fill" let-index="index">
-                                                        <span class="star" [class.filled]="fill === 100" [class.bad]="4 <= 3">&#9733;</span>
-                                                    </ng-template>
-                                                </ngb-rating>
-                                            </div>
-                                            <span>10 ene 2019</span>
-                                        </div>
-                                        <div class="col-12 col-lg-9">
-                                            <h4>Nombre de usuario</h4>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent non velit ex. Nulla tempus tincidunt tempor. Cras ultrices felis sit amet turpis blandit egestas. Ut at leo efficitur, convallis arcu et, laoreet
-                                                ex. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi volutpat bibendum volutpat. </p>
+                                            <h4>{{getNombre(resena.usuario)}}</h4>
+                                            <p>{{resena.comentario}} </p>
                                         </div>
                                     </div>
                                 </li>

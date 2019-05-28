@@ -20,14 +20,14 @@ import { ErrorComponent } from 'src/app/components/error/error.component';
 import { HomeComponent } from 'src/app/components/home/home.component';
 
 const routes: Routes = [
-  {path : '', component: InicioComponent},
-  {path : 'nosotros', component: NosotrosComponent},
-  {path : 'servicios', component: ServiciosComponent},
-  {path : 'contactenos', component: ContactenosComponent},
-  {path : 'lugar', component: LugarTuristicoComponent},
+  {path : '', component: InicioComponent}, //LISTO
+  {path : 'nosotros', component: NosotrosComponent}, //LISTO
+  {path : 'servicios', component: ServiciosComponent}, //LISTO
+  {path : 'contactenos', component: ContactenosComponent}, //LISTO
+  {path : 'lugar/:id', component: LugarTuristicoComponent},
   {path : 'loguearse', component: LoguearseComponent},
   {path : 'registrarse', component: RegistrarseComponent},
-  {path : 'admin/perfil', component: PerfilComponent, canActivate: [AuthGuard]},
+  {path : 'admin/perfil', component: PerfilComponent, canActivate: [AuthGuard]}, 
   {path : 'noticias', component: AdminNoticiaComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}},
   {path : 'noticias/editar/:id', component: EdicionNoticiaComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}},
   {path : 'noticias/nuevo', component: EdicionNoticiaComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}},
