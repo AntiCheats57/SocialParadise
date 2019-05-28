@@ -16,7 +16,10 @@ import { Observable } from 'rxjs/internal/Observable';
 })
 
 export class LoguearseComponent implements OnInit {
-  usuario: usuario = new usuario();
+  
+  correo: string;
+  clave : string;
+  
   //imagen
   uploadPercent: Observable<number>;
   urlImage: Observable<string>;
@@ -26,7 +29,8 @@ export class LoguearseComponent implements OnInit {
   constructor(private auth: AuthService, private router:Router, private storage: AngularFireStorage) { 
   }
 
-  ngOnInit() { }
+  ngOnInit() { 
+  }
 
   loginGoogle() {
     this.auth.loginGoogle().then((res) => {
@@ -47,7 +51,7 @@ export class LoguearseComponent implements OnInit {
       text: 'Espere por favor...'
     });
     Swal.showLoading();
-    this.auth.loginEmail(this.usuario).then((res) => {
+    this.auth.loginEmail(this.correo, this.clave).then((res) => {
       Swal.close();
       this.router.navigateByUrl('');
     }).catch ( err => {

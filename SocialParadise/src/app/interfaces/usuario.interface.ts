@@ -7,7 +7,6 @@ export interface usuario {
     clave: string;
     correo: string;
     foto: string;
-    usuario: string;
     resenas: number[];
     lugaresAsignados: number[];
     lugaresSeguidos: number[];
