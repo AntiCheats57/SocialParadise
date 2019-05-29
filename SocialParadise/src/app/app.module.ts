@@ -48,6 +48,7 @@ import { DatosService } from './services/datos/datos.service';
 import { UrlSegura } from './pipe/url/url-segura';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { ImagenService } from './services/imagen/imagen.service';
 
 @NgModule({
   declarations: [
@@ -98,6 +99,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     LocalDataService,
     LugaresService,
     NoticiasService,
+    ImagenService,
     AuthGuard,
     RoleGuard, 
     AngularFireAuth, 
