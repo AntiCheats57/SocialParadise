@@ -5,6 +5,8 @@
                 <div class="col-md-5">
                     <h2 class="feature-heading">{{lugar.nombre}}</h2>
                     <h3 class="feature-subheading">Seguidores <span><strong>{{lugar.seguidores? lugar.seguidores.length : 0}}</strong></span></h3>
+                    <button type="button" *ngIf="!this.siguiendoLugar" (click)="modificarSeguimientoLugar()" class="btn btn-success mb-3">Seguir</button>
+                    <button type="button" *ngIf="this.siguiendoLugar" (click)="modificarSeguimientoLugar()" class="btn btn-danger mb-3">Dejar de seguir</button>
                     <p class="feature-description">{{lugar.descripcion}}</p>
                 </div>
                 <div class="col-md-7">
@@ -39,7 +41,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <app-comentario class="col-12"></app-comentario>
+                    <app-comentario class="col-12" *ngIf="this.auth.estaAutentificado()"></app-comentario>
                     <div class="col-12 mt-4">
                         <h3 class="section-title">Comentarios</h3>
                     </div>

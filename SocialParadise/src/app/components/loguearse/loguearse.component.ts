@@ -8,6 +8,8 @@ import Swal from 'sweetalert2';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
 import { Observable } from 'rxjs/internal/Observable';
+import { LocalDataService } from 'src/app/services/local-data/local-data.service';
+import { DatosService } from 'src/app/services/datos/datos.service';
 
 @Component({
   selector: 'app-loguearse',
@@ -19,6 +21,7 @@ export class LoguearseComponent implements OnInit {
   
   correo: string;
   clave : string;
+  refrescar: boolean;
   
   //imagen
   uploadPercent: Observable<number>;
@@ -26,7 +29,8 @@ export class LoguearseComponent implements OnInit {
   @ViewChild('imageUser') inputImageUser: ElementRef;
   // 
 
-  constructor(private auth: AuthService, private router:Router, private storage: AngularFireStorage) { 
+  constructor(private auth: AuthService, private datosService : DatosService, private localStorage : LocalDataService, private router:Router, private storage: AngularFireStorage) { 
+    this.refrescar = true;
   }
 
   ngOnInit() { 
@@ -34,12 +38,18 @@ export class LoguearseComponent implements OnInit {
 
   loginGoogle() {
     this.auth.loginGoogle().then((res) => {
+      if(res){
+        this.auth.almacenarUsuarioLocalStorage(<string> res["user"]["uid"]);
+      }
       this.router.navigateByUrl('');
     }).catch ( err => console.log(err));
   }
 
   loginFacebook() {
     this.auth.loginFacebook().then((res) => {
+      if(res){
+        this.auth.almacenarUsuarioLocalStorage(<string> res["user"]["uid"]);
+      }
       this.router.navigateByUrl('');
     }).catch ( err => console.log(err));
   }
@@ -52,7 +62,10 @@ export class LoguearseComponent implements OnInit {
     });
     Swal.showLoading();
     this.auth.loginEmail(this.correo, this.clave).then((res) => {
-      Swal.close();
+      Swal.close(); 
+      if(res){
+        this.auth.almacenarUsuarioLocalStorage(<string> res["user"]["uid"]);
+      }     
       this.router.navigateByUrl('');
     }).catch ( err => {
       Swal.fire({
@@ -109,13 +122,7 @@ export class LoguearseComponent implements OnInit {
    }
   
    usuarioActual() {
-     this.auth.estaAutentificado().subscribe(auth => {
-       if(auth) {
-         console.log('Logueado');         
-       } else {
-         console.log('No Logueado');
-       }
-     })
+     
    }
 
    cargarImagen() {
@@ -137,4 +144,6 @@ export class LoguearseComponent implements OnInit {
     //  })
     console.log(this.uploadPercent.pipe);
    }
+
+   
 }

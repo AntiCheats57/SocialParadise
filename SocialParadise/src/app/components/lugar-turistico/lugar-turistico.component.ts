@@ -6,6 +6,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { resena } from 'src/app/interfaces/resena.interface';
 import { AngularFirestoreCollection } from '@angular/fire/firestore';
 import { usuario } from 'src/app/interfaces/usuario.interface';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { LocalDataService } from 'src/app/services/local-data/local-data.service';
 
 @Component({
   selector: 'app-lugar-turistico',
@@ -21,31 +23,35 @@ export class LugarTuristicoComponent implements OnInit, OnDestroy {
   private suscripcionLugar : Subscription;
   private suscripcionResena : Subscription;
   private suscripcionUsuario : Subscription;
-  lugar : any;
-  resenas : resena[];
+  private suscripcionUsuario2 : Subscription;
   private resenasTemp : resena[];
-  private usuarios : any[]
+  private usuarios : any[];
   private refrescar : boolean;
   private lugarId : number;
+  private siguiendoLugar: boolean;
+  lugar : any;
+  resenas : resena[];
 
-  constructor(config: NgbRatingConfig, private datosService : DatosService, private rutaActual: ActivatedRoute, private router: Router) {
+
+  constructor(public auth : AuthService, config: NgbRatingConfig, private localStorage : LocalDataService, private datosService : DatosService, private rutaActual: ActivatedRoute, private router: Router) {
     config.max = 5;
     config.readonly = true;
     this.refrescar = true;
+    this.siguiendoLugar = false
     this.lugarId = parseInt(this.rutaActual.snapshot.paramMap.get("id"));
   }
 
   ngOnInit() {
     this.lugar = {
-      "id": 0,
-      "idFB":"",
-      "nombre":"",
-      "usuario":"",
-      "video":"",
-      "ubicacion":"",
-      "descripcion":"",
-      "seguidores":[],
-      "imagenes":[""]
+      id: 0,
+      idFB:"",
+      nombre:"",
+      usuario:"",
+      video:"",
+      ubicacion:"",
+      descripcion:"",
+      seguidores:[],
+      imagenes:[""]
     }
     this.suscripcionLugar = this.datosService.obtenerElementoId("lugares", this.lugarId.toString()).subscribe(datos => {
         if(this.refrescar){
@@ -122,6 +128,37 @@ export class LugarTuristicoComponent implements OnInit, OnDestroy {
       });
     }
     return salida;
+  }
+
+  modificarSeguimientoLugar(){
+    this.suscripcionUsuario2 = this.datosService.obtenerElementoId("lugares", this.lugarId.toString()).subscribe(datos => {
+        if(datos != undefined){
+          if(datos[0]["seguidores"] === undefined){
+            datos[0]["seguidores"] = [];
+          }
+          var usuarioActualId = this.localStorage.obtenerUsuarioActual()["id"];
+          if(this.siguiendoLugar){
+            this.lugar.seguidores = []
+            for(var seguidor in datos[0]["seguidores"]){
+              if(seguidor != usuarioActualId){
+                (<number[]> this.lugar.seguidores).push(parseInt(seguidor))
+              }
+            }
+            this.siguiendoLugar = false;  
+          }
+          else{
+            this.lugar.seguidores = (<number[]> datos[0]["seguidores"]);
+            this.lugar.seguidores.push(parseInt(usuarioActualId));
+            this.siguiendoLugar = true;
+          }
+          this.datosService.actualizarElemento("lugares", this.lugar)
+          this.suscripcionUsuario2.unsubscribe();
+        }
+    }, error =>{
+
+    }, () =>{
+    });
+    
   }
 
 }

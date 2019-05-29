@@ -10,17 +10,13 @@ import { lugar } from 'src/app/interfaces/lugar.interface';
 })
 export class DatosService {
 
-  private suscripcion : Subscription;
-  private rutaRaiz : string;
-
-  constructor(private firestore : AngularFirestore, private httpCliente : HttpClient) {
-    this.rutaRaiz = environment.firebase.databaseURL + "/";
+  constructor(private firestore : AngularFirestore) {
   }
 
   insertarElemento(coleccion : string, elemento : any) {
     var idFB = this.firestore.createId();
     elemento.idFB = idFB;
-    return this.firestore.collection(coleccion).doc(elemento.idFB).update(elemento);
+    return this.firestore.collection(coleccion).doc(elemento.idFB).set(elemento);
   }
 
   actualizarElemento(coleccion : string, elemento : any) {
@@ -31,9 +27,9 @@ export class DatosService {
     return this.firestore.collection(coleccion, ref => ref.where('id','==', parseInt(elementoId))).valueChanges();
   }
   
-  /*obtenerElementoIdFB(coleccion : string, elementoIdFB : string) {
-    return this.firestore.collection(coleccion).doc(elementoIdFB).snapshotChanges();
-  }*/ 
+  obtenerElementoIdFB(coleccion : string, elementoIdFB : string) {
+    return this.firestore.collection(coleccion).doc(elementoIdFB).valueChanges();
+  } 
 
   obtenerColeccion(coleccion : string) {
     return this.firestore.collection(coleccion).valueChanges() as Observable<any>;

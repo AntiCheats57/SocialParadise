@@ -4,6 +4,8 @@ import { auth } from 'firebase/app';
 import { map } from 'rxjs/operators';
 import { usuario } from 'src/app/interfaces/usuario.interface';
 import { HttpClient } from '@angular/common/http';
+import { DatosService } from '../datos/datos.service';
+import { LocalDataService } from '../local-data/local-data.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +13,10 @@ import { HttpClient } from '@angular/common/http';
 
 export class AuthService {
 
-  constructor(private http: HttpClient, public afAuth: AngularFireAuth) { 
+  autentificado : boolean;
+
+  constructor(private http: HttpClient, public afAuth: AngularFireAuth, private datosService : DatosService, private localStorage : LocalDataService) { 
+    this.verificarEstadoAutentificado();
   }
  
   registrarUsuario(usuario: usuario) {
@@ -40,6 +45,7 @@ export class AuthService {
     this.afAuth.authState.subscribe( user => {
          console.log(user);
          if (!user) {
+           this.autentificado = false;
            return;
         }
     });
@@ -47,14 +53,23 @@ export class AuthService {
     this.afAuth.authState.subscribe( user => {
          console.log(user);
          if (!user) {
+          this.autentificado = false;
            return;
         }
+    });
+    this.localStorage.agregarUsuarioActual( {
+      id : 0,
+      idFB: "",
+      foto : "",
+      nombre : "",
+      correo : "",
+      usuario : ""
     });
     return true;
   }
 
   estaAutentificado() {    
-    return this.afAuth.authState.pipe(map(auth => auth));
+    return this.autentificado;
   }
   
   esAdmin(): boolean {
@@ -63,6 +78,42 @@ export class AuthService {
 
   esEditor(): boolean {
     return true;
+  }
+
+  almacenarUsuarioLocalStorage(idFB : string){
+    this.datosService.obtenerElementoIdFB("usuarios", idFB).subscribe(datos => {
+        if(datos){
+          setInterval(() => {this.localStorage.agregarUsuarioActual({
+            id : datos["id"],
+            idFB :  datos["idFB"],
+            correo : datos["correo"],
+            foto:  datos["foto"],
+            nombre: datos["nombre"] + (datos["apellidos"]? " " + datos["apellidos"] : ""),
+            usuario: datos["usuario"]
+          })
+        }, 10000);
+      }
+    })
+  }
+
+  verificarEstadoAutentificado(){
+    this.afAuth.authState.subscribe(res => {
+      
+      if(res){
+        this.autentificado = true;
+      }
+      else{
+        this.autentificado = false;
+      }
+      /*setInterval(() =>{
+        if(res){
+          this.autentificado = true;
+        }
+        else{
+          this.autentificado = false;
+        }
+      }, 5000);*/
+    });
   }
 
     // this.afAuth.authState.subscribe( user => {

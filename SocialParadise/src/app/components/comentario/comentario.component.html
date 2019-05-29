@@ -6,11 +6,11 @@
         <div class="row component-review col-12">
             <div id="div-img-comentario" class="col-md-2 col-sm-12 my-auto">
                 <div class="mb-2">
-                    <img src="assets/images/seguidos.jpg" alt="" class="img-responsiv img-fluid img-circle" />
+                    <img [src]="usuario['foto']" alt="" class="img-responsiv img-fluid img-circle" width="200" height="200" />
                 </div>
             </div>
             <div class="col-md-10">
-                <h5>Nombre de usuario</h5>
+                <h5>{{usuario["nombre"]}}</h5>
                 <div class="row rating mb-2">
                     <ngb-rating class="col-12 order-1 order-lg-2" [(rate)]="currentRate">
                         <ng-template let-fill="fill" let-index="index">
@@ -18,8 +18,8 @@
                         </ng-template>
                     </ngb-rating>
                 </div>
-                <textarea rows="5" class="col-12 form-control mb-2" placeholder="Comentario..."></textarea>
-                <button type="submit" class="btn btn-primary">Enviar</button>
+                <textarea rows="5" class="col-12 form-control mb-2" placeholder="Comentario..." [(ngModel)]="resena.comentario"></textarea>
+                <button type="submit" (click)="agregarComentario()" class="btn btn-primary">Enviar</button>
             </div>
         </div>
     </div>
