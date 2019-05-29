@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { DatosService } from 'src/app/services/datos/datos.service';
 declare var $: any;
 
 @Component({
@@ -12,6 +13,7 @@ declare var $: any;
 export class EdicionLugarComponent implements OnInit {
   formulario: FormGroup;
   indexNoticia: string;
+  lugares : []
 
   constructor(private router: Router, private route: ActivatedRoute) {
     this.formulario = new FormGroup({
@@ -35,6 +37,7 @@ export class EdicionLugarComponent implements OnInit {
     $(document).ready(function() {
       $("#lugarModal").modal("show");
     });
+
   }
 
   guardar() {

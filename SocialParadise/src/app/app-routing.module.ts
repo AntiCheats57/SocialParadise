@@ -29,7 +29,7 @@ const routes: Routes = [
     {path : 'lugar/:id', component: LugarTuristicoComponent},
     {path : 'loguearse', component: LoguearseComponent},
     {path : 'registrarse', component: RegistrarseComponent},
-    {path : 'perfil', component: PerfilComponent/*, canActivate: [AuthGuard]*/},
+    {path : 'perfil', component: PerfilComponent, canActivate: [AuthGuard]},
     {path : 'noticias', component: AdminNoticiaComponent, /*canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'},*/ children: [
       {path : 'nuevo', component: EdicionNoticiaComponent},
       {path : 'editar/:id', component: EdicionNoticiaComponent}

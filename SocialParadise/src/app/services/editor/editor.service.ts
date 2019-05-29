@@ -1,10 +1,10 @@
 import { Injectable, PipeTransform } from '@angular/core';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { lugar } from 'src/app/interfaces/lugar.interface';
-import lugares from 'src/assets/json/lugares.json';
 import { DecimalPipe } from '@angular/common';
 import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
 import { SortDirection } from 'src/app/directives/sortable.directive';
+import { DatosService } from '../datos/datos.service';
 
 interface SearchResult {
   lugaresSorted: lugar[];
@@ -56,8 +56,11 @@ export class EditorService {
 
   private lugaresItems: lugar[];
 
-  constructor(private pipe: DecimalPipe) {
-    this.lugaresItems = lugares;
+  constructor(private pipe: DecimalPipe, private datosService: DatosService) {
+    this.lugaresItems = []
+    this.datosService.obtenerColeccion("lugares").subscribe(datos => {
+      this.lugaresItems = datos
+    });
 
     this._search$.pipe(
       tap(() => this._loading$.next(true)),

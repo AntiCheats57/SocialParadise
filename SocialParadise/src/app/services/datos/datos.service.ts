@@ -34,6 +34,10 @@ export class DatosService {
   obtenerColeccion(coleccion : string) {
     return this.firestore.collection(coleccion).valueChanges() as Observable<any>;
   }
+  
+  obtenerColeccionCondicion(coleccion : string, campoCondicion : string,valorCondicion: any) {
+    return this.firestore.collection(coleccion, ref => ref.where(campoCondicion, '==', valorCondicion)).valueChanges() as Observable<any>;
+  }
 
   eliminarElemento(coleccion : string, elementoIdFB : string) {
     return this.firestore.collection(coleccion).doc(elementoIdFB).delete();

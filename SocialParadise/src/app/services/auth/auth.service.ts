@@ -6,6 +6,7 @@ import { usuario } from 'src/app/interfaces/usuario.interface';
 import { HttpClient } from '@angular/common/http';
 import { DatosService } from '../datos/datos.service';
 import { LocalDataService } from '../local-data/local-data.service';
+import { Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,9 @@ import { LocalDataService } from '../local-data/local-data.service';
 export class AuthService {
 
   autentificado : boolean;
+  estadoAutentificado : Subscription;
+  adminSuscripcion: Subscription;
+  editorSuscripcion: Subscription;
 
   constructor(private http: HttpClient, public afAuth: AngularFireAuth, private datosService : DatosService, private localStorage : LocalDataService) { 
     this.verificarEstadoAutentificado();
@@ -27,6 +31,9 @@ export class AuthService {
   }
 
   loginEmail(correo: string, clave: string) {
+    if(!this.estadoAutentificado){
+      this.verificarEstadoAutentificado()
+    }
     return new Promise((resolve, reject) => {
       this.afAuth.auth.signInWithEmailAndPassword(correo, clave)
       .then(userData => resolve(userData), err => reject(err));
@@ -34,16 +41,21 @@ export class AuthService {
   }
 
   loginGoogle() {
+    if(!this.estadoAutentificado){
+      this.verificarEstadoAutentificado()
+    }
     return this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
   }
 
   loginFacebook() {
+    if(!this.estadoAutentificado){
+      this.verificarEstadoAutentificado()
+    }
     return this.afAuth.auth.signInWithPopup(new auth.FacebookAuthProvider());
   }
   
   logout() {
     this.afAuth.authState.subscribe( user => {
-         console.log(user);
          if (!user) {
            this.autentificado = false;
            return;
@@ -51,7 +63,6 @@ export class AuthService {
     });
     this.afAuth.auth.signOut()
     this.afAuth.authState.subscribe( user => {
-         console.log(user);
          if (!user) {
           this.autentificado = false;
            return;
@@ -72,12 +83,14 @@ export class AuthService {
     return this.autentificado;
   }
   
-  esAdmin(): boolean {
-    return true;
+  esAdmin() {
+    var usuario = this.localStorage.obtenerUsuarioActual();
+    return this.datosService.obtenerElementoId("usuarios", usuario["id"]).toPromise();
   }
 
-  esEditor(): boolean {
-    return true;
+  esEditor() {
+    var usuario = this.localStorage.obtenerUsuarioActual();
+    return this.datosService.obtenerColeccionCondicion("lugares", "usuario", usuario["id"]).toPromise();
   }
 
   almacenarUsuarioLocalStorage(idFB : string){
@@ -91,28 +104,20 @@ export class AuthService {
             nombre: datos["nombre"] + (datos["apellidos"]? " " + datos["apellidos"] : ""),
             usuario: datos["usuario"]
           })
-        }, 10000);
+        }, 5000);
       }
     })
   }
 
   verificarEstadoAutentificado(){
-    this.afAuth.authState.subscribe(res => {
-      
+    this.estadoAutentificado = this.afAuth.authState.subscribe(res => {      
       if(res){
         this.autentificado = true;
       }
       else{
         this.autentificado = false;
       }
-      /*setInterval(() =>{
-        if(res){
-          this.autentificado = true;
-        }
-        else{
-          this.autentificado = false;
-        }
-      }, 5000);*/
+      console.info(this.autentificado)
     });
   }
 
