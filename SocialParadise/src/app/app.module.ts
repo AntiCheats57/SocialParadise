@@ -47,6 +47,7 @@ import { AngularFireModule } from '@angular/fire';
 import { DatosService } from './services/datos/datos.service';
 import { UrlSegura } from './pipe/url/url-segura';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { ImagenService } from './services/imagen/imagen.service';
 
 @NgModule({
   declarations: [
@@ -96,6 +97,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     LocalDataService,
     LugaresService,
     NoticiasService,
+    ImagenService,
     AuthGuard,
     RoleGuard, 
     AngularFireAuth, 
