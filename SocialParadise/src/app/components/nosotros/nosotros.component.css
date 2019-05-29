@@ -5,7 +5,7 @@
     padding: 40px 0;
     height: 230px;
     color: white;
-    background: url('src/assets/images/nosotros.jpg') no-repeat center;
+    /*background: url('src/assets/images/nosotros.jpg') no-repeat center;*/
     background-size: cover;
 }
 

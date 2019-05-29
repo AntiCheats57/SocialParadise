@@ -13,12 +13,12 @@ import { AngularFireList } from 'angularfire2/database';
 
 export class InicioComponent implements OnInit, OnDestroy {
   
-  private pagina = 1;
-  private cantidadPorPagina = 9;
-  private cantidadMaxima = 5;
-  private cantidadPaginas: number;
-  private suscripcion : Subscription;
-  private lugares: lugar[];   
+  pagina = 1;
+  cantidadPorPagina = 9;
+  cantidadMaxima = 5;
+  cantidadPaginas: number;
+  suscripcion : Subscription;
+  lugares: lugar[];   
 
   constructor(private router: Router, private datosService : DatosService) {
     this.cantidadPaginas = (((this.lugares != null? this.lugares.length : 1)/ this.cantidadPorPagina) * 10);

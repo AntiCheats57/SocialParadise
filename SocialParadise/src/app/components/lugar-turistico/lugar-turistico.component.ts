@@ -17,12 +17,12 @@ import { usuario } from 'src/app/interfaces/usuario.interface';
 
 export class LugarTuristicoComponent implements OnInit, OnDestroy {
   
-  private valoracionGeneral: number;
+  valoracionGeneral: number;
   private suscripcionLugar : Subscription;
   private suscripcionResena : Subscription;
   private suscripcionUsuario : Subscription;
-  private lugar : any;
-  private resenas : resena[];
+  lugar : any;
+  resenas : resena[];
   private resenasTemp : resena[];
   private usuarios : any[]
   private refrescar : boolean;

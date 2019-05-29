@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class NavegacionComponent implements OnInit {
   navbarOpaco: boolean;
 
-  constructor(private auth: AuthService, private router: Router) { }
+  constructor(public auth: AuthService, private router: Router) { }
 
   ngOnInit() {
   }
