@@ -38,21 +38,3 @@
         </div>
     </div>
 </div>
-
-<div class="form-group">
-    <h5>Seleccionar imagen: </h5>
-    <input type="file" accept=".png, .jpg" multiple (change)="onUpload($event)">
-</div>
-<input #imageUser type="hidden" [value]="urlImage | async">
-<div class="progress">
-    <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width]="(uploadPercent | async) + '%'">
-
-    </div>
-</div>
-<hr>
-<button *ngIf="urlImage | async; else btnDisabled" (click)="cargarImagen()" type="submit" class="btn btn-primary col-md-4">Ingresar</button>
-<ng-template #btnDisabled>
-    <button type="submit" disabled=true class="btn btn-secondary col-md-4">Ingresar</button>
-</ng-template>
-<br>
-<!--<img src="{{usuario.foto}}" alt="profile">-->

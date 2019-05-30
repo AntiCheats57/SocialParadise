@@ -87,6 +87,9 @@ export class RegistrarseComponent implements OnInit {
 
   registrarGoogle() {
     this.auth.loginGoogle().then((res) => {
+      console.log(res.user.uid);//id
+      console.log(res.user.photoURL);//Foto
+      console.log(res.user.displayName);//Nombre Completo
       this.router.navigateByUrl('');
     }).catch ( err => console.log(err));
   }

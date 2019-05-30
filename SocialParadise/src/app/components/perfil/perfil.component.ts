@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
+import { ImagenService } from 'src/app/services/imagen/imagen.service';
 
 @Component({
   selector: 'app-perfil',
@@ -11,9 +12,10 @@ import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
 
 export class PerfilComponent implements OnInit {
   formulario: FormGroup;
+  foto: string = "";
   currentRate = 3;
 
-  constructor(config: NgbRatingConfig) {
+  constructor(config: NgbRatingConfig, private imagen: ImagenService) {
     this.formulario = new FormGroup({
       'nombre': new FormControl('', [
                                     Validators.required,
@@ -37,6 +39,12 @@ export class PerfilComponent implements OnInit {
 
   enviar() {
     this.formulario.reset({nombre: '', mensaje: '', asunto: '', correo: ''});
+  }
+
+  cargarImagen(e) {
+    if(e.target.files.length != 0) {
+      this.imagen.cargarImagen(e.target.files);
+    }
   }
 
 }

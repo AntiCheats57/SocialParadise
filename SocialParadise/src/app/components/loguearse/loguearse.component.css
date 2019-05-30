@@ -30,6 +30,10 @@ h2 {
     margin-right: 5px;
 }
 
+input[type=file] {
+    display: none;
+}
+
 button[type="submit"] {
     margin-top: 1rem;
 }

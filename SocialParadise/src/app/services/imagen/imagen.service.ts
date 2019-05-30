@@ -33,7 +33,7 @@ export class ImagenService {
       
       task.snapshotChanges().pipe( finalize(() => {
         ref.getDownloadURL().toPromise().then( (url) => {
-          // this.imagenes[i] = url;
+          this.imagenes[i] = url;
           console.log(url);
           if(i == archivos.length-1) {
             Swal.fire({
@@ -42,7 +42,6 @@ export class ImagenService {
               showConfirmButton: false,
               timer: 1500
             })
-            console.log(this.imagenes);
           }
         })
       })).subscribe();

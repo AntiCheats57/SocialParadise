@@ -3,13 +3,6 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
-//Imagen
-import { AngularFireStorage } from '@angular/fire/storage';
-import { Observable } from 'rxjs/internal/Observable';
-import { LocalDataService } from 'src/app/services/local-data/local-data.service';
-import { DatosService } from 'src/app/services/datos/datos.service';
-import { ImagenService } from 'src/app/services/imagen/imagen.service';
-
 @Component({
   selector: 'app-loguearse',
   templateUrl: './loguearse.component.html',
@@ -21,14 +14,8 @@ export class LoguearseComponent implements OnInit {
   correo: string;
   clave : string;
   refrescar: boolean;
-  
-  //imagen
-  uploadPercent: Observable<number>;
-  urlImage: Observable<string>;
-  @ViewChild('imageUser') inputImageUser: ElementRef;
-  // 
 
-  constructor(private auth: AuthService,private imagen: ImagenService, private datosService : DatosService, private localStorage : LocalDataService, private router:Router, private storage: AngularFireStorage) { 
+  constructor(private auth: AuthService, private router:Router) { 
     this.refrescar = true;
   }
 
@@ -74,15 +61,5 @@ export class LoguearseComponent implements OnInit {
       });
     });
   }
-  
-  cargarImagen(e) {
-     if(e.target.files.length != 0) {
-       this.imagen.cargarImagen(e.target.files);
-     }
-   }
-  
-   usuarioActual() {
-     
-   }
 
 }

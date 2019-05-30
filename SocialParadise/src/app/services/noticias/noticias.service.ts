@@ -3,7 +3,6 @@ import {Injectable, PipeTransform} from '@angular/core';
 import {BehaviorSubject, Observable, of, Subject} from 'rxjs';
 
 import { noticia } from 'src/app/interfaces/noticia.interface';
-import noticias from 'src/assets/json/noticias.json';
 import { DecimalPipe } from '@angular/common';
 import { debounceTime, delay, switchMap, tap} from 'rxjs/operators';
 import { SortDirection } from 'src/app/directives/sortable.directive';
@@ -60,20 +59,20 @@ export class NoticiasService {
   private noticiasItems: noticia[];
 
   constructor(private pipe: DecimalPipe) {
-   // this.noticiasItems = noticias;
+    this.noticiasItems = null;
 
-    this._search$.pipe(
-      tap(() => this._loading$.next(true)),
-      debounceTime(200),
-      switchMap(() => this._search()),
-      delay(200),
-      tap(() => this._loading$.next(false))
-    ).subscribe(result => {
-      this._noticias$.next(result.noticiasSorted);
-      this._total$.next(result.total);
-    });
+    // this._search$.pipe(
+    //   tap(() => this._loading$.next(true)),
+    //   debounceTime(200),
+    //   switchMap(() => this._search()),
+    //   delay(200),
+    //   tap(() => this._loading$.next(false))
+    // ).subscribe(result => {
+    //   this._noticias$.next(result.noticiasSorted);
+    //   this._total$.next(result.total);
+    // });
 
-    this._search$.next();
+    // this._search$.next();
   }
 
   get noticias$() { return this._noticias$.asObservable(); }

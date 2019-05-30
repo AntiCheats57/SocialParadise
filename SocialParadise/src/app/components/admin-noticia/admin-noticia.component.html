@@ -2,7 +2,8 @@
     <h1 class="text-center">LISTA DE NOTICIAS</h1>
     <form>
         <div class="form-group form-inline">
-            <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="service.searchTerm" placeholder="Buscar" />
+            <!-- <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="service.searchTerm" placeholder="Buscar" /> -->
+            <input class="form-control ml-2" type="text" name="searchTerm" placeholder="Buscar" />
             <span class="ml-3 loading" *ngIf="service.loading$ | async">Loading...</span>
         </div>
 
@@ -15,7 +16,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr data-toggle="modal" data-target="#noticiaModal" *ngFor="let noticia of noticias$ | async" (click)="editar(noticia)" [routerLink]="[ 'editar', noticia.id]">
+                <!-- <tr data-toggle="modal" data-target="#noticiaModal" *ngFor="let noticia of noticias$ | async" (click)="editar(noticia)" [routerLink]="[ 'editar', noticia.id]">
                     <td>
                         <ngb-highlight [result]="noticia.titulo" [term]="service.searchTerm"></ngb-highlight>
                     </td>
@@ -25,7 +26,7 @@
                     <td>
                         <ngb-highlight [result]="noticia.fechaCreacion" [term]="service.searchTerm"></ngb-highlight>
                     </td>
-                </tr>
+                </tr> -->
             </tbody>
         </table>
         <div class="row">

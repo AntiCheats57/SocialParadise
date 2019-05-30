@@ -54,6 +54,10 @@ form .btn-submit {
     display: block;
 }
 
+input[type=file] {
+    display: none;
+}
+
 .gallery-btn {
     position: absolute;
     bottom: .5rem;

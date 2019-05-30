@@ -56,20 +56,20 @@ export class LugaresService {
   private lugaresItems: lugar[];
 
   constructor(private pipe: DecimalPipe) {
-   // this.lugaresItems = lugares;
+    this.lugaresItems = null;
 
-    this._search$.pipe(
-      tap(() => this._loading$.next(true)),
-      debounceTime(200),
-      switchMap(() => this._search()),
-      delay(200),
-      tap(() => this._loading$.next(false))
-    ).subscribe(result => {
-      this._lugares$.next(result.lugaresSorted);
-      this._total$.next(result.total);
-    });
+    // this._search$.pipe(
+    //   tap(() => this._loading$.next(true)),
+    //   debounceTime(200),
+    //   switchMap(() => this._search()),
+    //   delay(200),
+    //   tap(() => this._loading$.next(false))
+    // ).subscribe(result => {
+    //   this._lugares$.next(result.lugaresSorted);
+    //   this._total$.next(result.total);
+    // });
 
-    this._search$.next();
+    // this._search$.next();
   }
 
   get lugares$() { return this._lugares$.asObservable(); }

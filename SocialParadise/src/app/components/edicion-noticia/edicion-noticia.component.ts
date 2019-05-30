@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ImagenService } from 'src/app/services/imagen/imagen.service';
 declare var $: any;
 
 @Component({
@@ -14,7 +15,7 @@ export class EdicionNoticiaComponent implements OnInit {
   indexNoticia: string;
   encabezadoModal: string;
 
-  constructor(private router: Router, private route: ActivatedRoute) {
+  constructor(private router: Router, private route: ActivatedRoute, private imagen: ImagenService) {
     this.formulario = new FormGroup({
       'titulo': new FormControl('', [
                                     Validators.required,
@@ -40,6 +41,12 @@ export class EdicionNoticiaComponent implements OnInit {
   }
 
   guardar() {
+  }
+
+  cargarImagen(e) {
+    if(e.target.files.length != 0) {
+      this.imagen.cargarImagen(e.target.files);
+    }
   }
 
 }

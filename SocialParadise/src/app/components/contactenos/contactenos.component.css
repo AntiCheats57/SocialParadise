@@ -62,7 +62,7 @@ form .btn {
 }
 
 .contact-section {
-    /* background: url('src/assets/images/contactenos.jpg') no-repeat center;*/
+    background: url('src/assets/images/contactenos.jpg') no-repeat center;
     background-size: cover;
     padding: 40px 0;
     /* height: 400px; */

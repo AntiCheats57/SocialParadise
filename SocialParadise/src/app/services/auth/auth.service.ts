@@ -84,13 +84,15 @@ export class AuthService {
   }
   
   esAdmin() {
-    var usuario = this.localStorage.obtenerUsuarioActual();
-    return this.datosService.obtenerElementoId("usuarios", usuario["id"]).toPromise();
+    // var usuario = this.localStorage.obtenerUsuarioActual();
+    // return this.datosService.obtenerElementoId("usuarios", usuario["id"]).toPromise();
+    return true;
   }
 
   esEditor() {
-    var usuario = this.localStorage.obtenerUsuarioActual();
-    return this.datosService.obtenerColeccionCondicion("lugares", "usuario", usuario["id"]).toPromise();
+    // var usuario = this.localStorage.obtenerUsuarioActual();
+    // return this.datosService.obtenerColeccionCondicion("lugares", "usuario", usuario["id"]).toPromise();
+    return true;
   }
 
   almacenarUsuarioLocalStorage(idFB : string){

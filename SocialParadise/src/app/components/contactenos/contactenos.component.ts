@@ -31,6 +31,7 @@ export class ContactenosComponent implements OnInit {
   }
 
   enviar() {
+    this.formulario.reset();
   }
 
 }

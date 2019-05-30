@@ -67,10 +67,6 @@ form .btn-submit {
     border-radius: 50%;
 }
 
-input[type=file] {
-    display: none;
-}
-
 .btn-group .btn {
     border-radius: .375rem;
 }

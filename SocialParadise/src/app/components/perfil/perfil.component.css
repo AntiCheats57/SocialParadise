@@ -26,6 +26,10 @@ small {
     font-weight: bold;
 }
 
+input[type=file] {
+    display: none;
+}
+
 form .btn-form {
     color: white;
     background-color: #4CAF50;

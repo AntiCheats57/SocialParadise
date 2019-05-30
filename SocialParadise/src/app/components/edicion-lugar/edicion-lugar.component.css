@@ -44,7 +44,7 @@ form .btn-submit {
     padding-bottom: 15px;
     padding-top: 15px;
     overflow: auto;
-    max-height: 30rem;
+    max-height: 16rem;
     min-height: 12rem;
 }
 
@@ -59,8 +59,8 @@ form .btn-submit {
 
 .gallery-btn {
     position: absolute;
-    bottom: 1rem;
-    right: 1rem;
+    bottom: 5rem;
+    right: 3.5rem;
     width: 2.5rem;
     height: 2.5rem;
     padding: 0 !important;
@@ -75,17 +75,19 @@ input[type=file] {
     margin-bottom: 1rem;
 }
 
+
+/* 
 @media (max-width: 768px) {
     .gallery {
-        max-height: 23rem;
+        max-height: 1rem;
     }
 }
 
 @media (max-width: 576px) {
     .gallery {
-        max-height: 16rem;
+        max-height: 1rem;
     }
-}
+} */
 
 @media (min-width: 992px) {
     .item-bold {

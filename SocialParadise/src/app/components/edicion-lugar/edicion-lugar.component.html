@@ -41,6 +41,31 @@
                                     <div class="row">
                                         <div class="col-6 col-md-4 col-lg-3">
                                             <a class="thumbnail" href="#" data-toggle="modal" data-target="#image-gallery">
+                                                <img class="img-thumbnail" src="assets/images/contactenos.jpg" alt="place">
+                                            </a>
+                                        </div>
+                                        <div class="col-6 col-md-4 col-lg-3">
+                                            <a class="thumbnail" href="#" data-toggle="modal" data-target="#image-gallery">
+                                                <img class="img-thumbnail" src="assets/images/contactenos.jpg" alt="place">
+                                            </a>
+                                        </div>
+                                        <div class="col-6 col-md-4 col-lg-3">
+                                            <a class="thumbnail" href="#" data-toggle="modal" data-target="#image-gallery">
+                                                <img class="img-thumbnail" src="assets/images/contactenos.jpg" alt="place">
+                                            </a>
+                                        </div>
+                                        <div class="col-6 col-md-4 col-lg-3">
+                                            <a class="thumbnail" href="#" data-toggle="modal" data-target="#image-gallery">
+                                                <img class="img-thumbnail" src="assets/images/im-contact.jpg" alt="place">
+                                            </a>
+                                        </div>
+                                        <div class="col-6 col-md-4 col-lg-3">
+                                            <a class="thumbnail" href="#" data-toggle="modal" data-target="#image-gallery">
+                                                <img class="img-thumbnail" src="assets/images/im-contact.jpg" alt="place">
+                                            </a>
+                                        </div>
+                                        <div class="col-6 col-md-4 col-lg-3">
+                                            <a class="thumbnail" href="#" data-toggle="modal" data-target="#image-gallery">
                                                 <img class="img-thumbnail" src="assets/images/im-contact.jpg" alt="place">
                                             </a>
                                         </div>
@@ -75,9 +100,6 @@
                                             </a>
                                         </div>
                                     </div>
-
-                                    <input type="file" #file>
-                                    <button class="btn btn-secondary gallery-btn" (click)="file.click()"><i class="fas fa-plus"></i></button>
 
                                     <div class="modal" id="image-gallery" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-lg">
@@ -107,6 +129,10 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <label class="btn  btn-secondary "> Seleccionar imagen
+                                <input type="file" accept=".png, .jpg" multiple (change)="cargarImagen($event)">
+                            </label>
                         </div>
                         <div class="text-right">
                             <button type="submit" class="btn btn-submit" data-dismiss="modal" [routerLink]="[ '/lugares']">Guardar</button>

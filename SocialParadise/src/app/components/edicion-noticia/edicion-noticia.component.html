@@ -35,13 +35,9 @@
                                 <div class="col gallery">
                                     <div class="">
                                         <a href="#" data-toggle="modal" data-target="#image-gallery">
-                                            <img class="img-thumbnail" src="assets/images/im-about.jpg" alt="place">
+                                            <img class="img-thumbnail" src="" alt="place">
                                         </a>
                                     </div>
-
-                                    <input type="file" #file>
-                                    <button class="btn btn-secondary gallery-btn" (click)="file.click()"><i class="fas fa-plus"></i></button>
-
                                     <div class="modal" id="image-gallery" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
@@ -63,6 +59,9 @@
 
                                 </div>
                             </div>
+                            <label class="btn  btn-secondary "> Seleccionar imagen
+                                    <input type="file" accept=".png, .jpg" (change)="cargarImagen($event)">
+                            </label>
                         </div>
 
                         <div class="btn-edit">
