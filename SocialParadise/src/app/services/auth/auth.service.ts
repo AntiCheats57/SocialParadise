@@ -61,6 +61,7 @@ export class AuthService {
            return;
         }
     });
+    this.autentificado = false;
     this.afAuth.auth.signOut()
     this.afAuth.authState.subscribe( user => {
          if (!user) {
@@ -119,7 +120,6 @@ export class AuthService {
       else{
         this.autentificado = false;
       }
-      console.info(this.autentificado)
     });
   }
 

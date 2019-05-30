@@ -17,7 +17,7 @@
                             </div>
 
                             <div class="form-group col-12" [ngClass]="{'has-danger': !formulario.get('video').valid && formulario.get('video').touched}">
-                                <label for="video" class="col-form-label">URL video</label>
+                                <label for="video" class="col-form-label">Video</label>
                                 <input type="text" formControlName="video" class="form-control">
                                 <div>
                                     <small *ngIf="formulario.get('video').errors?.required && formulario.get('video').touched" class="form-control-feedback">Este campo es requerido.</small>
@@ -25,7 +25,7 @@
                                 </div>
                             </div>
                             <div class="form-group col-12" [ngClass]="{'has-danger': !formulario.get('descripcion').valid && formulario.get('descripcion').touched}">
-                                <label for="descripcion" class="col-form-label">Descripcion</label>
+                                <label for="descripcion" class="col-form-label">Descripción</label>
                                 <textarea rows="6" formControlName='descripcion' class="form-control"></textarea>
                                 <div>
                                     <small *ngIf="formulario.get('descripcion').errors?.required && formulario.get('descripcion').touched" class="form-control-feedback">Este campo es requerido.</small>
@@ -35,68 +35,13 @@
                         </div>
 
                         <div>
-                            <label for="imagenes" class="col-form-label">Imagenes</label>
+                            <label for="imagenes" class="col-form-label">Imágenes</label>
                             <div class="row gallery-component form-group">
                                 <div class="col gallery">
                                     <div class="row">
-                                        <div class="col-6 col-md-4 col-lg-3">
+                                        <div *ngFor="let imagen of this.lugar.imagenes" class="col-6 col-md-4 col-lg-3">
                                             <a class="thumbnail" href="#" data-toggle="modal" data-target="#image-gallery">
-                                                <img class="img-thumbnail" src="assets/images/contactenos.jpg" alt="place">
-                                            </a>
-                                        </div>
-                                        <div class="col-6 col-md-4 col-lg-3">
-                                            <a class="thumbnail" href="#" data-toggle="modal" data-target="#image-gallery">
-                                                <img class="img-thumbnail" src="assets/images/contactenos.jpg" alt="place">
-                                            </a>
-                                        </div>
-                                        <div class="col-6 col-md-4 col-lg-3">
-                                            <a class="thumbnail" href="#" data-toggle="modal" data-target="#image-gallery">
-                                                <img class="img-thumbnail" src="assets/images/contactenos.jpg" alt="place">
-                                            </a>
-                                        </div>
-                                        <div class="col-6 col-md-4 col-lg-3">
-                                            <a class="thumbnail" href="#" data-toggle="modal" data-target="#image-gallery">
-                                                <img class="img-thumbnail" src="assets/images/im-contact.jpg" alt="place">
-                                            </a>
-                                        </div>
-                                        <div class="col-6 col-md-4 col-lg-3">
-                                            <a class="thumbnail" href="#" data-toggle="modal" data-target="#image-gallery">
-                                                <img class="img-thumbnail" src="assets/images/im-contact.jpg" alt="place">
-                                            </a>
-                                        </div>
-                                        <div class="col-6 col-md-4 col-lg-3">
-                                            <a class="thumbnail" href="#" data-toggle="modal" data-target="#image-gallery">
-                                                <img class="img-thumbnail" src="assets/images/im-contact.jpg" alt="place">
-                                            </a>
-                                        </div>
-                                        <div class="col-6 col-md-4 col-lg-3">
-                                            <a class="thumbnail" href="#" data-toggle="modal" data-target="#image-gallery">
-                                                <img class="img-thumbnail" src="assets/images/im-contact.jpg" alt="place">
-                                            </a>
-                                        </div>
-                                        <div class="col-6 col-md-4 col-lg-3">
-                                            <a class="thumbnail" href="#" data-toggle="modal" data-target="#image-gallery">
-                                                <img class="img-thumbnail" src="assets/images/im-contact.jpg" alt="place">
-                                            </a>
-                                        </div>
-                                        <div class="col-6 col-md-4 col-lg-3">
-                                            <a class="thumbnail" href="#" data-toggle="modal" data-target="#image-gallery">
-                                                <img class="img-thumbnail" src="assets/images/im-contact.jpg" alt="place">
-                                            </a>
-                                        </div>
-                                        <div class="col-6 col-md-4 col-lg-3">
-                                            <a class="thumbnail" href="#" data-toggle="modal" data-target="#image-gallery">
-                                                <img class="img-thumbnail" src="assets/images/im-contact.jpg" alt="place">
-                                            </a>
-                                        </div>
-                                        <div class="col-6 col-md-4 col-lg-3">
-                                            <a class="thumbnail" href="#" data-toggle="modal" data-target="#image-gallery">
-                                                <img class="img-thumbnail" src="assets/images/im-contact.jpg" alt="place">
-                                            </a>
-                                        </div>
-                                        <div class="col-6 col-md-4 col-lg-3">
-                                            <a class="thumbnail" href="#" data-toggle="modal" data-target="#image-gallery">
-                                                <img class="img-thumbnail" src="assets/images/im-contact.jpg" alt="place">
+                                                <img class="img-thumbnail" [src]="imagen" alt="place">
                                             </a>
                                         </div>
                                     </div>
@@ -135,7 +80,7 @@
                             </label>
                         </div>
                         <div class="text-right">
-                            <button type="submit" class="btn btn-submit" data-dismiss="modal" [routerLink]="[ '/lugares']">Guardar</button>
+                            <button type="submit" class="btn btn-submit" (click)="guardar()" data-dismiss="modal">Guardar</button>
                         </div>
                     </form>
                 </div>

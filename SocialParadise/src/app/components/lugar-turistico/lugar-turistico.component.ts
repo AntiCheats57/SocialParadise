@@ -28,7 +28,7 @@ export class LugarTuristicoComponent implements OnInit, OnDestroy {
   private usuarios : any[];
   private refrescar : boolean;
   private lugarId : number;
-  private siguiendoLugar: boolean;
+  siguiendoLugar: boolean;
   lugar : any;
   resenas : resena[];
 
