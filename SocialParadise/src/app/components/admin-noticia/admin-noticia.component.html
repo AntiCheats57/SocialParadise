@@ -6,7 +6,6 @@
             <input class="form-control ml-2" type="text" name="searchTerm" placeholder="Buscar" />
             <span class="ml-3 loading" *ngIf="service.loading$ | async">Loading...</span>
         </div>
-
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -16,7 +15,7 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- <tr data-toggle="modal" data-target="#noticiaModal" *ngFor="let noticia of noticias$ | async" (click)="editar(noticia)" [routerLink]="[ 'editar', noticia.id]">
+                <tr data-toggle="modal" data-target="#noticiaModal" *ngFor="let noticia of noticias$ | async" (click)="editar(noticia)" [routerLink]="[ 'editar', noticia.id]">
                     <td>
                         <ngb-highlight [result]="noticia.titulo" [term]="service.searchTerm"></ngb-highlight>
                     </td>
@@ -26,7 +25,7 @@
                     <td>
                         <ngb-highlight [result]="noticia.fechaCreacion" [term]="service.searchTerm"></ngb-highlight>
                     </td>
-                </tr> -->
+                </tr>
             </tbody>
         </table>
         <div class="row">

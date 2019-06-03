@@ -18,8 +18,10 @@ export class EdicionLugarComponent implements OnInit {
   formulario: FormGroup;
   lugarId: number;
   lugar: lugar;
-
+  indiceImgSeleccionada: number;
+  imagenes: string[];
   private suscripcionLugar : Subscription;
+  private suscripcionImagenes : Subscription;
 
   constructor(private router: Router, private route: ActivatedRoute, private imagen: ImagenService, private datosService : DatosService) {
     this.formulario = new FormGroup({
@@ -39,13 +41,23 @@ export class EdicionLugarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.lugar = {
+      id: 0,
+      idFB: "",
+      descripcion: "",
+      imagenes: [],
+      ubicacion: "",
+      nombre: "",
+      seguidores: [],
+      usuario: 0,
+      video: ""
+    }
+    this.imagenes = []
     this.lugarId = this.route.snapshot.params['id'];
     this.suscripcionLugar = this.datosService.obtenerElementoId("lugares", this.lugarId.toString()).subscribe(datos => {
       if(datos){
-        this.lugar = (<lugar> datos[0])        
-        for(let x in this.imagen.imagenes){
-          this.lugar.imagenes.push(this.imagen.imagenes[x])
-        }
+        this.lugar = (<lugar> datos[0])       
+        this.cargarImagenes(); 
         this.formulario.setValue({
             nombre: this.lugar.nombre,
             descripcion: this.lugar.descripcion,
@@ -64,6 +76,13 @@ export class EdicionLugarComponent implements OnInit {
     $(document).ready(function() {
       $("#lugarModal").modal("show");
     });
+    
+    setInterval(x =>{
+      if(this.imagen.cambios){
+        this.cargarImagenes()
+        this.imagen.cambios = false
+      }
+    }, 1500)
   }
 
   guardar() {
@@ -71,8 +90,9 @@ export class EdicionLugarComponent implements OnInit {
       this.lugar.nombre = this.formulario.get("nombre").value
       this.lugar.video = this.formulario.get("video").value
       this.lugar.descripcion = this.formulario.get("descripcion").value
-      for(let x in this.imagen.imagenes){
-        (<string[]> this.lugar.imagenes).push(this.imagen.imagenes[x])
+      this.lugar.imagenes = []
+      for(let x in this.imagenes){
+        (<string[]> this.lugar.imagenes).push(this.imagenes[x])
       }
       this.datosService.actualizarElemento("lugares", this.lugar).catch(err =>{
         Swal.fire({
@@ -96,14 +116,54 @@ export class EdicionLugarComponent implements OnInit {
     }
   }
 
+  eliminarImagen(indice : number){
+    if(indice != -1){
+      (<string[]> this.imagenes).splice(indice, 1);
+      this.indiceImgSeleccionada = indice - 1;
+      if(this.indiceImgSeleccionada < 0 ){
+        this.indiceImgSeleccionada = 0;
+      }
+    }
+  }
+
+  cargarImagenes(){
+    this.imagenes = []
+    if(this.lugar && this.lugar.imagenes){
+      for(let x in this.lugar.imagenes){
+        this.imagenes.push(this.lugar.imagenes[x])
+      }
+    }
+    if(this.imagen && this.imagen.imagenesSubidas){
+      for(let x in this.imagen.imagenesSubidas){
+        this.imagenes.push(this.imagen.imagenesSubidas[x])
+      }
+    }
+  }
+
   cargarImagen(e) {
     if(e.target.files.length != 0) {
       this.imagen.cargarImagen(e.target.files);      
     }
   }
 
-  ngOnDestroy(): void {
-    this.suscripcionLugar.unsubscribe();
+  cambiarIndiceImg(operacion: string){
+    if(operacion === "aumentar" && this.indiceImgSeleccionada < (this.lugar.imagenes.length - 1)){
+      this.indiceImgSeleccionada++;
+    }
+    else if(operacion === "disminuir" && this.indiceImgSeleccionada > 0){
+      this.indiceImgSeleccionada--;
+    };
   }
 
+  ngOnDestroy(): void {
+    if(this.suscripcionLugar){
+      this.suscripcionLugar.unsubscribe();
+    }
+    if(this.suscripcionImagenes){
+      this.suscripcionImagenes.unsubscribe();
+    }
+    if(this.imagen && this.imagen.imagenesSubidas){
+      this.imagen.imagenesSubidas = [];
+    }
+  }
 }

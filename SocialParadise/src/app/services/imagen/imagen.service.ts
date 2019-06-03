@@ -9,9 +9,13 @@ import Swal from 'sweetalert2';
 
 export class ImagenService {
   public imagenes;
+  public imagenesSubidas;
+  public cambios: boolean;
 
   constructor(private storage: AngularFireStorage) {
-   }
+    this.cambios = false;
+    this.imagenesSubidas = []
+  }
 
   cargarImagen(archivos: FileList) {
 
@@ -43,6 +47,8 @@ export class ImagenService {
               timer: 1500
             })
           }
+          this.imagenesSubidas.push(this.imagenes[i])
+          this.cambios = true;
         })
       })).subscribe();
     }
