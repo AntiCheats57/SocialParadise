@@ -37,6 +37,8 @@ export class AdminNoticiaComponent implements OnInit {
   }
 
   editar(object: noticia) {
+
+    
   }
 
 }

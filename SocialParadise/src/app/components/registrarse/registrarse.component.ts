@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { DatosService } from 'src/app/services/datos/datos.service';
 
 @Component({
   selector: 'app-registrarse',
@@ -16,7 +17,7 @@ export class RegistrarseComponent implements OnInit {
   formulario: FormGroup;
   usuario: usuario;
 
-  constructor(private localDataService: LocalDataService, private router: Router, private auth: AuthService) {
+  constructor(private localDataService: LocalDataService, private router: Router, private auth: AuthService, private datosService : DatosService) {
 
     this.formulario = new FormGroup({
       'nombre': new FormControl('', [
@@ -43,10 +44,10 @@ export class RegistrarseComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.formulario.setValue({nombre: "Dana", apellidos: "Vargas", usuario: "dvargas", clave: "1234567", email: "404danavargas@gmail.com" });
+    this.formulario.setValue({nombre: "", apellidos: "", usuario: "", clave: "", email: "@.com" });
     this.usuario = {
       id : 0,
-      idFB : "0",
+      idFB : "",
       correo : "",
       admin : false,
       apellidos : "",
@@ -74,6 +75,24 @@ export class RegistrarseComponent implements OnInit {
     });
     Swal.showLoading();
     this.auth.registrarUsuario(this.usuario).then((res) => {
+      this.usuario.idFB = res["user"].uid;
+      this.datosService.obtenerUltimoId("usuarios").then(datos => {
+        if(datos != undefined && datos.docs[0] != undefined){
+          this.usuario.id = (<usuario> datos.docs[0].data()).id + 1
+        }
+        else{
+          this.usuario.id = 0
+        }          
+        this.datosService.insertarElemento("usuarios", this.usuario, false).catch(error => {
+          Swal.fire({
+            type: 'error',
+            title: 'Error al registrarse',
+            timer: 1500
+          })      
+        }).then(()=>{
+          this.auth.almacenarUsuarioLocalStorage(this.usuario.idFB)
+        })
+      }) 
       Swal.close();
       this.router.navigateByUrl('');
     }).catch ( err => {
@@ -87,16 +106,56 @@ export class RegistrarseComponent implements OnInit {
 
   registrarGoogle() {
     this.auth.loginGoogle().then((res) => {
-      console.log(res.user.uid);//id
-      console.log(res.user.photoURL);//Foto
-      console.log(res.user.displayName);//Nombre Completo
+      this.usuario.nombre = res.user.displayName;
+      this.usuario.idFB = res.user.uid;
+      this.usuario.foto = res.user.photoURL
+      this.usuario.correo = res.user.email
+      this.datosService.obtenerUltimoId("usuarios").then(datos => {
+        if(datos != undefined && datos.docs[0] != undefined){
+          this.usuario.id = (<usuario> datos.docs[0].data()).id + 1
+        }
+        else{
+          this.usuario.id = 0
+        }          
+        this.datosService.insertarElemento("usuarios", this.usuario, false).catch(error => {
+          Swal.fire({
+            type: 'error',
+            title: 'Error al registrarse',
+            timer: 1500
+          })      
+        }).then(()=>{
+          this.auth.almacenarUsuarioLocalStorage(this.usuario.idFB)
+        })
+      }) 
+      Swal.close();
       this.router.navigateByUrl('');
     }).catch ( err => console.log(err));
   }
 
   registrarFacebook() {
     this.auth.loginFacebook().then((res) => {
-      this.router.navigateByUrl('');      
+      this.usuario.nombre = res.user.displayName;
+      this.usuario.idFB = res.user.uid;
+      this.usuario.foto = res.user.photoURL
+      this.datosService.obtenerUltimoId("usuarios").then(datos => {
+        if(datos != undefined && datos.docs[0] != undefined){
+          this.usuario.id = (<usuario> datos.docs[0].data()).id + 1
+        }
+        else{
+          this.usuario.id = 0
+        }          
+        this.datosService.insertarElemento("usuarios", this.usuario, false).catch(error => {
+          Swal.fire({
+            type: 'error',
+            title: 'Error al registrarse',
+            timer: 1500
+          })      
+        }).then(()=>{
+          this.auth.almacenarUsuarioLocalStorage(this.usuario.idFB)
+        })
+      }) 
+      Swal.close();
+      this.router.navigateByUrl('');   
     }).catch ( err => console.log(err));
   }
 

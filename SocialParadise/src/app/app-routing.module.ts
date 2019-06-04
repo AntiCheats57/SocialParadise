@@ -30,15 +30,15 @@ const routes: Routes = [
     {path : 'loguearse', component: LoguearseComponent},
     {path : 'registrarse', component: RegistrarseComponent},
     {path : 'perfil', component: PerfilComponent, canActivate: [AuthGuard]},
-    {path : 'noticias', component: AdminNoticiaComponent, /*canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'},*/ children: [
+    {path : 'noticias', component: AdminNoticiaComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}, children: [
       {path : 'nuevo', component: EdicionNoticiaComponent},
       {path : 'editar/:id', component: EdicionNoticiaComponent}
     ]},
-    {path : 'asignacionLugares', component: AdminLugarComponent, /*canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'},*/ children: [
+    {path : 'asignacionLugares', component: AdminLugarComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}, children: [
       {path : 'nuevo', component: AsignarLugarComponent},
       {path : 'editar/:id', component: AsignarLugarComponent}
     ]},
-    {path : 'lugares', component: AdminEditorComponent, /*canActivate: [AuthGuard, RoleGuard], data: {role: 'editor'},*/ children: [
+    {path : 'lugares', component: AdminEditorComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'editor'}, children: [
       {path : 'editar/:id', component: EdicionLugarComponent}
     ]},
   ]},

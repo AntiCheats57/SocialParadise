@@ -64,13 +64,7 @@ export class ComentarioComponent implements OnInit {
     this.resena.usuario = this.usuario["id"];
     this.resena.valoracion = this.currentRate;
     this.resena.lugar = this.lugarId;
-    this.datosService.insertarElemento("resenas", this.resena).catch(error =>{
-      Swal.fire({
-        type: 'error',
-        title: 'Error al realizar comentario',
-        timer: 1500
-      })
-    });
+    this.datosService.insertarElemento("resenas", this.resena, true)
   }
 
 }

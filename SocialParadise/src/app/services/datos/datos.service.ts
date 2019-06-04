@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import {HttpClient} from '@angular/common/http';
-import { Observable, Subscription } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { lugar } from 'src/app/interfaces/lugar.interface';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +10,10 @@ export class DatosService {
   constructor(private firestore : AngularFirestore) {
   }
 
-  insertarElemento(coleccion : string, elemento : any) {
-    var idFB = this.firestore.createId();
-    elemento.idFB = idFB;
+  insertarElemento(coleccion : string, elemento : any, generarId : boolean) {
+    if(generarId){
+      elemento.idFB = this.firestore.createId();      
+    }
     return this.firestore.collection(coleccion).doc(elemento.idFB).set(elemento);
   }
 
@@ -35,6 +33,10 @@ export class DatosService {
     return this.firestore.collection(coleccion).valueChanges() as Observable<any>;
   }
   
+  obtenerUltimoId(coleccion : string){
+    return this.firestore.collection(coleccion, ref => ref.orderBy("id", "desc").limit(1)).get().toPromise();
+  }
+
   obtenerColeccionCondicion(coleccion : string, campoCondicion : string,valorCondicion: any) {
     return this.firestore.collection(coleccion, ref => ref.where(campoCondicion, '==', valorCondicion)).valueChanges() as Observable<any>;
   }

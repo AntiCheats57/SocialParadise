@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
-import { map } from 'rxjs/operators';
 import { usuario } from 'src/app/interfaces/usuario.interface';
 import { HttpClient } from '@angular/common/http';
 import { DatosService } from '../datos/datos.service';
@@ -15,6 +14,8 @@ import { Subscription } from 'rxjs';
 export class AuthService {
 
   autentificado : boolean;
+  admin : boolean;
+  editor : boolean;
   estadoAutentificado : Subscription;
   adminSuscripcion: Subscription;
   editorSuscripcion: Subscription;
@@ -63,72 +64,69 @@ export class AuthService {
     });
     this.autentificado = false;
     this.afAuth.auth.signOut()
-    this.afAuth.authState.subscribe( user => {
-         if (!user) {
-          this.autentificado = false;
-           return;
-        }
-    });
-    this.localStorage.agregarUsuarioActual( {
-      id : 0,
-      idFB: "",
-      foto : "",
-      nombre : "",
-      correo : "",
-      usuario : ""
-    });
+    this.verificarEstadoAutentificado()
     return true;
+  }
+
+  esAdmin(){
+    return this.admin;
+  }
+
+  esEditor(){
+    return this.editor;
   }
 
   estaAutentificado() {    
     return this.autentificado;
   }
-  
-  esAdmin() {
-    // var usuario = this.localStorage.obtenerUsuarioActual();
-    // return this.datosService.obtenerElementoId("usuarios", usuario["id"]).toPromise();
-    return true;
-  }
-
-  esEditor() {
-    // var usuario = this.localStorage.obtenerUsuarioActual();
-    // return this.datosService.obtenerColeccionCondicion("lugares", "usuario", usuario["id"]).toPromise();
-    return true;
-  }
 
   almacenarUsuarioLocalStorage(idFB : string){
     this.datosService.obtenerElementoIdFB("usuarios", idFB).subscribe(datos => {
-        if(datos){
-          setInterval(() => {this.localStorage.agregarUsuarioActual({
-            id : datos["id"],
-            idFB :  datos["idFB"],
-            correo : datos["correo"],
-            foto:  datos["foto"],
-            nombre: datos["nombre"] + (datos["apellidos"]? " " + datos["apellidos"] : ""),
-            usuario: datos["usuario"]
-          })
-        }, 5000);
-      }
+      console.info("")
+      if(!datos){
+        datos = {
+          id: -1,
+          idFB: "",
+          correo: "",
+          foto: "",
+          nombre: "",
+          usuario: "", 
+          admin: false,
+          lugaresAsignados: []
+        }
+      } 
+      this.admin = datos["admin"]
+      this.editor = datos["lugaresAsignados"].length > 0
+      this.localStorage.agregarUsuarioActual({
+        id : datos["id"],
+        idFB :  datos["idFB"],
+        correo : datos["correo"],
+        foto:  datos["foto"],
+        nombre: datos["nombre"] + (datos["apellidos"]? " " + datos["apellidos"] : ""),
+        usuario: datos["usuario"]
+      })
     })
   }
 
   verificarEstadoAutentificado(){
-    this.estadoAutentificado = this.afAuth.authState.subscribe(res => {      
+    this.estadoAutentificado = this.afAuth.authState.subscribe(res => {            
       if(res){
         this.autentificado = true;
+        this.cargarDatosUsuarioLocalStorage()
       }
       else{
         this.autentificado = false;
-      }
+        this.localStorage.eliminarUsuarioActual();
+        this.admin = false;
+        this.editor = false;
+      }      
     });
   }
 
-    // this.afAuth.authState.subscribe( user => {
-    //   console.log('Estado del usaurio: ', user);
-    //   if (!user) {
-    //     return;
-    //   }
-    //   this.usuario.nombre = user.displayName;
-    //   this.usuario.uid = user.uid;
-    // })
+  cargarDatosUsuarioLocalStorage(){
+    var usuario = this.localStorage.obtenerUsuarioActual()
+    if(usuario != null && usuario != undefined && usuario.idFB){
+      this.almacenarUsuarioLocalStorage(usuario.idFB)
+    }
+  }
 }

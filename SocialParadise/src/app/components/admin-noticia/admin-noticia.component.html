@@ -15,7 +15,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr data-toggle="modal" data-target="#noticiaModal" *ngFor="let noticia of noticias$ | async" (click)="editar(noticia)" [routerLink]="[ 'editar', noticia.id]">
+                <tr data-toggle="modal" data-target="#noticiaModal" *ngFor="let noticia of noticias$ | async" [routerLink]="[ 'editar', noticia.id]">
                     <td>
                         <ngb-highlight [result]="noticia.titulo" [term]="service.searchTerm"></ngb-highlight>
                     </td>

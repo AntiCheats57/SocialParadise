@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ImagenService } from 'src/app/services/imagen/imagen.service';
@@ -14,7 +14,7 @@ declare var $: any;
   styleUrls: ['./edicion-lugar.component.css']
 })
 
-export class EdicionLugarComponent implements OnInit {
+export class EdicionLugarComponent implements OnInit, OnDestroy {
   formulario: FormGroup;
   lugarId: number;
   lugar: lugar;
@@ -76,12 +76,8 @@ export class EdicionLugarComponent implements OnInit {
     $(document).ready(function() {
       $("#lugarModal").modal("show");
     });
-    
-    setInterval(x =>{
-      if(this.imagen.cambios){
-        this.cargarImagenes()
-        this.imagen.cambios = false
-      }
+    setInterval(x => {
+    this.cargarImagenes()
     }, 1500)
   }
 
@@ -127,16 +123,17 @@ export class EdicionLugarComponent implements OnInit {
   }
 
   cargarImagenes(){
-    this.imagenes = []
     if(this.lugar && this.lugar.imagenes){
       for(let x in this.lugar.imagenes){
         this.imagenes.push(this.lugar.imagenes[x])
       }
+      this.lugar.imagenes = []
     }
     if(this.imagen && this.imagen.imagenesSubidas){
       for(let x in this.imagen.imagenesSubidas){
         this.imagenes.push(this.imagen.imagenesSubidas[x])
       }
+      this.imagen.imagenesSubidas = []
     }
   }
 
