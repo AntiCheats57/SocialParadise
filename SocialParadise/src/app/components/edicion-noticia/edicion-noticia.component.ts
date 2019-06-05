@@ -38,7 +38,7 @@ export class EdicionNoticiaComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.noticia = {
-      id: 0,
+      id: -1,
       idFB: "",
       contenido: "",
       fechaCreacion: "",

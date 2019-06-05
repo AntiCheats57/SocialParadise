@@ -20,12 +20,14 @@ import { LocalDataService } from 'src/app/services/local-data/local-data.service
 export class LugarTuristicoComponent implements OnInit, OnDestroy {
   
   valoracionGeneral: number;
-  private suscripcionLugar : Subscription;
-  private suscripcionResena : Subscription;
-  private suscripcionUsuario : Subscription;
-  private suscripcionUsuario2 : Subscription;
+  private suscLugar : Subscription;
+  private suscResena : Subscription;
+  private suscUsuario : Subscription;
+  private suscUsuarioActual : Subscription;
+  private suscSeguir : Subscription;
   private resenasTemp : resena[];
   private usuarios : any[];
+  private usuarioActual : usuario;
   private refrescar : boolean;
   private lugarId : number;
   siguiendoLugar: boolean;
@@ -43,7 +45,7 @@ export class LugarTuristicoComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.lugar = {
-      id: 0,
+      id: -1,
       idFB:"",
       nombre:"",
       usuario:"",
@@ -53,11 +55,19 @@ export class LugarTuristicoComponent implements OnInit, OnDestroy {
       seguidores:[],
       imagenes:[""]
     }
-    this.suscripcionLugar = this.datosService.obtenerElementoId("lugares", this.lugarId.toString()).subscribe(datos => {
+    this.suscLugar = this.datosService.obtenerElementoId("lugares", this.lugarId.toString()).subscribe(datos => {
         if(this.refrescar){
           if(datos[0] != undefined){
             this.lugar = datos[0];
-            this.suscripcionResena = this.datosService.obtenerColeccion("resenas").subscribe(elementos => {
+            var usuario = this.localStorage.obtenerUsuarioActual()
+            if(this.auth.estaAutentificado() && usuario != null && usuario.id != -1){
+              for(var seguidor in this.lugar.seguidores){          
+                if(this.lugar.seguidores[seguidor] == usuario.id){
+                  this.siguiendoLugar = true
+                }
+              }
+            }
+            this.suscResena = this.datosService.obtenerColeccion("resenas").subscribe(elementos => {
               this.resenasTemp = elementos;
               this.resenas = []
               if(this.resenas != undefined){                
@@ -72,7 +82,7 @@ export class LugarTuristicoComponent implements OnInit, OnDestroy {
                     this.valoracionGeneral = this.valoracionGeneral + r.valoracion;
                     cantidadResenas++;     
                     this.usuarios = []             
-                    this.suscripcionUsuario = this.datosService.obtenerElementoId("usuarios", r.usuario.toString()).subscribe(usu => {
+                    this.suscUsuario = this.datosService.obtenerElementoId("usuarios", r.usuario.toString()).subscribe(usu => {
                       if(datos != undefined){
                         this.usuarios.push({
                           nombre: (<usuario> usu[0]).nombre + " " + (<usuario> usu[0]).apellidos, 
@@ -80,12 +90,12 @@ export class LugarTuristicoComponent implements OnInit, OnDestroy {
                           foto: (<usuario> usu[0]).foto
                         });
                       }
-                  }, error => {}, ()=> {this.suscripcionUsuario.unsubscribe()});
+                  }, error => {}, ()=> {this.suscUsuario.unsubscribe()});
                   }              
                 });        
                 this.valoracionGeneral = this.valoracionGeneral / (cantidadResenas != 0? cantidadResenas : 1);  
               }
-              this.refrescar = false;
+              //this.refrescar = false;
             });
           }
           else{
@@ -96,18 +106,34 @@ export class LugarTuristicoComponent implements OnInit, OnDestroy {
         console.info("Error al obtener el elemento");
         this.router.navigate(["/"]);
       }
-   );   
+   );  
+   if(this.auth.estaAutentificado()){
+      var usuarioActualId = this.localStorage.obtenerUsuarioActual()["id"];
+      if(usuarioActualId >= 0){
+        this.suscUsuarioActual = this.datosService.obtenerElementoId("usuarios", usuarioActualId).subscribe(datos => {
+          if(datos){
+            this.usuarioActual = <usuario> datos[0]
+          }
+        }) 
+      }
+    }
   }
 
   ngOnDestroy(): void{
-    if(this.suscripcionLugar){
-      this.suscripcionLugar.unsubscribe();
+    if(this.suscLugar){
+      this.suscLugar.unsubscribe();
     }
-    if(this.suscripcionResena){
-      this.suscripcionResena.unsubscribe();      
+    if(this.suscResena){
+      this.suscResena.unsubscribe();      
     }
-    if(this.suscripcionUsuario){
-      this.suscripcionUsuario.unsubscribe();      
+    if(this.suscUsuario){
+      this.suscUsuario.unsubscribe();      
+    }
+    if(this.suscSeguir){
+      this.suscSeguir.unsubscribe();      
+    }
+    if(this.suscUsuarioActual){
+      this.suscUsuarioActual.unsubscribe();      
     }
   }
 
@@ -131,33 +157,42 @@ export class LugarTuristicoComponent implements OnInit, OnDestroy {
   }
 
   modificarSeguimientoLugar(){
-    this.suscripcionUsuario2 = this.datosService.obtenerElementoId("lugares", this.lugarId.toString()).subscribe(datos => {
+    if(!this.auth.estaAutentificado()){
+      this.router.navigate(["/loguearse"])
+    }
+    this.suscSeguir = this.datosService.obtenerElementoId("lugares", this.lugarId.toString()).subscribe(datos => {
         if(datos != undefined){
           if(datos[0]["seguidores"] === undefined){
             datos[0]["seguidores"] = [];
           }
-          var usuarioActualId = this.localStorage.obtenerUsuarioActual()["id"];
+          var usuarioActualId = this.usuarioActual.id;
           if(this.siguiendoLugar){
             this.lugar.seguidores = []
             for(var seguidor in datos[0]["seguidores"]){
-              if(seguidor != usuarioActualId){
-                (<number[]> this.lugar.seguidores).push(parseInt(seguidor))
+              if(datos[0]["seguidores"][seguidor] != usuarioActualId){
+                (<number[]> this.lugar.seguidores).push(parseInt(datos[0]["seguidores"][seguidor]))
               }
             }
+            var lugaresSeguidos = []
+            for(var lugar in this.usuarioActual["lugaresSeguidos"]){
+              if(this.usuarioActual["lugaresSeguidos"][lugar]  != this.lugar.id){
+                lugaresSeguidos.push(this.usuarioActual["lugaresSeguidos"][lugar])
+              }
+            }
+            this.usuarioActual["lugaresSeguidos"] = lugaresSeguidos
             this.siguiendoLugar = false;  
           }
           else{
+            this.usuarioActual["lugaresSeguidos"].push(this.lugar.id);
             this.lugar.seguidores = (<number[]> datos[0]["seguidores"]);
-            this.lugar.seguidores.push(parseInt(usuarioActualId));
+            this.lugar.seguidores.push(usuarioActualId);
             this.siguiendoLugar = true;
           }
           this.datosService.actualizarElemento("lugares", this.lugar)
-          this.suscripcionUsuario2.unsubscribe();
+          this.datosService.actualizarElemento("usuarios", this.usuarioActual)
+          this.suscSeguir.unsubscribe();      
         }
-    }, error =>{
-
-    }, () =>{
-    });
+    }, error =>{}, () =>{});
     
   }
 

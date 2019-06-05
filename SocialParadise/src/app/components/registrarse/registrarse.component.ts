@@ -46,7 +46,7 @@ export class RegistrarseComponent implements OnInit {
   ngOnInit() {
     this.formulario.setValue({nombre: "", apellidos: "", usuario: "", clave: "", email: "@.com" });
     this.usuario = {
-      id : 0,
+      id : -1,
       idFB : "",
       correo : "",
       admin : false,
@@ -137,6 +137,7 @@ export class RegistrarseComponent implements OnInit {
       this.usuario.nombre = res.user.displayName;
       this.usuario.idFB = res.user.uid;
       this.usuario.foto = res.user.photoURL
+      this.usuario.correo = res.user.email
       this.datosService.obtenerUltimoId("usuarios").then(datos => {
         if(datos != undefined && datos.docs[0] != undefined){
           this.usuario.id = (<usuario> datos.docs[0].data()).id + 1

@@ -19,7 +19,7 @@ export class LocalDataService {
     }
     else{
       return {
-        id : 0,
+        id : -1,
         idFB: "",
         foto : "",
         nombre : "",

@@ -42,7 +42,7 @@ export class EdicionLugarComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.lugar = {
-      id: 0,
+      id: -1,
       idFB: "",
       descripcion: "",
       imagenes: [],

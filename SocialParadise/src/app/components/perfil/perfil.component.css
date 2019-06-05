@@ -6,6 +6,15 @@
     color: #d9534f;
 }
 
+a {
+    color: #3342FF !important;
+}
+
+a:hover {
+    text-decoration: underline !important;
+    cursor: pointer;
+}
+
 .has-danger .form-control {
     border-color: #d9534f;
     border-width: 2px;

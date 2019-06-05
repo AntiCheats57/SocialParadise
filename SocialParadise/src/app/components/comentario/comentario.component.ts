@@ -30,7 +30,7 @@ export class ComentarioComponent implements OnInit {
 
   ngOnInit() {
     this.usuario = {
-      id : 0,
+      id : -1,
       idFB: "",
       foto : "",
       nombre : "",
@@ -38,7 +38,7 @@ export class ComentarioComponent implements OnInit {
       usuario : ""
     }
     this.resena = {      
-      id: 0,
+      id: -1,
       idFB: "",
       lugar: 0,
       usuario: 0,

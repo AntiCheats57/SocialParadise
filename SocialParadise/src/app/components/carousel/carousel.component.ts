@@ -36,7 +36,7 @@ export class CarouselComponent implements OnInit, OnDestroy  {
       }
       else if(this.tipoElemento === 'lugar'){
         this.lugar = {
-          "id": 0,
+          "id": -1,
           "idFB":"",
           "nombre":"",
           "usuario":"",
