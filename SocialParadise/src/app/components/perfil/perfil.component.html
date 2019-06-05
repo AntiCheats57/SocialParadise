@@ -34,28 +34,22 @@
                                                     <small *ngIf="formulario.get('apellidos').errors?.minlength && formulario.get('apellidos').touched" class="form-control-feedback">Por lo menos {{formulario.controls['apellidos'].errors?.minlength.requiredLength}} caracteres.</small>
                                                 </div>
                                             </div>
+                                            <div class="form-group col-12" [ngClass]="{'has-danger': !formulario.get('correo').valid && formulario.get('correo').touched}">
+                                                <input type="text" formControlName="correo" class="form-control" placeholder="Correo">
+                                                <div>
+                                                    <small *ngIf="formulario.get('correo').errors?.required && formulario.get('correo').touched" class="form-control-feedback">Este campo es requerido.</small>
+                                                    <small *ngIf="formulario.get('correo').errors?.minlength && formulario.get('correo').touched" class="form-control-feedback">Por lo menos {{formulario.controls['correo'].errors?.minlength.requiredLength}} caracteres.</small>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-12" [ngClass]="{'has-danger': !formulario.get('usuario').valid && formulario.get('usuario').touched}">
+                                                <input type="text" formControlName="usuario" class="form-control" placeholder="Usuario">
+                                                <div>
+                                                    <small *ngIf="formulario.get('usuario').errors?.required && formulario.get('usuario').touched" class="form-control-feedback">Este campo es requerido.</small>
+                                                    <small *ngIf="formulario.get('usuario').errors?.minlength && formulario.get('usuario').touched" class="form-control-feedback">Por lo menos {{formulario.controls['usuario'].errors?.minlength.requiredLength}} caracteres.</small>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-12 mb-3" *ngIf="!this.cambiarClave">
-                                <a (click)="this.cambiarClave = true">¿Desea cambiar la contraseña?</a>
-                            </div>
-                            <div class="col-12 mb-3" *ngIf="this.cambiarClave">
-                                <a (click)="this.cambiarClave = false">No cambiar contraseña</a>
-                            </div>
-                            <div *ngIf="this.cambiarClave" class="form-group col-12">
-                                <input type="password" formControlName="claveActual" class="form-control" placeholder="Contraseña actual">
-                                <div>
-                                    <small *ngIf="formulario.get('claveActual').errors?.required && formulario.get('claveActual').touched" class="form-control-feedback">Este campo es requerido.</small>
-                                    <small *ngIf="formulario.get('claveActual').errors?.minlength && formulario.get('claveActual').touched" class="form-control-feedback">Por lo menos {{formulario.controls['claveActual'].errors?.minlength.requiredLength}} caracteres.</small>
-                                </div>
-                            </div>
-                            <div *ngIf="this.cambiarClave" class="form-group col-12">
-                                <input type="password" formControlName="claveNueva" class="form-control" placeholder="Contraseña nueva">
-                                <div>
-                                    <small *ngIf="formulario.get('claveNueva').errors?.required && formulario.get('claveNueva').touched" class="form-control-feedback">Este campo es requerido.</small>
-                                    <small *ngIf="formulario.get('claveNueva').errors?.minlength && formulario.get('claveNueva').touched" class="form-control-feedback">Por lo menos {{formulario.controls['claveNueva'].errors?.minlength.requiredLength}} caracteres.</small>
                                 </div>
                             </div>
                         </div>

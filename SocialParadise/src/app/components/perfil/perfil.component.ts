@@ -22,7 +22,6 @@ export class PerfilComponent implements OnInit, OnDestroy {
   currentRate = 3;
   usuario : usuario;
   private suscUsuario : Subscription;
-  cambiarClave: boolean;
 
   constructor(config: NgbRatingConfig, private imagen: ImagenService, public auth : AuthService, private localStorage : LocalDataService, private datosService : DatosService) {
     this.formulario = new FormGroup({
@@ -33,25 +32,22 @@ export class PerfilComponent implements OnInit, OnDestroy {
       'apellidos': new FormControl('', [
                                     Validators.minLength(5)
                                   ]),
-      'descripcion': new FormControl('', [
+      'correo': new FormControl('', [
                                     Validators.required,
-                                    Validators.minLength(15)
+                                    Validators.minLength(7)
                                   ]),
-      'claveActual': new FormControl('', [
+                                  
+      'usuario': new FormControl('', [
                                     Validators.required,
-                                    Validators.minLength(6)
-                                  ]),
-      'claveNueva': new FormControl('', [
-                                    Validators.required,
-                                    Validators.minLength(6)
-                                  ]),
+                                    Validators.minLength(3)
+                                  ])
     });
+    this.formulario.get("correo").disable()
     config.max = 5;
     config.readonly = true;
   }
 
   ngOnInit() {
-    this.cambiarClave = false;
     this.usuario = {
       id : -1,
       idFB : "",
@@ -72,7 +68,7 @@ export class PerfilComponent implements OnInit, OnDestroy {
         this.suscUsuario = this.datosService.obtenerElementoId("usuarios", usuarioActualId).subscribe(datos => {
           if(datos){
             this.usuario = <usuario> datos[0]
-            this.formulario.reset({nombre: this.usuario.nombre, apellidos: this.usuario.apellidos, descripcion: this.u});
+            this.formulario.reset({nombre: this.usuario.nombre, apellidos: this.usuario.apellidos,  correo: this.usuario.correo, usuario: this.usuario.usuario});
           }
         }) 
       }
@@ -88,18 +84,10 @@ export class PerfilComponent implements OnInit, OnDestroy {
   }
 
   guardar() {
-    if(this.cambiarClave){
-      if(this.usuario.clave != this.formulario.get("claveActual").value){
-        Swal.fire({
-          type: 'error',
-          title: 'Error al guardar los cambios al perfil',
-          text: 'La contraseña actual no coincide con la que se digitó'
-        });
-        return;
-      }
-    }
     this.usuario.nombre = this.formulario.get("nombre").value
     this.usuario.apellidos = this.formulario.get("apellidos").value
+    this.usuario.correo = this.formulario.get("correo").value
+    this.usuario.usuario = this.formulario.get("usuario").value
     this.datosService.actualizarElemento("usuarios", this.usuario).catch(err =>{
       Swal.fire({
         type: 'error',
