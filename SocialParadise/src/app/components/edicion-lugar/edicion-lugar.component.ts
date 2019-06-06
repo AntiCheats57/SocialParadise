@@ -82,6 +82,14 @@ export class EdicionLugarComponent implements OnInit, OnDestroy {
   }
 
   guardar() {
+    if(!this.formulario.valid){
+      Swal.fire({
+        type: 'error',
+        title: 'Error al guardar los cambios al perfil',
+        text: 'Debe completar correctamente todos los campos'
+      });
+      return;
+    }
     if(this.lugar != null){
       this.lugar.nombre = this.formulario.get("nombre").value
       this.lugar.video = this.formulario.get("video").value

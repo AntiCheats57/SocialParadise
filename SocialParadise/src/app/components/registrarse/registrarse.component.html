@@ -20,7 +20,7 @@
                 <div class=""></div>
             </div>
             <div class="container col-md-6">
-                <form class="row" [formGroup]="formulario" #f="ngForm" (ngSubmit)="f.form.valid && registrarEmail()">
+                <form class="row" [formGroup]="formulario" #f="ngForm">
                     <div class="col-sm-6 form-group" [ngClass]="{'has-danger': !formulario.get('nombre').valid && formulario.get('nombre').touched}">
                         <label for="nombre">Nombre</label>
                         <input type="text" class="form-control" id="nombre" formControlName="nombre" placeholder="Nombre">
@@ -62,7 +62,7 @@
                         </div>
                     </div>
                     <div class="col text-right">
-                        <button type="submit" class="btn btn-primary">Registrarse</button>
+                        <button (click)="registrarEmail()" class="btn btn-primary">Registrarse</button>
                     </div>
                 </form>
             </div>

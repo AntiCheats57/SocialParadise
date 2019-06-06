@@ -70,83 +70,13 @@
             <div class="col-12 col-lg-9">
                 <div class="following">
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
+                        <li class="list-group-item" *ngFor="let lugar of this.lugaresSeguidos; let i = index;">
                             <div class="row component-follower">
                                 <div class="col-8 col-sm-9">
-                                    <p><img src="assets/images/seguidos.jpg" alt="" class="img-responsiv img-fluid img-circle" />Lugar Turístico</p>
+                                    <p><img [src]="lugar.imagenes[0]" alt="lugar" class="img-responsiv img-fluid img-circle" />{{lugar.nombre}}</p>
                                 </div>
                                 <div class="col-4 col-sm-3 aling-right">
-                                    <button class="btn btn-outline-primary">Remover</button>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="row component-follower">
-                                <div class="col-8 col-sm-9">
-                                    <p><img src="assets/images/seguidos.jpg" alt="" class="img-responsiv img-fluid img-circle" />Lugar Turístico</p>
-                                </div>
-                                <div class="col-4 col-sm-3 aling-right">
-                                    <button class="btn btn-outline-primary">Remover</button>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="row component-follower">
-                                <div class="col-8 col-sm-9">
-                                    <p><img src="assets/images/seguidos.jpg" alt="" class="img-responsiv img-fluid img-circle" />Lugar Turístico</p>
-                                </div>
-                                <div class="col-4 col-sm-3 aling-right">
-                                    <button class="btn btn-outline-primary">Remover</button>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="row component-follower">
-                                <div class="col-8 col-sm-9">
-                                    <p><img src="assets/images/seguidos.jpg" alt="" class="img-responsiv img-fluid img-circle" />Lugar Turístico</p>
-                                </div>
-                                <div class="col-4 col-sm-3 aling-right">
-                                    <button class="btn btn-outline-primary">Remover</button>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="row component-follower">
-                                <div class="col-8 col-sm-9">
-                                    <p><img src="assets/images/seguidos.jpg" alt="" class="img-responsiv img-fluid img-circle" />Lugar Turístico</p>
-                                </div>
-                                <div class="col-4 col-sm-3 aling-right">
-                                    <button class="btn btn-outline-primary">Remover</button>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="row component-follower">
-                                <div class="col-8 col-sm-9">
-                                    <p><img src="assets/images/seguidos.jpg" alt="" class="img-responsiv img-fluid img-circle" />Lugar Turístico</p>
-                                </div>
-                                <div class="col-4 col-sm-3 aling-right">
-                                    <button class="btn btn-outline-primary">Remover</button>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="row component-follower">
-                                <div class="col-8 col-sm-9">
-                                    <p><img src="assets/images/seguidos.jpg" alt="" class="img-responsiv img-fluid img-circle" />Lugar Turístico</p>
-                                </div>
-                                <div class="col-4 col-sm-3 aling-right">
-                                    <button class="btn btn-outline-primary">Remover</button>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="row component-follower">
-                                <div class="col-8 col-sm-9">
-                                    <p><img src="assets/images/seguidos.jpg" alt="" class="img-responsiv img-fluid img-circle" />Lugar Turístico</p>
-                                </div>
-                                <div class="col-4 col-sm-3 aling-right">
-                                    <button class="btn btn-outline-primary">Remover</button>
+                                    <button class="btn btn-outline-danger" (click)="removerLugar(i)">Remover</button>
                                 </div>
                             </div>
                         </li>

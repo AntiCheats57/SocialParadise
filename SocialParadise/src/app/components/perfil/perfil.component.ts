@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { DatosService } from 'src/app/services/datos/datos.service';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
+import { lugar } from 'src/app/interfaces/lugar.interface';
 
 @Component({
   selector: 'app-perfil',
@@ -22,6 +23,7 @@ export class PerfilComponent implements OnInit, OnDestroy {
   currentRate = 3;
   usuario : usuario;
   private suscUsuario : Subscription;
+  lugaresSeguidos : lugar[];
 
   constructor(config: NgbRatingConfig, private imagen: ImagenService, public auth : AuthService, private localStorage : LocalDataService, private datosService : DatosService) {
     this.formulario = new FormGroup({
@@ -45,6 +47,7 @@ export class PerfilComponent implements OnInit, OnDestroy {
     this.formulario.get("correo").disable()
     config.max = 5;
     config.readonly = true;
+    this.lugaresSeguidos = []
   }
 
   ngOnInit() {
@@ -69,25 +72,45 @@ export class PerfilComponent implements OnInit, OnDestroy {
           if(datos){
             this.usuario = <usuario> datos[0]
             this.formulario.reset({nombre: this.usuario.nombre, apellidos: this.usuario.apellidos,  correo: this.usuario.correo, usuario: this.usuario.usuario});
+            this.lugaresSeguidos = []
+            for(var i in this.usuario.lugaresSeguidos){
+                this.datosService.obtenerElementoId("lugares", this.usuario.lugaresSeguidos[i].toString()).subscribe(lugar =>{
+                   if(lugar){
+                      this.lugaresSeguidos.push(<lugar> lugar[0])
+                   }         
+                })
+            }
           }
         }) 
       }
     } 
-    setInterval(x =>{
+    setInterval(x => {
       if(this.imagen.cambios){
         for(let x in this.imagen.imagenesSubidas){
           this.usuario.foto = this.imagen.imagenesSubidas[x];
         }
         this.imagen.cambios = false
       }
-    }, 1500)
+    }, 1000)
   }
 
   guardar() {
+    if(!this.formulario.valid){
+      Swal.fire({
+        type: 'error',
+        title: 'Error al guardar los cambios al perfil',
+        text: 'Debe completar correctamente todos los campos'
+      });
+      return;
+    }
     this.usuario.nombre = this.formulario.get("nombre").value
     this.usuario.apellidos = this.formulario.get("apellidos").value
     this.usuario.correo = this.formulario.get("correo").value
     this.usuario.usuario = this.formulario.get("usuario").value
+    this.usuario.lugaresSeguidos = []
+    for(var i in this.lugaresSeguidos){
+      this.usuario.lugaresSeguidos.push(this.lugaresSeguidos[i].id)
+    }
     this.datosService.actualizarElemento("usuarios", this.usuario).catch(err =>{
       Swal.fire({
         type: 'error',
@@ -99,6 +122,7 @@ export class PerfilComponent implements OnInit, OnDestroy {
         type: 'success',
         title: 'Guardado correctamente'
       });
+      this.auth.almacenarUsuarioLocalStorage(this.usuario.idFB)
     });
   }
 
@@ -106,6 +130,27 @@ export class PerfilComponent implements OnInit, OnDestroy {
     if(e.target.files.length != 0) {
       this.imagen.cargarImagen(e.target.files);
     }
+  }
+
+  removerLugar(indice: number){
+    var suscLugar : Subscription;
+    var lugarId = this.lugaresSeguidos[indice].id;
+    suscLugar = this.datosService.obtenerElementoId("lugares", lugarId.toString()).subscribe(datos => {
+      if(datos){
+        var lugar = <lugar> datos[0];
+        var seguidores = []
+        for(var i in lugar.seguidores){
+            if(lugar.seguidores[i] != this.usuario.id){
+              seguidores.push(lugar.seguidores[i]);
+            }
+        }
+        lugar.seguidores = seguidores;
+        this.datosService.actualizarElemento("lugares", lugar);
+        suscLugar.unsubscribe()
+      }
+    });
+    this.lugaresSeguidos.splice(indice, 1);
+    this.guardar();
   }
 
   ngOnDestroy(): void{

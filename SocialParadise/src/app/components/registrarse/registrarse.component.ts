@@ -61,7 +61,15 @@ export class RegistrarseComponent implements OnInit {
     };
   }
 
-  registrarEmail(): void {
+  registrarEmail(): void {    
+    if(!this.formulario.valid){
+      Swal.fire({
+        type: 'error',
+        title: 'Error al guardar los cambios al perfil',
+        text: 'Debe completar correctamente todos los campos'
+      });
+      return;
+    }
     this.usuario.nombre = this.formulario.controls['nombre'].value;
     this.usuario.apellidos = this.formulario.controls['apellidos'].value;
     this.usuario.usuario = this.formulario.controls['usuario'].value;
