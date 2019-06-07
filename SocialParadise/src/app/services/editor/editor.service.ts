@@ -5,6 +5,8 @@ import { DecimalPipe } from '@angular/common';
 import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
 import { SortDirection } from 'src/app/directives/sortable.directive';
 import { DatosService } from '../datos/datos.service';
+import { AuthService } from '../auth/auth.service';
+import { LocalDataService } from '../local-data/local-data.service';
 
 interface SearchResult {
   lugaresSorted: lugar[];
@@ -56,11 +58,14 @@ export class EditorService {
 
   private lugaresItems: lugar[];
 
-  constructor(private pipe: DecimalPipe, private datosService: DatosService) {
+  constructor(private pipe: DecimalPipe, private datosService: DatosService, private auth : AuthService, private localStorage : LocalDataService) {
     this.lugaresItems = []
-    this.datosService.obtenerColeccion("lugares").subscribe(datos => {
-      this.lugaresItems = datos
-    });
+    if(this.auth.estaAutentificado()){
+      var usuarioId = this.localStorage.obtenerUsuarioActual().id
+      this.datosService.obtenerColeccionCondicion("lugares", "usuario", usuarioId).subscribe(datos => {
+        this.lugaresItems = datos
+      });
+    }
 
     this._search$.pipe(
       tap(() => this._loading$.next(true)),

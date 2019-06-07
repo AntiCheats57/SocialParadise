@@ -9,6 +9,7 @@ import { DatosService } from 'src/app/services/datos/datos.service';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 import { lugar } from 'src/app/interfaces/lugar.interface';
+import { resena } from 'src/app/interfaces/resena.interface';
 
 @Component({
   selector: 'app-perfil',
@@ -19,11 +20,12 @@ import { lugar } from 'src/app/interfaces/lugar.interface';
 
 export class PerfilComponent implements OnInit, OnDestroy {
   formulario: FormGroup;
-  foto: string = "";
-  currentRate = 3;
   usuario : usuario;
   private suscUsuario : Subscription;
+  private suscResena : Subscription;
   lugaresSeguidos : lugar[];
+  resenas : resena[];
+  lugaresDescripcion : string[]
 
   constructor(config: NgbRatingConfig, private imagen: ImagenService, public auth : AuthService, private localStorage : LocalDataService, private datosService : DatosService) {
     this.formulario = new FormGroup({
@@ -73,17 +75,41 @@ export class PerfilComponent implements OnInit, OnDestroy {
             this.usuario = <usuario> datos[0]
             this.formulario.reset({nombre: this.usuario.nombre, apellidos: this.usuario.apellidos,  correo: this.usuario.correo, usuario: this.usuario.usuario});
             this.lugaresSeguidos = []
+            var suscripcion
             for(var i in this.usuario.lugaresSeguidos){
-                this.datosService.obtenerElementoId("lugares", this.usuario.lugaresSeguidos[i].toString()).subscribe(lugar =>{
-                   if(lugar){
-                      this.lugaresSeguidos.push(<lugar> lugar[0])
-                   }         
-                })
+              suscripcion = this.datosService.obtenerElementoId("lugares", this.usuario.lugaresSeguidos[i].toString()).subscribe(lugar =>{
+                  if(lugar){
+                    this.lugaresSeguidos.push(<lugar> lugar[0])
+                  }         
+                  suscripcion.unsubscribe()
+              })
             }
           }
         }) 
+        this.suscResena = this.datosService.obtenerColeccionCondicion("resenas", "usuario", usuarioActualId).subscribe(datos => {
+          if(datos){
+            this.resenas = datos
+            this.resenas.sort((x, y) => {
+              return -1 * ((new Date(x.fechaPublicacion)).getTime() - (new Date(y.fechaPublicacion)).getTime())
+
+            })
+            var suscripcion     
+            this.lugaresDescripcion = []       
+            for(var i in this.resenas){
+              suscripcion = this.datosService.obtenerColeccionCondicion("lugares", "id", this.resenas[i].lugar).subscribe(lugar => {
+                if(lugar != undefined && lugar.length > 0){
+                  this.lugaresDescripcion.push(lugar[0].nombre)
+                }
+                else{
+                  this.lugaresDescripcion.push("")
+                }
+                suscripcion.unsubscribe()
+              })
+            }      
+          }
+        })
       }
-    } 
+    }
     setInterval(x => {
       if(this.imagen.cambios){
         for(let x in this.imagen.imagenesSubidas){
@@ -145,8 +171,9 @@ export class PerfilComponent implements OnInit, OnDestroy {
             }
         }
         lugar.seguidores = seguidores;
-        this.datosService.actualizarElemento("lugares", lugar);
-        suscLugar.unsubscribe()
+        this.datosService.actualizarElemento("lugares", lugar).then(()=>{
+          suscLugar.unsubscribe();
+        });        
       }
     });
     this.lugaresSeguidos.splice(indice, 1);
@@ -156,6 +183,9 @@ export class PerfilComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void{
     if(this.suscUsuario){
       this.suscUsuario.unsubscribe();
+    }
+    if(this.suscResena){
+      this.suscResena.unsubscribe();
     }
   }
 }

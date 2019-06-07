@@ -94,48 +94,23 @@
             <div class="col-12 col-lg-9">
                 <div class="following">
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
+                        <li class="list-group-item" *ngFor="let resena of this.resenas; let i = index;">
                             <div class="row component-review">
                                 <div class="col-12 col-lg-3">
                                     <div class="row rating">
                                         <div class="col col-md-10 col-lg-12 order-2 order-lg-1 rating-heading">
-                                            <h6>Lugar turístico</h6>
+                                            <h6>{{this.lugaresDescripcion[i]}}</h6>
                                         </div>
-                                        <ngb-rating class="col-5 col-md-2 col-sm-3 col-lg-12 order-1 order-lg-2" [(rate)]="currentRate">
+                                        <ngb-rating class="col-5 col-md-2 col-sm-3 col-lg-12 order-1 order-lg-2" [(rate)]="resena.valoracion">
                                             <ng-template let-fill="fill" let-index="index">
                                                 <span class="star" [class.filled]="fill >= 100" [ngClass]="{'bad': currentRate <= 3}">&#9733;</span>
                                             </ng-template>
                                         </ngb-rating>
                                     </div>
-                                    <span>12 ene 2019</span>
+                                    <span>{{resena.fechaPublicacion | date: "dd/MM/yyyy hh:mm a"}}</span>
                                 </div>
                                 <div class="col-12 col-lg-9">
-                                    <h4>Encabezado de la reseña</h4>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent non velit ex. Nulla tempus tincidunt tempor. Cras ultrices felis sit amet turpis blandit egestas. Ut at leo efficitur, convallis arcu et, laoreet ex.
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi volutpat bibendum volutpat. </p>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li class="list-group-item">
-                            <div class="row component-review">
-                                <div class="col-12 col-lg-3">
-                                    <div class="row rating">
-                                        <div class="col col-md-10 col-lg-12 order-2 order-lg-1 rating-heading">
-                                            <h6>Lugar turístico</h6>
-                                        </div>
-                                        <ngb-rating class="col-5 col-md-2 col-sm-3 col-lg-12 order-1 order-lg-2" [rate]="1">
-                                            <ng-template let-fill="fill" let-index="index">
-                                                <span class="star" [class.filled]="fill === 100" [ngClass]="{'bad': '[rate]' < 3}">&#9733;</span>
-                                            </ng-template>
-                                        </ngb-rating>
-                                    </div>
-                                    <span>12 ene 2019</span>
-                                </div>
-                                <div class="col-12 col-lg-9">
-                                    <h4>Encabezado de la reseña</h4>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent non velit ex. Nulla tempus tincidunt tempor. Cras ultrices felis sit amet turpis blandit egestas. Ut at leo efficitur, convallis arcu et, laoreet ex.
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi volutpat bibendum volutpat. </p>
+                                    <p>{{resena.comentario}}</p>
                                 </div>
                             </div>
                         </li>
