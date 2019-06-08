@@ -76,7 +76,14 @@ export class AuthService {
     return this.editor;
   }
 
-  estaAutentificado() {    
+  estaAutentificado() {  
+    /*var usuarioActual = this.localStorage.obtenerUsuarioActual();
+    if(usuarioActual["id"] >= 0 && usuarioActual["idFB"] != ""){
+      this.autentificado = true;
+    }
+    else{
+      this.autentificado = false
+    }*/
     return this.autentificado;
   }
 

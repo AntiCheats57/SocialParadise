@@ -1,0 +1,25 @@
+<div class="modal fade" id="seguidoresModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title form-title" id="modalLabel">Seguidores</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true"  [routerLink]="[ '/lugar/' + this.lugarId]">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item" *ngFor="let seguidor of this.seguidores">
+                            <div class="row component-follower">
+                                <div class="col-8 col-sm-9">
+                                    <p><img [src]="seguidor.foto" alt="seguidor" class="img-responsiv img-fluid img-circle" />{{seguidor.nombre}}</p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

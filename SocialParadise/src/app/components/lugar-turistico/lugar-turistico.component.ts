@@ -68,10 +68,10 @@ export class LugarTuristicoComponent implements OnInit, OnDestroy {
                 }
               }
             }
-            this.suscResena = this.datosService.obtenerColeccion("resenas").subscribe(elementos => {
+            this.suscResena = this.datosService.obtenerColeccionCondicion("resenas", "lugar", this.lugar.id).subscribe(elementos => {
               this.resenasTemp = elementos;
               this.resenas = []
-              if(this.resenas != undefined){                
+              if(this.resenasTemp != undefined){                
                 this.valoracionGeneral = 0;
                 var cantidadResenas = 0;
                 this.resenasTemp.sort((x, y) => {
@@ -96,7 +96,6 @@ export class LugarTuristicoComponent implements OnInit, OnDestroy {
                 });        
                 this.valoracionGeneral = this.valoracionGeneral / (cantidadResenas != 0? cantidadResenas : 1);  
               }
-              //this.refrescar = false;
             });
           }
           else{

@@ -20,7 +20,6 @@ export class AdminEditorComponent implements OnInit {
 
   constructor(public service: EditorService) {
     this.lugares$ = service.lugares$;
-    console.info(service.lugares$)
     this.total$ = service.total$;
   }
 

@@ -18,13 +18,16 @@ import { ErrorComponent } from 'src/app/components/error/error.component';
 
 import { AuthGuard } from 'src/app/guards/auth/auth.guard';
 import { RoleGuard } from 'src/app/guards/role/role.guard';
+import { SeguidoresComponent } from './components/seguidores/seguidores.component';
 
 const routes: Routes = [
   {path : '', component: InicioComponent},
   {path : 'nosotros', component: NosotrosComponent},
   {path : 'servicios', component: ServiciosComponent},
   {path : 'contactenos', component: ContactenosComponent},
-  {path : 'lugar/:id', component: LugarTuristicoComponent},
+  {path : 'lugar/:id', component: LugarTuristicoComponent, children: [
+    {path : 'seguidores/:id', component: SeguidoresComponent}
+  ]},
   {path : 'loguearse', component: LoguearseComponent},
   {path : 'registrarse', component: RegistrarseComponent},
   {path : 'perfil', component: PerfilComponent, canActivate: [AuthGuard]},

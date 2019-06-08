@@ -34,28 +34,22 @@
                                                     <small *ngIf="formulario.get('apellidos').errors?.minlength && formulario.get('apellidos').touched" class="form-control-feedback">Por lo menos {{formulario.controls['apellidos'].errors?.minlength.requiredLength}} caracteres.</small>
                                                 </div>
                                             </div>
+                                            <div class="form-group col-12" [ngClass]="{'has-danger': !formulario.get('correo').valid && formulario.get('correo').touched}">
+                                                <input type="text" formControlName="correo" class="form-control" placeholder="Correo">
+                                                <div>
+                                                    <small *ngIf="formulario.get('correo').errors?.required && formulario.get('correo').touched" class="form-control-feedback">Este campo es requerido.</small>
+                                                    <small *ngIf="formulario.get('correo').errors?.minlength && formulario.get('correo').touched" class="form-control-feedback">Por lo menos {{formulario.controls['correo'].errors?.minlength.requiredLength}} caracteres.</small>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-12" [ngClass]="{'has-danger': !formulario.get('usuario').valid && formulario.get('usuario').touched}">
+                                                <input type="text" formControlName="usuario" class="form-control" placeholder="Usuario">
+                                                <div>
+                                                    <small *ngIf="formulario.get('usuario').errors?.required && formulario.get('usuario').touched" class="form-control-feedback">Este campo es requerido.</small>
+                                                    <small *ngIf="formulario.get('usuario').errors?.minlength && formulario.get('usuario').touched" class="form-control-feedback">Por lo menos {{formulario.controls['usuario'].errors?.minlength.requiredLength}} caracteres.</small>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-12 mb-3" *ngIf="!this.cambiarClave">
-                                <a (click)="this.cambiarClave = true">¿Desea cambiar la contraseña?</a>
-                            </div>
-                            <div class="col-12 mb-3" *ngIf="this.cambiarClave">
-                                <a (click)="this.cambiarClave = false">No cambiar contraseña</a>
-                            </div>
-                            <div *ngIf="this.cambiarClave" class="form-group col-12">
-                                <input type="password" formControlName="claveActual" class="form-control" placeholder="Contraseña actual">
-                                <div>
-                                    <small *ngIf="formulario.get('claveActual').errors?.required && formulario.get('claveActual').touched" class="form-control-feedback">Este campo es requerido.</small>
-                                    <small *ngIf="formulario.get('claveActual').errors?.minlength && formulario.get('claveActual').touched" class="form-control-feedback">Por lo menos {{formulario.controls['claveActual'].errors?.minlength.requiredLength}} caracteres.</small>
-                                </div>
-                            </div>
-                            <div *ngIf="this.cambiarClave" class="form-group col-12">
-                                <input type="password" formControlName="claveNueva" class="form-control" placeholder="Contraseña nueva">
-                                <div>
-                                    <small *ngIf="formulario.get('claveNueva').errors?.required && formulario.get('claveNueva').touched" class="form-control-feedback">Este campo es requerido.</small>
-                                    <small *ngIf="formulario.get('claveNueva').errors?.minlength && formulario.get('claveNueva').touched" class="form-control-feedback">Por lo menos {{formulario.controls['claveNueva'].errors?.minlength.requiredLength}} caracteres.</small>
                                 </div>
                             </div>
                         </div>
@@ -76,83 +70,13 @@
             <div class="col-12 col-lg-9">
                 <div class="following">
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
+                        <li class="list-group-item" *ngFor="let lugar of this.lugaresSeguidos; let i = index;">
                             <div class="row component-follower">
                                 <div class="col-8 col-sm-9">
-                                    <p><img src="assets/images/seguidos.jpg" alt="" class="img-responsiv img-fluid img-circle" />Lugar Turístico</p>
+                                    <p><img [src]="lugar.imagenes[0]" alt="lugar" class="img-responsiv img-fluid img-circle" />{{lugar.nombre}}</p>
                                 </div>
                                 <div class="col-4 col-sm-3 aling-right">
-                                    <button class="btn btn-outline-primary">Remover</button>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="row component-follower">
-                                <div class="col-8 col-sm-9">
-                                    <p><img src="assets/images/seguidos.jpg" alt="" class="img-responsiv img-fluid img-circle" />Lugar Turístico</p>
-                                </div>
-                                <div class="col-4 col-sm-3 aling-right">
-                                    <button class="btn btn-outline-primary">Remover</button>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="row component-follower">
-                                <div class="col-8 col-sm-9">
-                                    <p><img src="assets/images/seguidos.jpg" alt="" class="img-responsiv img-fluid img-circle" />Lugar Turístico</p>
-                                </div>
-                                <div class="col-4 col-sm-3 aling-right">
-                                    <button class="btn btn-outline-primary">Remover</button>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="row component-follower">
-                                <div class="col-8 col-sm-9">
-                                    <p><img src="assets/images/seguidos.jpg" alt="" class="img-responsiv img-fluid img-circle" />Lugar Turístico</p>
-                                </div>
-                                <div class="col-4 col-sm-3 aling-right">
-                                    <button class="btn btn-outline-primary">Remover</button>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="row component-follower">
-                                <div class="col-8 col-sm-9">
-                                    <p><img src="assets/images/seguidos.jpg" alt="" class="img-responsiv img-fluid img-circle" />Lugar Turístico</p>
-                                </div>
-                                <div class="col-4 col-sm-3 aling-right">
-                                    <button class="btn btn-outline-primary">Remover</button>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="row component-follower">
-                                <div class="col-8 col-sm-9">
-                                    <p><img src="assets/images/seguidos.jpg" alt="" class="img-responsiv img-fluid img-circle" />Lugar Turístico</p>
-                                </div>
-                                <div class="col-4 col-sm-3 aling-right">
-                                    <button class="btn btn-outline-primary">Remover</button>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="row component-follower">
-                                <div class="col-8 col-sm-9">
-                                    <p><img src="assets/images/seguidos.jpg" alt="" class="img-responsiv img-fluid img-circle" />Lugar Turístico</p>
-                                </div>
-                                <div class="col-4 col-sm-3 aling-right">
-                                    <button class="btn btn-outline-primary">Remover</button>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="row component-follower">
-                                <div class="col-8 col-sm-9">
-                                    <p><img src="assets/images/seguidos.jpg" alt="" class="img-responsiv img-fluid img-circle" />Lugar Turístico</p>
-                                </div>
-                                <div class="col-4 col-sm-3 aling-right">
-                                    <button class="btn btn-outline-primary">Remover</button>
+                                    <button class="btn btn-outline-danger" (click)="removerLugar(i)">Remover</button>
                                 </div>
                             </div>
                         </li>
@@ -170,48 +94,23 @@
             <div class="col-12 col-lg-9">
                 <div class="following">
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
+                        <li class="list-group-item" *ngFor="let resena of this.resenas; let i = index;">
                             <div class="row component-review">
                                 <div class="col-12 col-lg-3">
                                     <div class="row rating">
                                         <div class="col col-md-10 col-lg-12 order-2 order-lg-1 rating-heading">
-                                            <h6>Lugar turístico</h6>
+                                            <h6>{{this.lugaresDescripcion[i]}}</h6>
                                         </div>
-                                        <ngb-rating class="col-5 col-md-2 col-sm-3 col-lg-12 order-1 order-lg-2" [(rate)]="currentRate">
+                                        <ngb-rating class="col-5 col-md-2 col-sm-3 col-lg-12 order-1 order-lg-2" [(rate)]="resena.valoracion">
                                             <ng-template let-fill="fill" let-index="index">
                                                 <span class="star" [class.filled]="fill >= 100" [ngClass]="{'bad': currentRate <= 3}">&#9733;</span>
                                             </ng-template>
                                         </ngb-rating>
                                     </div>
-                                    <span>12 ene 2019</span>
+                                    <span>{{resena.fechaPublicacion | date: "dd/MM/yyyy hh:mm a"}}</span>
                                 </div>
                                 <div class="col-12 col-lg-9">
-                                    <h4>Encabezado de la reseña</h4>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent non velit ex. Nulla tempus tincidunt tempor. Cras ultrices felis sit amet turpis blandit egestas. Ut at leo efficitur, convallis arcu et, laoreet ex.
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi volutpat bibendum volutpat. </p>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li class="list-group-item">
-                            <div class="row component-review">
-                                <div class="col-12 col-lg-3">
-                                    <div class="row rating">
-                                        <div class="col col-md-10 col-lg-12 order-2 order-lg-1 rating-heading">
-                                            <h6>Lugar turístico</h6>
-                                        </div>
-                                        <ngb-rating class="col-5 col-md-2 col-sm-3 col-lg-12 order-1 order-lg-2" [rate]="1">
-                                            <ng-template let-fill="fill" let-index="index">
-                                                <span class="star" [class.filled]="fill === 100" [ngClass]="{'bad': '[rate]' < 3}">&#9733;</span>
-                                            </ng-template>
-                                        </ngb-rating>
-                                    </div>
-                                    <span>12 ene 2019</span>
-                                </div>
-                                <div class="col-12 col-lg-9">
-                                    <h4>Encabezado de la reseña</h4>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent non velit ex. Nulla tempus tincidunt tempor. Cras ultrices felis sit amet turpis blandit egestas. Ut at leo efficitur, convallis arcu et, laoreet ex.
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi volutpat bibendum volutpat. </p>
+                                    <p>{{resena.comentario}}</p>
                                 </div>
                             </div>
                         </li>
