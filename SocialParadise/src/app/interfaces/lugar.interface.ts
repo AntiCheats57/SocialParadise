@@ -7,6 +7,6 @@ export interface lugar {
     ubicacion: string;
     descripcion: string;
     seguidores: number[];
-    //resenas: number[];
     imagenes: string[];
+    horario: string;
 }

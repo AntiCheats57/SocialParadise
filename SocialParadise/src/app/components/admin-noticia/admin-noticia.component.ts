@@ -20,7 +20,7 @@ export class AdminNoticiaComponent implements OnInit {
 
   constructor(public service: NoticiasService) {
     this.noticias$ = service.noticias$;
-    this.total$ = service.total$;
+    this.total$ = service.total$;   
   }
 
   onSort({column, direction}: SortEvent) {
@@ -34,11 +34,6 @@ export class AdminNoticiaComponent implements OnInit {
   }
 
   ngOnInit() {
-  }
-
-  editar(object: noticia) {
-
-    
   }
 
 }

@@ -33,9 +33,13 @@ export class EdicionLugarComponent implements OnInit, OnDestroy {
                                     Validators.required,
                                     Validators.minLength(15)
                                   ]),
+      'horario': new FormControl('', [
+                                    Validators.required
+                                  ]),
       'video': new FormControl('', [
                                     Validators.required,
-                                    Validators.pattern("^http:\/\/(.*\.(com$|net$|org$))")
+                                    //Validators.pattern("^http:\/\/(.*\.(com$|net$|org$))")
+                                    Validators.pattern("https://www.youtube.com/embed/.$")
                                   ])
     });    
   }
@@ -50,7 +54,8 @@ export class EdicionLugarComponent implements OnInit, OnDestroy {
       nombre: "",
       seguidores: [],
       usuario: 0,
-      video: ""
+      video: "",
+      horario: ""
     }
     this.imagenes = []
     this.lugarId = this.route.snapshot.params['id'];
@@ -61,7 +66,8 @@ export class EdicionLugarComponent implements OnInit, OnDestroy {
         this.formulario.setValue({
             nombre: this.lugar.nombre,
             descripcion: this.lugar.descripcion,
-            video: this.lugar.video
+            video: this.lugar.video,
+            horario: this.lugar.horario
             }
           )
       }
@@ -94,6 +100,7 @@ export class EdicionLugarComponent implements OnInit, OnDestroy {
       this.lugar.nombre = this.formulario.get("nombre").value
       this.lugar.video = this.formulario.get("video").value
       this.lugar.descripcion = this.formulario.get("descripcion").value
+      this.lugar.horario = this.formulario.get("horario").value
       this.lugar.imagenes = []
       for(let x in this.imagenes){
         (<string[]> this.lugar.imagenes).push(this.imagenes[x])

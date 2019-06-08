@@ -15,7 +15,14 @@
                                 <label for="nombre" class="col-form-label">Nombre</label>
                                 <input type="text" formControlName="nombre" class="form-control" disabled>
                             </div>
-
+                            <div class="form-group col-12" [ngClass]="{'has-danger': !formulario.get('horario').valid && formulario.get('horario').touched}">
+                                <label for="horario" class="col-form-label">Horario</label>
+                                <input type="text" formControlName="horario" class="form-control">
+                                <div>
+                                    <small *ngIf="formulario.get('horario').errors?.required && formulario.get('horario').touched" class="form-control-feedback">Este campo es requerido.</small>
+                                    <small *ngIf="formulario.get('horario').errors?.pattern && formulario.get('horario').touched" class="form-control-feedback">El campo no tiene formato de URL</small>
+                                </div>
+                            </div>
                             <div class="form-group col-12" [ngClass]="{'has-danger': !formulario.get('video').valid && formulario.get('video').touched}">
                                 <label for="video" class="col-form-label">Video</label>
                                 <input type="text" formControlName="video" class="form-control">
@@ -83,10 +90,6 @@
                     </form>
                 </div>
             </div>
-            <!-- <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Send message</button>
-                    </div> -->
         </div>
     </div>
 </div>

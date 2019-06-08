@@ -4,9 +4,10 @@
             <div class="row feature">
                 <div class="col-md-5">
                     <h2 class="feature-heading">{{lugar.nombre}}</h2>
-                    <h3 class="feature-subheading">Seguidores <span><strong>{{lugar.seguidores? lugar.seguidores.length : 0}}</strong></span></h3>
+                    <h3 class="feature-subheading"><a [routerLink]="[ 'seguidores', this.lugar.id]">Seguidores <span><strong>{{lugar.seguidores? lugar.seguidores.length : 0}}</strong></span></a></h3>
                     <button type="button" *ngIf="!this.siguiendoLugar" (click)="modificarSeguimientoLugar()" class="btn btn-success mb-3">Seguir</button>
                     <button type="button" *ngIf="this.siguiendoLugar" (click)="modificarSeguimientoLugar()" class="btn btn-danger mb-3">Dejar de seguir</button>
+                    <p class="feature-description"><strong>Horario: {{lugar.horario}}</strong></p>
                     <p class="feature-description">{{lugar.descripcion}}</p>
                 </div>
                 <div class="col-md-7">

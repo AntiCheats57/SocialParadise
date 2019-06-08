@@ -140,10 +140,17 @@ export class EdicionNoticiaComponent implements OnInit, OnDestroy {
               title: 'Guardado correctamente',
               timer: 1500
             })
+            
             this.router.navigate(["/noticias"]) 
           })
         }) 
       }
+    }
+  }
+
+  eliminar(){
+    if(this.noticiaId && this.noticia){
+      this.datosService.eliminarElemento("noticias", this.noticia.idFB);
     }
   }
 

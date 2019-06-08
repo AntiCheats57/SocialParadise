@@ -46,9 +46,12 @@ import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestor
 import { AngularFireModule } from '@angular/fire';
 import { DatosService } from './services/datos/datos.service';
 import { UrlSegura } from './pipe/url/url-segura';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { ImagenService } from './services/imagen/imagen.service';
+import { SeguidoresComponent } from './components/seguidores/seguidores.component';
+import { RouterModule } from '@angular/router';
+import * as rutas from './app-routing.module'
 
 @NgModule({
   declarations: [
@@ -78,7 +81,8 @@ import { ImagenService } from './services/imagen/imagen.service';
     FilterPipe, 
     ErrorComponent,
     UrlSegura, 
-    RaizComponent
+    RaizComponent, 
+    SeguidoresComponent
   ],
   imports: [
     BrowserModule,

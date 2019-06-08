@@ -62,7 +62,12 @@ export class NoticiasService {
   constructor(private pipe: DecimalPipe, private datosService: DatosService) {
     this.noticiasItems = []
     this.datosService.obtenerColeccion("noticias").subscribe(datos => {
-      this.noticiasItems = datos
+      if(datos){
+        this.noticiasItems = datos
+      }
+      else{
+        this.noticiasItems = []
+      }
     });
 
     this._search$.pipe(
