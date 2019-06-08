@@ -1,4 +1,81 @@
 <div class="margin-nav">
+
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-12">
+                <h2>Registrarse</h2>
+            </div>
+        </div>
+        <div class="row text-center">
+
+            <div class="col-lg-6 social">
+                <div class="botones">
+                    <div>
+                        <app-btn-social (click)="registrarFacebook()" [imgUrl]="'assets/images/facebook.png'" [imgAlt]="'Facebook'" [text]="'Registrarse con Facebook'" [background]="'rgb(56, 24, 173)'" [textColor]="'rgb(255, 255, 255)'"></app-btn-social>
+                    </div>
+                    <div>
+                        <app-btn-social (click)="registrarGoogle()" [imgUrl]="'assets/images/google.png'" [imgAlt]="'Google'" [text]="'Registrarse con Google'" [background]="'rgb(255, 255, 255)'" [textColor]="'rgb(0, 0, 0)'"></app-btn-social>
+                    </div>
+                </div>
+                <div id="separator" class="text-center"></div>
+            </div>
+            <div class="col-lg-6 formulario">
+
+                <form class="row" [formGroup]="formulario" #f="ngForm" (ngSubmit)="f.form.valid && registrarEmail()">
+                    <div class="col-sm-6 form-group" [ngClass]="{'has-danger': !formulario.get('nombre').valid && formulario.get('nombre').touched}">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" formControlName="nombre" placeholder="Nombre">
+                        <div>
+                            <small *ngIf="formulario.get('nombre').errors?.required && formulario.get('nombre').touched" class="form-control-feedback">Este campo es requerido.</small>
+                            <small *ngIf="formulario.get('nombre').errors?.minlength && formulario.get('nombre').touched" class="form-control-feedback">Por lo menos {{formulario.controls['nombre'].errors?.minlength.requiredLength}} caracteres.</small>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 form-group" [ngClass]="{'has-danger': !formulario.get('apellidos').valid && formulario.get('apellidos').touched}">
+                        <label for="apellidos">Apellido(s)</label>
+                        <input type="text" class="form-control" id="apellidos" formControlName="apellidos" placeholder="Apellidos">
+                        <div>
+                            <small *ngIf="formulario.get('apellidos').errors?.required && formulario.get('apellidos').touched" class="form-control-feedback">Este campo es requerido.</small>
+                            <small *ngIf="formulario.get('apellidos').errors?.minlength && formulario.get('apellidos').touched" class="form-control-feedback">Por lo menos {{formulario.controls['apellidos'].errors?.minlength.requiredLength}} caracteres.</small>
+                        </div>
+                    </div>
+                    <div class="col-12 form-group" [ngClass]="{'has-danger': !formulario.get('usuario').valid && formulario.get('usuario').touched}">
+                        <label for="usuario">Usuario</label>
+                        <input type="text" class="form-control" id="usuario" formControlName="usuario" placeholder="Usuario">
+                        <div>
+                            <small *ngIf="formulario.get('usuario').errors?.required && formulario.get('usuario').touched" class="form-control-feedback">Este campo es requerido.</small>
+                            <small *ngIf="formulario.get('usuario').errors?.minlength && formulario.get('usuario').touched" class="form-control-feedback">Por lo menos {{formulario.controls['usuario'].errors?.minlength.requiredLength}} caracteres.</small>
+                        </div>
+                    </div>
+                    <div class="col-12 form-group" [ngClass]="{'has-danger': !formulario.get('clave').valid && formulario.get('clave').touched}">
+                        <label for="clave">Contraseña</label>
+                        <input type="password" class="form-control" id="clave" formControlName="clave" placeholder="Contraseña">
+                        <div>
+                            <small *ngIf="formulario.get('clave').errors?.required && formulario.get('clave').touched" class="form-control-feedback">Este campo es requerido.</small>
+                            <small *ngIf="formulario.get('clave').errors?.minlength && formulario.get('clave').touched" class="form-control-feedback">Por lo menos {{formulario.controls['clave'].errors?.minlength.requiredLength}} caracteres.</small>
+                        </div>
+                    </div>
+                    <div class="col-12 form-group" [ngClass]="{'has-danger': !formulario.get('email').valid && formulario.get('email').touched}">
+                        <label for="email">Correo electrónico</label>
+                        <input type="email" class="form-control" id="email" formControlName="email" placeholder="Correo electrónico">
+                        <div>
+                            <div>
+                                <small *ngIf="formulario.get('email').errors?.required && formulario.get('email').touched" class="form-control-feedback">Este campo es requerido.</small>
+                                <small *ngIf="formulario.get('email').errors?.pattern && formulario.get('email').touched" class="form-control-feedback">El campo no tiene formato de correo</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 btn-registro">
+                        <button type="submit" class="btn btn-primary" (click)="validar()">Registrarse</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<!-- <div class="margin-nav">
     <div id="signin-container">
         <div class="row">
             <div class="col-md-12">
@@ -68,4 +145,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->

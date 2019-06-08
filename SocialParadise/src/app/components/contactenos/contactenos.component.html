@@ -10,7 +10,6 @@
     <form [formGroup]="formulario" #f="ngForm" (ngSubmit)="f.form.valid && enviar()">
         <div>
             <div class="row">
-
                 <div class="form-group col-md-6" [ngClass]="{'has-danger': !formulario.get('nombre').valid && formulario.get('nombre').touched}">
                     <input type="text" formControlName="nombre" class="form-control" placeholder="Nombre">
                     <div>
@@ -41,7 +40,7 @@
         </div>
 
         <div class="text-right">
-            <button type="submit" class="btn">Enviar</button>
+            <button type="submit" class="btn" (click)="validar()">Enviar</button>
         </div>
 
     </form>

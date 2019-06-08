@@ -5,7 +5,6 @@ import { LocalDataService } from 'src/app/services/local-data/local-data.service
 import { DatosService } from 'src/app/services/datos/datos.service';
 import { resena } from 'src/app/interfaces/resena.interface';
 import { formatDate } from '@angular/common';
-import Swal from 'sweetalert2';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -18,7 +17,7 @@ import { ActivatedRoute } from '@angular/router';
 export class ComentarioComponent implements OnInit {
 
   lugarId: number;
-  currentRate = 3;
+  currentRate = 0;
   usuario: any;
   resena: resena;
 

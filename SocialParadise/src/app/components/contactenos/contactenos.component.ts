@@ -1,5 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
+import { FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-contactenos',
@@ -8,6 +9,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 
 export class ContactenosComponent implements OnInit {
+  @ViewChild('f') form:NgForm;
   formulario: FormGroup;
 
   constructor() {
@@ -32,6 +34,28 @@ export class ContactenosComponent implements OnInit {
 
   enviar() {
     this.formulario.reset();
+    Swal.fire({
+      type: 'success',
+      title: 'Mensaje enviado',
+      showConfirmButton: false,
+      timer: 1500
+    })
+  }
+
+  validar() {
+    this.markFormGroupTouched(this.formulario);
+    this.form.ngSubmit.emit();
+    
+  }
+
+  private markFormGroupTouched(formGroup: FormGroup) {
+    (<any>Object).values(formGroup.controls).forEach(control => {
+      control.markAsTouched();
+
+      if (control.controls) {
+        this.markFormGroupTouched(control);
+      }
+    });
   }
 
 }

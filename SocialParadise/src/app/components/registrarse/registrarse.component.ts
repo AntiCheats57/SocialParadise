@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { usuario } from 'src/app/interfaces/usuario.interface';
 import { LocalDataService } from 'src/app/services/local-data/local-data.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { DatosService } from 'src/app/services/datos/datos.service';
+import { text } from '@angular/core/src/render3';
 
 @Component({
   selector: 'app-registrarse',
@@ -34,7 +35,7 @@ export class RegistrarseComponent implements OnInit {
                                   ]),                           
       'clave': new FormControl('', [
                                     Validators.required,
-                                    Validators.minLength(4)
+                                    Validators.minLength(6)
                                   ]),
       'email': new FormControl('', [
                                     Validators.required,
@@ -44,7 +45,7 @@ export class RegistrarseComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.formulario.setValue({nombre: "", apellidos: "", usuario: "", clave: "", email: "@.com" });
+    this.formulario.setValue({nombre: "", apellidos: "", usuario: "", clave: "", email: "" });
     this.usuario = {
       id : -1,
       idFB : "",
@@ -62,6 +63,7 @@ export class RegistrarseComponent implements OnInit {
   }
 
   registrarEmail(): void {
+    this.auth.logout();
     this.usuario.nombre = this.formulario.controls['nombre'].value;
     this.usuario.apellidos = this.formulario.controls['apellidos'].value;
     this.usuario.usuario = this.formulario.controls['usuario'].value;
@@ -87,8 +89,8 @@ export class RegistrarseComponent implements OnInit {
           Swal.fire({
             type: 'error',
             title: 'Error al registrarse',
-            timer: 1500
-          })      
+            text: this.error(error)
+          })                
         }).then(()=>{
           this.auth.almacenarUsuarioLocalStorage(this.usuario.idFB)
         })
@@ -99,8 +101,9 @@ export class RegistrarseComponent implements OnInit {
       Swal.fire({
           type: 'error',
           title: 'Error al registrarse',
-          text: err.message
+          text: this.error(err)
         });
+        console.log(err);
     });
   }
 
@@ -121,7 +124,7 @@ export class RegistrarseComponent implements OnInit {
           Swal.fire({
             type: 'error',
             title: 'Error al registrarse',
-            timer: 1500
+            text: this.error(error)
           })      
         }).then(()=>{
           this.auth.almacenarUsuarioLocalStorage(this.usuario.idFB)
@@ -129,7 +132,7 @@ export class RegistrarseComponent implements OnInit {
       }) 
       Swal.close();
       this.router.navigateByUrl('');
-    }).catch ( err => console.log(err));
+    }).catch ( err => err);
   }
 
   registrarFacebook() {
@@ -149,7 +152,7 @@ export class RegistrarseComponent implements OnInit {
           Swal.fire({
             type: 'error',
             title: 'Error al registrarse',
-            timer: 1500
+            text: this.error(error)
           })      
         }).then(()=>{
           this.auth.almacenarUsuarioLocalStorage(this.usuario.idFB)
@@ -157,7 +160,31 @@ export class RegistrarseComponent implements OnInit {
       }) 
       Swal.close();
       this.router.navigateByUrl('');   
-    }).catch ( err => console.log(err));
+    }).catch ( err => err);
   }
 
+  validar() {
+    this.markFormGroupTouched(this.formulario);
+  }
+
+  private markFormGroupTouched(formGroup: FormGroup) {
+    (<any>Object).values(formGroup.controls).forEach(control => {
+      control.markAsTouched();
+
+      if (control.controls) {
+        this.markFormGroupTouched(control);
+      }
+    });
+  }
+
+  error(err: any) {
+    switch (err.code) {
+      case 'auth/email-already-in-use':
+        return 'El correo electrónico ya es usado por otra cuenta';
+        case 'auth/weak-password':
+        return 'La contraseña debe tener al menos 6 caracteres';
+      default:
+        return err.message;
+    }
+  }
 }

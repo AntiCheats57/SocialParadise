@@ -34,7 +34,7 @@
                         <div class="row rating col-md-12">
                             <ngb-rating class="col-12 order-1 order-lg-2" [rate]="valoracionGeneral">
                                 <ng-template let-fill="fill" let-index="index">
-                                    <span class="star" [class.filled]="fill === 100" [class.bad]="4 <= 3">&#9733;</span>
+                                    <span class="star" [class.filled]="fill === 100" [class.bad]="valoracionGeneral <= 3">&#9733;</span>
                                 </ng-template>
                             </ngb-rating>
                         </div>
@@ -49,23 +49,68 @@
                         <div class="following">
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item" *ngFor="let resena of resenas">
-                                    <div class="row component-review">
+                                    <div class="row component-review" [ngClass]="{'censurar': censurar}">
                                         <div class="col-12 col-lg-3">
-                                            <div class="row rating">
-                                                <div class="col-8 col-sm-9">
-                                                    <img [src]="getAtributoUsuario(resena.usuario.toString(), 'foto')" alt="" class="img-responsiv img-fluid img-circle" width="150" />
+                                            <div class="row rating text-center">
+                                                <div class="col-12 text-left imagen">
+                                                    <img [src]="getAtributoUsuario(resena.usuario.toString(), 'foto')" alt="" class="img-responsiv img-fluid img-circle" width="150" height="150" />
                                                 </div>
-                                                <ngb-rating class="col-12 order-1 order-lg-2" [rate]="resena.valoracion">
+                                                <ngb-rating class="col-12 order-1 order-lg-2 estrellas" [rate]="resena.valoracion">
                                                     <ng-template let-fill="fill" let-index="index">
-                                                        <span class="star" [class.filled]="fill === 100" [ngClass]="{'bad': 2 <= 3}">&#9733;</span>
+                                                        <span class="star" [class.filled]="fill === 100" [ngClass]="{'bad': resena.valoracion <= 3}">&#9733;</span>
                                                     </ng-template>
                                                 </ngb-rating>
                                             </div>
                                             <span>{{resena.fechaPublicacion | date: "dd/MM/yyyy hh:mm a"}}</span>
                                         </div>
-                                        <div class="col-12 col-lg-9">
+                                        <div class="col-12 col-lg-9 contenido">
                                             <h4>{{getAtributoUsuario(resena.usuario.toString(), 'nombre')}}</h4>
                                             <p>{{resena.comentario}}</p>
+                                            <button type="button" class="btn btn-light" data-toggle="modal" [attr.data-target]="'#modal'+resena.id">Responder</button>
+                                            <button type="button" class="btn-censura">{{ censurar ? "Aprobar" : "Censurar"}}</button>
+                                        </div>
+                                    </div>
+                                    <div class="modal fade" [attr.id]="'modal'+resena.id" tabindex="-1" role="dialog" aria-labelledby="comentarioModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="comentarioModalLabel">RESPONDER AL COMENTARIO</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                      </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="row component-review">
+                                                        <div class="col-12 col-lg-3">
+                                                            <div class="row rating text-center">
+                                                                <div class="col-12 text-left imagen">
+                                                                    <img [src]="getAtributoUsuario(resena.usuario.toString(), 'foto')" alt="" class="img-responsiv img-fluid img-circle" width="150" height="150" />
+                                                                </div>
+                                                                <ngb-rating class="col-12 order-1 order-lg-2 estrellas" [rate]="resena.valoracion">
+                                                                    <ng-template let-fill="fill" let-index="index">
+                                                                        <span class="star" [class.filled]="fill === 100" [ngClass]="{'bad': resena.valoracion <= 3}">&#9733;</span>
+                                                                    </ng-template>
+                                                                </ngb-rating>
+                                                            </div>
+                                                            <span>{{resena.fechaPublicacion | date: "dd/MM/yyyy hh:mm a"}}</span>
+                                                        </div>
+                                                        <div class="col-12 col-lg-9 contenido">
+                                                            <h4>{{getAtributoUsuario(resena.usuario.toString(), 'nombre')}}</h4>
+                                                            <p>{{resena.comentario}}</p>
+                                                        </div>
+                                                    </div>
+                                                    <form>
+                                                        <div class="form-group">
+                                                            <label for="comentario" class="col-form-label">Comentar:</label>
+                                                            <textarea class="form-control" id="comentario"></textarea>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-light" data-dismiss="modal">Cerrar</button>
+                                                    <button type="button" class="btn btn-primary">Publicar comentario</button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </li>
@@ -76,4 +121,6 @@
             </div>
         </div>
     </div>
+
+
 </section>

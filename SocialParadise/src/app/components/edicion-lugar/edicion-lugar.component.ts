@@ -163,4 +163,10 @@ export class EdicionLugarComponent implements OnInit, OnDestroy {
       this.imagen.imagenesSubidas = [];
     }
   }
+
+  cerrarVisor() {
+    $(document).ready(function() {
+      $("#image-gallery").modal("hide");
+    });
+  }
 }

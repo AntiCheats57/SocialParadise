@@ -33,7 +33,7 @@ export class LugarTuristicoComponent implements OnInit, OnDestroy {
   siguiendoLugar: boolean;
   lugar : any;
   resenas : resena[];
-
+  censurar: boolean;
 
   constructor(public auth : AuthService, config: NgbRatingConfig, private localStorage : LocalDataService, private datosService : DatosService, private rutaActual: ActivatedRoute, private router: Router) {
     config.max = 5;
@@ -41,6 +41,7 @@ export class LugarTuristicoComponent implements OnInit, OnDestroy {
     this.refrescar = true;
     this.siguiendoLugar = false
     this.lugarId = parseInt(this.rutaActual.snapshot.paramMap.get("id"));
+    this.censurar = false;
   }
 
   ngOnInit() {

@@ -1,9 +1,3 @@
-a {
-    display: inline-block;
-    text-decoration: none;
-    font-weight: 400;
-}
-
 h2 {
     text-align: center;
     font-size: 1.5rem;
@@ -11,7 +5,7 @@ h2 {
     display: inline-block;
     color: #196F3D;
     margin-top: 1rem;
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
 }
 
 #login-container {
@@ -22,39 +16,29 @@ h2 {
     padding-right: 20px;
 }
 
+.btn {
+    margin: 1.5rem 0;
+}
+
 #separator {
     border-bottom: 2px solid #ccc;
     width: 100%;
-    height: 2px;
-    margin-left: 5px;
-    margin-right: 5px;
+    margin: 2rem 0;
 }
 
-input[type=file] {
-    display: none;
-}
-
-button[type="submit"] {
-    margin-top: 1rem;
-}
-
-@media (max-width: 768px) {
-    form {
-        padding-right: 10px;
-        padding-left: 10px;
+@media (min-width: 992px) {
+    .container {
+        max-width: 720px;
+    }
+    .boton {
+        padding: 0 5rem;
+        margin: .2rem 0;
     }
 }
 
-#error {
-    font-size: 14px;
-    color: red;
-}
-
-small {
-    position: absolute;
-    left: 0;
-    right: 0;
-    padding-left: 0.5rem;
-    font-weight: bold;
-    color: #d9534f;
+@media (min-width: 768px) {
+    form {
+        padding-left: 4rem;
+        padding-right: 4rem;
+    }
 }
