@@ -91,6 +91,7 @@ export class RegistrarseComponent implements OnInit {
         else{
           this.usuario.id = 0
         }          
+        this.usuario.foto = 'https://firebasestorage.googleapis.com/v0/b/socialparadiseuna.appspot.com/o/uploads%2F9u8dmhw1bjl-70039.png?alt=media&token=948326f6-1857-402f-af75-7d6ecb676491'
         this.datosService.insertarElemento("usuarios", this.usuario, false).catch(error => {
           Swal.fire({
             type: 'error',

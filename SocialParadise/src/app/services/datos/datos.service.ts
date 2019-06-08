@@ -37,7 +37,7 @@ export class DatosService {
     return this.firestore.collection(coleccion, ref => ref.orderBy("id", "desc").limit(1)).get().toPromise();
   }
 
-  obtenerColeccionCondicion(coleccion : string, campoCondicion : string,valorCondicion: any) {
+  obtenerColeccionCondicion(coleccion : string, campoCondicion : string, valorCondicion: any) {
     return this.firestore.collection(coleccion, ref => ref.where(campoCondicion, '==', valorCondicion)).valueChanges() as Observable<any>;
   }
 

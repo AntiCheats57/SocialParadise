@@ -66,9 +66,10 @@ export class LugarTuristicoComponent implements OnInit, OnDestroy {
                 }
               }
             }
-            this.suscResena = this.datosService.obtenerColeccionCondicion("resenas", "lugar", this.lugar.id).subscribe(elementos => {
+            this.suscResena = this.datosService.obtenerColeccionCondicion("resenas", "lugar", parseInt(this.lugar.id)).subscribe(elementos => {
               this.resenasTemp = elementos;
               this.resenas = []
+              this.usuarios = []     
               if(this.resenasTemp != undefined){                
                 this.valoracionGeneral = 0;
                 var cantidadResenas = 0;
@@ -79,10 +80,9 @@ export class LugarTuristicoComponent implements OnInit, OnDestroy {
                   if(r.lugar === this.lugar.id){
                     this.resenas.push(r)
                     this.valoracionGeneral = this.valoracionGeneral + r.valoracion;
-                    cantidadResenas++;     
-                    this.usuarios = []             
+                    cantidadResenas++;             
                     this.suscUsuario = this.datosService.obtenerElementoId("usuarios", r.usuario.toString()).subscribe(usu => {
-                      if(datos != undefined){
+                      if(usu != undefined){
                         this.usuarios.push({
                           nombre: (<usuario> usu[0]).nombre + " " + (<usuario> usu[0]).apellidos, 
                           id: (<usuario> usu[0]).id,

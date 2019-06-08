@@ -13,7 +13,7 @@
 <ngb-carousel *ngIf="esTipoElemento('lugar')">
     <ng-template ngbSlide *ngFor="let imagen of lugar.imagenes">
         <div class="img-slider">
-            <img [src]="imagen" [alt]="'Imagen lugar' + lugar.nombre">
+            <img [src]="imagen" [alt]="'Imagen lugar ' + lugar.nombre">
         </div>
     </ng-template>
 </ngb-carousel>

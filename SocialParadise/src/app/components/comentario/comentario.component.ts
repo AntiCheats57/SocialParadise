@@ -60,11 +60,20 @@ export class ComentarioComponent implements OnInit {
   }
 
   agregarComentario(){
-    this.resena.fechaPublicacion = formatDate(Date.now(), "MM/dd/yyyy hh:mm a", "en-US");
-    this.resena.usuario = this.usuario["id"];
-    this.resena.valoracion = this.currentRate;
-    this.resena.lugar = this.lugarId;
-    this.datosService.insertarElemento("resenas", this.resena, true)
+    this.datosService.obtenerUltimoId("resenas").then(datos => {
+      if(datos != undefined && datos.docs[0] != undefined){
+        this.resena.id = (<resena> datos.docs[0].data()).id + 1
+      }
+      else{
+        this.resena.id = 0
+      }          
+      this.resena.fechaPublicacion = formatDate(Date.now(), "MM/dd/yyyy hh:mm a", "en-US");
+      this.resena.usuario = this.usuario["id"];
+      this.resena.valoracion = this.currentRate;
+      this.resena.lugar = this.lugarId;
+      this.datosService.insertarElemento("resenas", this.resena, true)
+      this.resena.comentario = "";
+    }) 
   }
 
 }
