@@ -15,37 +15,34 @@ import { AdminLugarComponent } from 'src/app/components/admin-lugar/admin-lugar.
 import { AdminEditorComponent } from 'src/app/components/admin-editor/admin-editor.component';
 import { AsignarLugarComponent } from 'src/app/components/asignar-lugar/asignar-lugar.component';
 import { ErrorComponent } from 'src/app/components/error/error.component';
-import { RaizComponent } from 'src/app/components/raiz/raiz.component';
 
 import { AuthGuard } from 'src/app/guards/auth/auth.guard';
 import { RoleGuard } from 'src/app/guards/role/role.guard';
 import { SeguidoresComponent } from './components/seguidores/seguidores.component';
 
 const routes: Routes = [
-  {path : '', component: RaizComponent, children: [
-    {path : '', component: InicioComponent},
-    {path : 'nosotros', component: NosotrosComponent},
-    {path : 'servicios', component: ServiciosComponent},
-    {path : 'contactenos', component: ContactenosComponent},
-    {path : 'lugar/:id', component: LugarTuristicoComponent, children: [
-      {path : 'seguidores/:id', component: SeguidoresComponent}
-    ]},
-    {path : 'loguearse', component: LoguearseComponent},
-    {path : 'registrarse', component: RegistrarseComponent},
-    {path : 'perfil', component: PerfilComponent, canActivate: [AuthGuard]},
-    {path : 'noticias', component: AdminNoticiaComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}, children: [
-      {path : 'nuevo', component: EdicionNoticiaComponent},
-      {path : 'editar/:id', component: EdicionNoticiaComponent}
-    ]},
-    {path : 'asignacionLugares', component: AdminLugarComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}, children: [
-      {path : 'nuevo', component: AsignarLugarComponent},
-      {path : 'editar/:id', component: AsignarLugarComponent}
-    ]},
-    {path : 'lugares', component: AdminEditorComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'editor'}, children: [
-      {path : 'editar/:id', component: EdicionLugarComponent}
-    ]},
+  {path : '', component: InicioComponent},
+  {path : 'nosotros', component: NosotrosComponent},
+  {path : 'servicios', component: ServiciosComponent},
+  {path : 'contactenos', component: ContactenosComponent},
+  {path : 'lugar/:id', component: LugarTuristicoComponent, children: [
+    {path : 'seguidores/:id', component: SeguidoresComponent}
   ]},
-  {path : '**', component: ErrorComponent}
+  {path : 'loguearse', component: LoguearseComponent},
+  {path : 'registrarse', component: RegistrarseComponent},
+  {path : 'perfil', component: PerfilComponent, canActivate: [AuthGuard]},
+  {path : 'noticias', component: AdminNoticiaComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}, children: [
+    {path : 'nuevo', component: EdicionNoticiaComponent},
+    {path : 'editar/:id', component: EdicionNoticiaComponent}
+  ]},
+  {path : 'asignacionLugares', component: AdminLugarComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}, children: [
+    {path : 'nuevo', component: AsignarLugarComponent},
+    {path : 'editar/:id', component: AsignarLugarComponent}
+  ]},
+  {path : 'lugares', component: AdminEditorComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'editor'}, children: [
+    {path : 'editar/:id', component: EdicionLugarComponent}
+  ]},
+{path : '**', component: ErrorComponent}
 ];
 
 @NgModule({

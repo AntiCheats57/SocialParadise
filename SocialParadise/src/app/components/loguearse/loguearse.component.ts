@@ -11,8 +11,8 @@ import Swal from 'sweetalert2';
 
 export class LoguearseComponent implements OnInit {
   
-  correo: string;
-  clave : string;
+  correo: string = '';
+  clave : string = '';
   refrescar: boolean;
 
   constructor(private auth: AuthService, private router:Router) { 
@@ -28,7 +28,7 @@ export class LoguearseComponent implements OnInit {
         this.auth.almacenarUsuarioLocalStorage(<string> res["user"]["uid"]);
       }
       this.router.navigateByUrl('');
-    }).catch ( err => console.log(err));
+    }).catch ( err => err);
   }
 
   loginFacebook() {
@@ -37,7 +37,7 @@ export class LoguearseComponent implements OnInit {
         this.auth.almacenarUsuarioLocalStorage(<string> res["user"]["uid"]);
       }
       this.router.navigateByUrl('');
-    }).catch ( err => console.log(err));
+    }).catch ( err => err);
   }
 
   loginEmail() {
@@ -54,12 +54,26 @@ export class LoguearseComponent implements OnInit {
       }     
       this.router.navigateByUrl('');
     }).catch ( err => {
+      this.clave = '';
       Swal.fire({
         type: 'error',
         title: 'Error al autenticar',
-        text: err.message
+        text: this.error(err)
       });
     });
+  }
+
+  error(err: any) {
+    switch (err.code) {
+      case 'auth/wrong-password':
+      case 'auth/user-not-found':
+      case 'auth/argument-error':
+        return 'Correo electrónico y/o contraseña no válidos';
+      case 'auth/invalid-email':
+        return 'Ingrese un correo electrónico válido';
+      default:
+        return err.message;
+    }
   }
 
 }

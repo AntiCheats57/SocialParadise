@@ -117,7 +117,7 @@ export class EdicionNoticiaComponent implements OnInit, OnDestroy {
             type: 'success',
             title: 'Guardado correctamente'
           });
-          this.router.navigate(["/noticias"])
+          this.router.navigate(["/noticias"]);
         });
       }
       else{
@@ -170,5 +170,11 @@ export class EdicionNoticiaComponent implements OnInit, OnDestroy {
     if(this.imagen && this.imagen.imagenesSubidas){
       this.imagen.imagenesSubidas = [];
     }
+  }
+
+  cerrarVisor() {
+    $(document).ready(function() {
+      $("#noticiaModal").modal("hide");
+    });
   }
 }

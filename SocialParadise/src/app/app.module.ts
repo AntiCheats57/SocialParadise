@@ -28,7 +28,6 @@ import { AdminLugarComponent } from 'src/app/components/admin-lugar/admin-lugar.
 import { AdminEditorComponent } from 'src/app/components/admin-editor/admin-editor.component';
 import { AsignarLugarComponent } from 'src/app/components/asignar-lugar/asignar-lugar.component';
 import { ComentarioComponent } from 'src/app/components/comentario/comentario.component';
-import { RaizComponent } from 'src/app/components/raiz/raiz.component';
 import { ErrorComponent } from 'src/app/components/error/error.component';
 import { FilterPipe} from 'src/app/pipe/filter/filter.pipe';
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -80,8 +79,7 @@ import * as rutas from './app-routing.module'
     ComentarioComponent, 
     FilterPipe, 
     ErrorComponent,
-    UrlSegura, 
-    RaizComponent, 
+    UrlSegura,
     SeguidoresComponent
   ],
   imports: [
