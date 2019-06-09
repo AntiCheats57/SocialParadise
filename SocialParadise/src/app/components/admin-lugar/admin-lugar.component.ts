@@ -30,8 +30,8 @@ export class AdminLugarComponent implements OnInit {
         header.direction = '';
       }
     });
-    this.service.sortColumn = column;
-    this.service.sortDirection = direction;
+    this.service.ordenarColumna = column;
+    this.service.ordenarDireccion = direction;
   }
 
   asignado(objeto: any) {
@@ -42,10 +42,11 @@ export class AdminLugarComponent implements OnInit {
     }
   }
 
-  usuario(usuario: usuario) {
-    if(usuario) {
-      return usuario.correo;
-    } else {
+  usuario(lugar: lugar) {
+    if (lugar.usuario) {
+      return "";
+    } 
+    else {
       return "";
     }
   }

@@ -6,6 +6,7 @@ import { DatosService } from 'src/app/services/datos/datos.service';
 import { resena } from 'src/app/interfaces/resena.interface';
 import { formatDate } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-comentario',
@@ -17,7 +18,7 @@ import { ActivatedRoute } from '@angular/router';
 export class ComentarioComponent implements OnInit {
 
   lugarId: number;
-  currentRate = 0;
+  currentRate = 3;
   usuario: any;
   resena: resena;
 
@@ -59,20 +60,30 @@ export class ComentarioComponent implements OnInit {
   }
 
   agregarComentario(){
-    this.datosService.obtenerUltimoId("resenas").then(datos => {
-      if(datos != undefined && datos.docs[0] != undefined){
-        this.resena.id = (<resena> datos.docs[0].data()).id + 1
-      }
-      else{
-        this.resena.id = 0
-      }          
-      this.resena.fechaPublicacion = formatDate(Date.now(), "MM/dd/yyyy hh:mm a", "en-US");
-      this.resena.usuario = this.usuario["id"];
-      this.resena.valoracion = this.currentRate;
-      this.resena.lugar = this.lugarId;
-      this.datosService.insertarElemento("resenas", this.resena, true)
-      this.resena.comentario = "";
-    }) 
+
+    if(this.resena.comentario == "") {
+      Swal.fire({
+        type: 'info',
+        title: 'Comentario',
+        text: 'El comentario no puede ir vacío'
+      })
+    } else {
+      this.datosService.obtenerUltimoId("resenas").then(datos => {
+        if(datos != undefined && datos.docs[0] != undefined){
+          this.resena.id = (<resena> datos.docs[0].data()).id + 1
+        }
+        else{
+          this.resena.id = 0
+        }          
+        this.resena.fechaPublicacion = formatDate(Date.now(), "MM/dd/yyyy hh:mm a", "en-US");
+        this.resena.usuario = this.usuario["id"];
+        this.resena.valoracion = this.currentRate;
+        this.resena.lugar = this.lugarId;
+        this.datosService.insertarElemento("resenas", this.resena, true)
+        this.resena.comentario = "";
+      }) 
+    }
+    
   }
 
 }

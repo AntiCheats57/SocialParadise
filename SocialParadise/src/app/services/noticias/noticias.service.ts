@@ -37,9 +37,9 @@ function ordenar(noticias: noticia[], columna: string, tipoOrden: string): notic
 }
 
 function encontrar(noticia: noticia, termino: string, pipe: PipeTransform) {
-  return noticia.titulo.toLowerCase().includes(termino)
-        || noticia.contenido.toLowerCase().includes(termino)
-        || noticia.fechaCreacion.toLowerCase().includes(termino);
+  return noticia.titulo.toLowerCase().includes(termino.toLowerCase())
+        || noticia.contenido.toLowerCase().includes(termino.toLowerCase())
+        || noticia.fechaCreacion.toLowerCase().includes(termino.toLowerCase());
 }
 
 @Injectable({providedIn: 'root'})

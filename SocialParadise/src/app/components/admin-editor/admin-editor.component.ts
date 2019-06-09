@@ -29,8 +29,8 @@ export class AdminEditorComponent implements OnInit {
         header.direction = '';
       }
     });
-    this.service.sortColumn = column;
-    this.service.sortDirection = direction;
+    this.service.ordenarColumna = column;
+    this.service.ordenarDireccion = direction;
   }
 
   ngOnInit() {

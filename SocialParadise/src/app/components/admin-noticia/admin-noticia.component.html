@@ -2,7 +2,7 @@
     <h1 class="text-center">LISTA DE NOTICIAS</h1>
     <form>
         <div class="form-group form-inline">
-            <input class="form-control ml-2" type="text" name="buscarTermino" placeholder="Buscar" [(ngModel)]="service.buscarTermino" />
+            <input class="form-control ml-2" type="text" name="buscarTermino" placeholder="Buscar" autocomplete="off" [(ngModel)]="service.buscarTermino" />
             <span class="ml-3 loading" *ngIf="service.cargando$ | async">Cargando...</span>
         </div>
         <table class="table table-striped">

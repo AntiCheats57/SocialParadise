@@ -2,112 +2,115 @@ import { Injectable, PipeTransform } from '@angular/core';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { lugar } from 'src/app/interfaces/lugar.interface';
 import { DecimalPipe } from '@angular/common';
-import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
+import { debounceTime , delay, switchMap, tap } from 'rxjs/operators';
 import { SortDirection } from 'src/app/directives/sortable.directive';
-import { DatosService } from '../datos/datos.service';
-import { AuthService } from '../auth/auth.service';
-import { LocalDataService } from '../local-data/local-data.service';
+import { DatosService } from 'src/app/services/datos/datos.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { LocalDataService } from 'src/app/services/local-data/local-data.service';
 
 interface SearchResult {
-  lugaresSorted: lugar[];
+  lugares: lugar[];
   total: number;
 }
 
-interface State {
-  page: number;
-  pageSize: number;
-  searchTerm: string;
-  sortColumn: string;
-  sortDirection: SortDirection;
+interface Estado {
+  pagina: number;
+  tamanoPagina: number;
+  buscarTermino: string;
+  ordenarColumna: string;
+  ordenarDireccion: SortDirection;
 }
 
-function compare(v1, v2) {
+function comparar(v1, v2) {
   return v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
 }
 
-function sort(lugares: lugar[], column: string, direction: string): lugar[] {
-  if (direction === '') {
+function ordenar(lugares: lugar[], columna: string, tipoOrden: string): lugar[] {
+  if (tipoOrden === '') {
     return lugares;
   } else {
     return [...lugares].sort((a, b) => {
-      const res = compare(a[column], b[column]);
-      return direction === 'asc' ? res : -res;
+      const res = comparar(a[columna], b[columna]);
+      return tipoOrden === 'asc' ? res : -res;
     });
   }
 }
 
-function matches(lugares: lugar, term: string, pipe: PipeTransform) {
-  return lugares.nombre.toLowerCase().includes(term)
-    || lugares.descripcion.toLowerCase().includes(term);
+function encontrar(lugar: lugar, termino: string, pipe: PipeTransform) {
+  return lugar.nombre.toLowerCase().includes(termino.toLowerCase())
+        || lugar.descripcion.toLowerCase().includes(termino.toLowerCase());
 }
 
 @Injectable({providedIn: 'root'})
 export class EditorService {
-  private _loading$ = new BehaviorSubject<boolean>(true);
-  private _search$ = new Subject<void>();
+  private _cargando$ = new BehaviorSubject<boolean>(true);
+  private _buscar$ = new Subject<void>();
   private _lugares$ = new BehaviorSubject<lugar[]>([]);
   private _total$ = new BehaviorSubject<number>(0);
+  private lugaresItems: lugar[] = [];
 
-  private _state: State = {
-    page: 1,
-    pageSize: 8,
-    searchTerm: '',
-    sortColumn: '',
-    sortDirection: ''
+  private _estado: Estado = {
+    pagina: 1,
+    tamanoPagina: 4,
+    buscarTermino: '',
+    ordenarColumna: '',
+    ordenarDireccion: ''
   };
-
-  private lugaresItems: lugar[];
 
   constructor(private pipe: DecimalPipe, private datosService: DatosService, private auth : AuthService, private localStorage : LocalDataService) {
     this.lugaresItems = []
     if(this.auth.estaAutentificado()){
-      var usuarioId = this.localStorage.obtenerUsuarioActual().id
-      this.datosService.obtenerColeccionCondicion("lugares", "usuario", usuarioId).subscribe(datos => {
-        this.lugaresItems = datos
-      });
-    }
-
-    this._search$.pipe(
-      tap(() => this._loading$.next(true)),
-      debounceTime(200),
-      switchMap(() => this._search()),
-      delay(200),
-      tap(() => this._loading$.next(false))
-    ).subscribe(result => {
-      this._lugares$.next(result.lugaresSorted);
-      this._total$.next(result.total);
-    });
-
-    this._search$.next();
+        var usuarioId = this.localStorage.obtenerUsuarioActual().id
+        this.datosService.obtenerColeccionCondicion("lugares", "usuario", usuarioId).subscribe(datos => {
+          if(datos){
+            this.lugaresItems = datos;
+            this._buscar$.pipe(
+              tap(() => this._cargando$.next(true)),
+              debounceTime(200),
+              switchMap(() => this._buscar()),
+              delay(200),
+              tap(() => this._cargando$.next(false))
+            ).subscribe(resultado => {
+              this._lugares$.next(resultado.lugares);
+              this._total$.next(resultado.total);
+            });
+        
+            this._buscar$.next();
+          }
+          else{
+            this.lugaresItems = [];
+          }
+        });
+      }
   }
 
   get lugares$() { return this._lugares$.asObservable(); }
   get total$() { return this._total$.asObservable(); }
-  get loading$() { return this._loading$.asObservable(); }
-  get page() { return this._state.page; }
-  get pageSize() { return this._state.pageSize; }
-  get searchTerm() { return this._state.searchTerm; }
+  get cargando$() { return this._cargando$.asObservable(); }
+  get pagina() { return this._estado.pagina; }
+  get tamanoPagina() { return this._estado.tamanoPagina; }
+  get buscarTermino() { return this._estado.buscarTermino; }
 
-  set page(page: number) { this._set({page}); }
-  set pageSize(pageSize: number) { this._set({pageSize}); }
-  set searchTerm(searchTerm: string) { this._set({searchTerm}); }
-  set sortColumn(sortColumn: string) { this._set({sortColumn}); }
-  set sortDirection(sortDirection: SortDirection) { this._set({sortDirection}); }
+  set pagina(pagina: number) { this._set({pagina}); }
+  set tamanoPagina(tamanoPagina: number) { this._set({tamanoPagina}); }
+  set buscarTermino(buscarTermino: string) { this._set({buscarTermino}); }
+  set ordenarColumna(ordenarColumna: string) { this._set({ordenarColumna}); }
+  set ordenarDireccion(ordenarDireccion: SortDirection) { this._set({ordenarDireccion}); }
 
-  private _set(patch: Partial<State>) {
-    Object.assign(this._state, patch);
-    this._search$.next();
+  private _set(patch: Partial<Estado>) {
+    Object.assign(this._estado, patch);
+    this._buscar$.next();
   }
 
-  private _search(): Observable<SearchResult> {
-    const {sortColumn, sortDirection, pageSize, page, searchTerm} = this._state;
+  private _buscar(): Observable<SearchResult> {
+    const {ordenarColumna, ordenarDireccion, tamanoPagina, pagina, buscarTermino} = this._estado;
 
-    let lugaresSorted = sort(this.lugaresItems, sortColumn, sortDirection);
+    let lugares = ordenar(this.lugaresItems, ordenarColumna, ordenarDireccion);
 
-    lugaresSorted = lugaresSorted.filter(lugar => matches(lugar, searchTerm, this.pipe));
-    const total = lugaresSorted.length;
-
-    lugaresSorted = lugaresSorted.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize);
-    return of({lugaresSorted, total});
+    lugares = lugares.filter(lugare => encontrar(lugare, buscarTermino, this.pipe));
+    const total = lugares.length;
+    
+    lugares = lugares.slice((pagina - 1) * tamanoPagina, (pagina - 1) * tamanoPagina + tamanoPagina);
+    return of({lugares, total});
   }
 }

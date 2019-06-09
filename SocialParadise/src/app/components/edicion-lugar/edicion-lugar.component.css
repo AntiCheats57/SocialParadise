@@ -101,3 +101,9 @@ input[type=file] {
         padding-left: .6rem !important;
     }
 }
+
+.img-thumbnail {
+    margin-bottom: 1rem;
+    height: 6rem;
+    width: 100%;
+}
