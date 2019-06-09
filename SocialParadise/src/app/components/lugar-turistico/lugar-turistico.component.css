@@ -67,7 +67,7 @@ button:focus {
 }
 
 .feature-component {
-    padding: 3.2rem 0;
+    padding: 0.1rem 0;
 }
 
 .feature-image {
@@ -160,9 +160,16 @@ button:focus {
 }
 
 @media (min-width: 992px) {
-    .feature-heading {
+    /* .feature-heading {
         margin-top: 3.5rem;
+    } */
+    .feature-component {
+        padding: 3.2rem 0;
     }
+}
+
+.component-review {
+    margin-bottom: 2rem;
 }
 
 iframe {
@@ -182,4 +189,28 @@ iframe {
     border: 2px;
     -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
+}
+
+.myIframe {
+    position: relative;
+    padding-bottom: 50%;
+    padding-top: 40px;
+    height: 0;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    border: solid black 1px;
+}
+
+.myIframe iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.contenedor {
+    padding-left: 100px;
+    padding-right: 100px;
+    padding-bottom: 20px;
 }

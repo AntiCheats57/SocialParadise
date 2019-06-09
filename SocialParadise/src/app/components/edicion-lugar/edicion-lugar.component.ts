@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ImagenService } from 'src/app/services/imagen/imagen.service';
@@ -37,9 +37,9 @@ export class EdicionLugarComponent implements OnInit, OnDestroy {
                                     Validators.required
                                   ]),
       'video': new FormControl('', [
-                                    Validators.required,
+                                    Validators.required
                                     //Validators.pattern("^http:\/\/(.*\.(com$|net$|org$))")
-                                    Validators.pattern("https://www.youtube.com/embed/.$")
+                                    // Validators.pattern("https://www.youtube.com/embed/.$")
                                   ])
     });    
   }
@@ -116,7 +116,7 @@ export class EdicionLugarComponent implements OnInit, OnDestroy {
           type: 'success',
           title: 'Guardado correctamente'
         });
-        this.router.navigate(["/lugares"])
+        this.router.navigate(["/lugares"]);
       });
     }
     else{
@@ -125,6 +125,7 @@ export class EdicionLugarComponent implements OnInit, OnDestroy {
         title: 'No se ha cargado el lugar'
       });
     }
+    this.cerrarComponente();
   }
 
   eliminarImagen(indice : number){
@@ -182,6 +183,26 @@ export class EdicionLugarComponent implements OnInit, OnDestroy {
   cerrarVisor() {
     $(document).ready(function() {
       $("#image-gallery").modal("hide");
+    });
+  }
+
+  cerrarComponente() {
+    $(document).ready(function() {
+      $("#lugarModal").modal("hide");
+    });
+  }
+
+  validar() {
+    this.markFormGroupTouched(this.formulario);
+  }
+
+  private markFormGroupTouched(formGroup: FormGroup) {
+    (<any>Object).values(formGroup.controls).forEach(control => {
+      control.markAsTouched();
+
+      if (control.controls) {
+        this.markFormGroupTouched(control);
+      }
     });
   }
 }

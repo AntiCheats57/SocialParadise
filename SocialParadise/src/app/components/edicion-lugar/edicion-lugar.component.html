@@ -9,7 +9,7 @@
             </div>
             <div class="modal-body">
                 <div class="container">
-                    <form [formGroup]="formulario" (ngSubmit)="guardar()">
+                    <form [formGroup]="formulario" #f="ngForm" (ngSubmit)="f.form.valid && guardar()">
                         <div class="row">
                             <div class="form-group col-12">
                                 <label for="nombre" class="col-form-label">Nombre</label>
@@ -85,7 +85,7 @@
                             </label>
                         </div>
                         <div class="text-right">
-                            <button type="submit" class="btn btn-submit" (click)="guardar()" data-dismiss="modal">Guardar</button>
+                            <button type="submit" class="btn btn-submit" (click)="validar()">Guardar</button>
                         </div>
                     </form>
                 </div>
