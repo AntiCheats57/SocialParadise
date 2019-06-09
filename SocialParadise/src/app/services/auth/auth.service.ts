@@ -77,13 +77,13 @@ export class AuthService {
   }
 
   estaAutentificado() {  
-    /*var usuarioActual = this.localStorage.obtenerUsuarioActual();
-    if(usuarioActual["id"] >= 0 && usuarioActual["idFB"] != ""){
-      this.autentificado = true;
+    console.info(this.autentificado)
+    var usuarioActual = this.localStorage.obtenerUsuarioActual();
+    if(this.autentificado == undefined){
+      if(usuarioActual["id"] >= 0 && usuarioActual["idFB"] != ""){
+        this.autentificado = true;
+      }
     }
-    else{
-      this.autentificado = false
-    }*/
     return this.autentificado;
   }
 
@@ -116,6 +116,7 @@ export class AuthService {
   }
 
   verificarEstadoAutentificado(){
+    console.info("PRUEBA")
     this.estadoAutentificado = this.afAuth.authState.subscribe(res => {            
       if(res){
         this.autentificado = true;

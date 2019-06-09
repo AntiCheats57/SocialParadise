@@ -93,7 +93,7 @@ export class LugarTuristicoComponent implements OnInit, OnDestroy {
                       }
                   }, error => {}, ()=> {this.suscUsuario.unsubscribe()});
                   }              
-                });        
+                });     
                 this.valoracionGeneral = this.valoracionGeneral / (cantidadResenas != 0? cantidadResenas : 1);  
               }
             });
