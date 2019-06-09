@@ -2,39 +2,38 @@
     <h1 class="text-center">LISTA DE NOTICIAS</h1>
     <form>
         <div class="form-group form-inline">
-            <!-- <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="service.searchTerm" placeholder="Buscar" /> -->
-            <input class="form-control ml-2" type="text" name="searchTerm" placeholder="Buscar" />
-            <span class="ml-3 loading" *ngIf="service.loading$ | async">Loading...</span>
+            <input class="form-control ml-2" type="text" name="buscarTermino" placeholder="Buscar" [(ngModel)]="service.buscarTermino" />
+            <span class="ml-3 loading" *ngIf="service.cargando$ | async">Cargando...</span>
         </div>
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th scope="col" sortable="noticia" (sort)="onSort($event)">Noticia</th>
+                    <th scope="col" sortable="titulo" (sort)="onSort($event)">Noticia</th>
                     <th scope="col" sortable="contenido" (sort)="onSort($event)">Resumen</th>
-                    <th scope="col" sortable="creado" (sort)="onSort($event)">Creación</th>
+                    <th scope="col" sortable="fechaCreacion" (sort)="onSort($event)">Creación</th>
                 </tr>
             </thead>
             <tbody>
-                <tr data-toggle="modal" data-target="#noticiaModal" *ngFor="let noticia of noticias$ | async" [routerLink]="[ 'editar', noticia.id]">
+                <tr *ngFor="let noticia of noticias$ | async" data-toggle="modal" data-target="#noticiaModal" [routerLink]="[ 'editar', noticia.id]">
                     <td>
-                        <ngb-highlight [result]="noticia.titulo" [term]="service.searchTerm"></ngb-highlight>
+                        <ngb-highlight [result]="noticia.titulo" [term]="service.buscarTermino"></ngb-highlight>
                     </td>
                     <td>
-                        <ngb-highlight [result]="noticia.contenido" [term]="service.searchTerm"></ngb-highlight>
+                        <ngb-highlight [result]="noticia.contenido" [term]="service.buscarTermino"></ngb-highlight>
                     </td>
                     <td>
-                        <ngb-highlight [result]="noticia.fechaCreacion" [term]="service.searchTerm"></ngb-highlight>
+                        <ngb-highlight [result]="noticia.fechaCreacion" [term]="service.buscarTermino"></ngb-highlight>
                     </td>
                 </tr>
             </tbody>
         </table>
         <div class="row">
             <div class="col-12 col-sm-6 d-flex justify-content-between p-2 pagination-table">
-                <ngb-pagination [collectionSize]="total$ | async" [(page)]="service.page" [pageSize]="service.pageSize" [maxSize]="5" [rotate]="true" [ellipses]="false">
+                <ngb-pagination [collectionSize]="total$ | async" [(page)]="service.pagina" [pageSize]="service.tamanoPagina" [maxSize]="5" [rotate]="true" [ellipses]="false">
                 </ngb-pagination>
             </div>
             <div class="col-12 col-sm-6 items-page">
-                <select class="custom-select" name="pageSize" [(ngModel)]="service.pageSize">
+                <select class="custom-select" name="tamanoPagina" [(ngModel)]="service.tamanoPagina">
                     <option [ngValue]="2">2 por página</option>
                     <option [ngValue]="4">4 por página</option>
                     <option [ngValue]="8">8 por página</option>

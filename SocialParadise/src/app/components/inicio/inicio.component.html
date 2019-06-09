@@ -7,7 +7,8 @@
             <div class="row">
                 <div class="col-sm-9 col-md-10">
                     <!--<input type="text" class="form-control" name="lugar" [(ngModel)]="buscarTexto" placeholder="Buscar lugar turístico">-->
-                    <input type="text" class="form-control" name="lugar" placeholder="Buscar lugar turístico">
+                    <input type="text" class="form-control" name="buscarTermino" placeholder="Buscar lugar turístico" [(ngModel)]="service.buscarTermino">
+                    <span class="ml-3 loading" *ngIf="service.cargando$ | async">Cargando...</span>
                 </div>
                 <div class="col-sm-3 col-md-2 text-center">
                     <button type="submit" class="btn btn-primary">Buscar</button>
@@ -16,13 +17,17 @@
         </form>
 
         <div class="row">
-            <div class="col-sm-6  col-lg-4" *ngFor="let lugar of lugares">
+            <div class="col-sm-6  col-lg-4" *ngFor="let lugar of lugares$ | async">
                 <div class="card place-card" (click)="verLugar(lugar.id)">
                     <img [src]="lugar.imagenes != null? lugar.imagenes[0] : '/assets/images/im-contact.jpg'" class="card-img-top img-fluid" alt="">
                     <div class="card-body">
-                        <span>{{lugar.ubicacion}}</span>
-                        <h5 class="card-title">{{lugar.nombre}}</h5>
-                        <p class="card-text">{{lugar.descripcion}}</p>
+                        <span><ngb-highlight [result]="lugar.ubicacion" [term]="service.buscarTermino"></ngb-highlight></span>
+                        <h5 class="card-title">
+                            <ngb-highlight [result]="lugar.nombre" [term]="service.buscarTermino"></ngb-highlight>
+                        </h5>
+                        <p class="card-text">
+                            <ngb-highlight [result]="lugar.descripcion"></ngb-highlight>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -30,6 +35,6 @@
 
     </div>
 
-    <ngb-pagination class="d-flex justify-content-center" [collectionSize]="cantidadPaginas" [(page)]="pagina" [maxSize]="cantidadMaxima" [rotate]="true" [ellipses]="false" [boundaryLinks]="true">
+    <ngb-pagination class="d-flex justify-content-center" [collectionSize]="total$ | async" [pageSize]="service.tamanoPagina" [(page)]="service.pagina" [maxSize]="cantidadMaxima" [rotate]="true" [ellipses]="false" [boundaryLinks]="true">
     </ngb-pagination>
 </div>

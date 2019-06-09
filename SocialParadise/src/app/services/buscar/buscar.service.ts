@@ -2,14 +2,14 @@ import { Injectable, PipeTransform } from '@angular/core';
 
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 
-import { noticia } from 'src/app/interfaces/noticia.interface';
+import { lugar } from 'src/app/interfaces/lugar.interface';
 import { DecimalPipe } from '@angular/common';
 import { debounceTime , delay, switchMap, tap } from 'rxjs/operators';
 import { SortDirection } from 'src/app/directives/sortable.directive';
 import { DatosService } from 'src/app/services/datos/datos.service';
 
 interface SearchResult {
-  noticias: noticia[];
+  lugares: lugar[];
   total: number;
 }
 
@@ -21,34 +21,18 @@ interface Estado {
   ordenarDireccion: SortDirection;
 }
 
-function comparar(v1, v2) {
-  return v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
-}
-
-function ordenar(noticias: noticia[], columna: string, tipoOrden: string): noticia[] {
-  if (tipoOrden === '') {
-    return noticias;
-  } else {
-    return [...noticias].sort((a, b) => {
-      const res = comparar(a[columna], b[columna]);
-      return tipoOrden === 'asc' ? res : -res;
-    });
-  }
-}
-
-function encontrar(noticia: noticia, termino: string, pipe: PipeTransform) {
-  return noticia.titulo.toLowerCase().includes(termino)
-        || noticia.contenido.toLowerCase().includes(termino)
-        || noticia.fechaCreacion.toLowerCase().includes(termino);
+function encontrar(lugar: lugar, termino: string, pipe: PipeTransform) {
+  return lugar.nombre.toLowerCase().includes(termino)
+        || lugar.ubicacion.toLowerCase().includes(termino);
 }
 
 @Injectable({providedIn: 'root'})
-export class NoticiasService {
+export class BuscarService {
   private _cargando$ = new BehaviorSubject<boolean>(true);
   private _buscar$ = new Subject<void>();
-  private _noticias$ = new BehaviorSubject<noticia[]>([]);
+  private _lugares$ = new BehaviorSubject<lugar[]>([]);
   private _total$ = new BehaviorSubject<number>(0);
-  private noticiasItems: noticia[] = [];
+  private lugarItems: lugar[] = [];
 
   private _estado: Estado = {
     pagina: 1,
@@ -59,10 +43,10 @@ export class NoticiasService {
   };
 
   constructor(private pipe: DecimalPipe, private datosService: DatosService) {
-    this.noticiasItems = []
-    this.datosService.obtenerColeccion("noticias").subscribe(datos => {
+    this.lugarItems = []
+    this.datosService.obtenerColeccion("lugares").subscribe(datos => {
       if(datos){
-        this.noticiasItems = datos;
+        this.lugarItems = datos;
         this._buscar$.pipe(
           tap(() => this._cargando$.next(true)),
           debounceTime(200),
@@ -70,19 +54,19 @@ export class NoticiasService {
           delay(200),
           tap(() => this._cargando$.next(false))
         ).subscribe(resultado => {
-          this._noticias$.next(resultado.noticias);
+          this._lugares$.next(resultado.lugares);
           this._total$.next(resultado.total);
         });
     
         this._buscar$.next();
       }
       else{
-        this.noticiasItems = [];
+        this.lugarItems = [];
       }
     });
   }
 
-  get noticias$() { return this._noticias$.asObservable(); }
+  get lugares$() { return this._lugares$.asObservable(); }
   get total$() { return this._total$.asObservable(); }
   get cargando$() { return this._cargando$.asObservable(); }
   get pagina() { return this._estado.pagina; }
@@ -103,12 +87,12 @@ export class NoticiasService {
   private _buscar(): Observable<SearchResult> {
     const {ordenarColumna, ordenarDireccion, tamanoPagina, pagina, buscarTermino} = this._estado;
 
-    let noticias = ordenar(this.noticiasItems, ordenarColumna, ordenarDireccion);
+    let lugares = this.lugarItems;
 
-    noticias = noticias.filter(noticia => encontrar(noticia, buscarTermino, this.pipe));
-    const total = noticias.length;
+    lugares = lugares.filter(lugar => encontrar(lugar, buscarTermino, this.pipe));
+    const total = lugares.length;
     
-    noticias = noticias.slice((pagina - 1) * tamanoPagina, (pagina - 1) * tamanoPagina + tamanoPagina);
-    return of({noticias, total});
+    lugares = lugares.slice((pagina - 1) * tamanoPagina, (pagina - 1) * tamanoPagina + tamanoPagina);
+    return of({lugares, total});
   }
 }

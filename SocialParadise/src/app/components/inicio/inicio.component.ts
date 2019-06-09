@@ -1,14 +1,20 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy,QueryList, ViewChildren } from '@angular/core';
 import { Router } from '@angular/router';
 import { lugar } from 'src/app/interfaces/lugar.interface';
 import { DatosService } from 'src/app/services/datos/datos.service';
 import { Observable, Subscription } from 'rxjs';
 import { AngularFireList } from 'angularfire2/database';
+import { BuscarService } from 'src/app/services/buscar/buscar.service';
+import { DecimalPipe } from '@angular/common';
+import { noticia } from 'src/app/interfaces/noticia.interface';
+import { NoticiasService } from 'src/app/services/noticias/noticias.service';
+import { NgbdSortableHeader, SortEvent } from 'src/app/directives/sortable.directive';
 
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.component.html',
-  styleUrls: ['./inicio.component.css']
+  styleUrls: ['./inicio.component.css'],
+  providers: [BuscarService, DecimalPipe]
 })
 
 export class InicioComponent implements OnInit, OnDestroy {
@@ -20,9 +26,16 @@ export class InicioComponent implements OnInit, OnDestroy {
   suscripcion : Subscription;
   lugares: lugar[];   
 
-  constructor(private router: Router, private datosService : DatosService) {
+  lugares$: Observable<lugar[]>;
+  total$: Observable<number>;
+
+  @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
+
+  constructor(private router: Router, private datosService : DatosService, public service: BuscarService) {
     this.cantidadPaginas = (((this.lugares != null? this.lugares.length : 1)/ this.cantidadPorPagina) * 10);
     this.suscripcion = null;
+    this.lugares$ = service.lugares$;
+    this.total$ = service.total$; 
   }
 
   ngOnInit() {
