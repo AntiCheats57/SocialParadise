@@ -67,8 +67,8 @@
                                         <div class="col-12 col-lg-9 contenido">
                                             <h4>{{getAtributoUsuario(resena.usuario.toString(), 'nombre')}}</h4>
                                             <p>{{resena.comentario}}</p>
-                                            <button type="button" class="btn btn-light" data-toggle="modal" [attr.data-target]="'#modal'+resena.id">Responder</button>
-                                            <button type="button" class="btn-censura" *ngIf="this.auth.estaAutentificado() && this.auth.esAdmin()" (click)="cambiarCensuraResena(i)">{{ resena.censurado ? "Aprobar" : "Censurar"}}</button>
+                                            <button type="button" class="btn btn-light" data-toggle="modal" [attr.data-target]="'#modal'+resena.id" *ngIf="this.auth.estaAutentificado() && this.esDueno">Responder</button>
+                                            <button type="button" class="btn-censura" *ngIf="this.auth.estaAutentificado() && this.esDueno" (click)="cambiarCensuraResena(i)">{{ resena.censurado ? "Aprobar" : "Censurar"}}</button>
                                         </div>
                                     </div>
                                     <div class="modal fade" [attr.id]="'modal'+resena.id" tabindex="-1" role="dialog" aria-labelledby="comentarioModalLabel" aria-hidden="true">

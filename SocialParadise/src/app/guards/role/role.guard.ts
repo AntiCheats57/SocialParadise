@@ -11,13 +11,12 @@ import { DatosService } from 'src/app/services/datos/datos.service';
 
 export class RoleGuard implements CanActivate {
 
-  editorSuscripcion : Subscription;
-
   constructor(private authService: AuthService, private router: Router, private localStorage: LocalDataService, private datosService: DatosService){
   }
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     if(this.authService.estaAutentificado()){
+      return true; /* TEMPORAL */
       if('admin' === next.data.role){
         return this.authService.esAdmin();
       }

@@ -53,7 +53,7 @@ export class EdicionLugarComponent implements OnInit, OnDestroy {
       ubicacion: "",
       nombre: "",
       seguidores: [],
-      usuario: 0,
+      usuario: -1,
       video: "",
       horario: ""
     }

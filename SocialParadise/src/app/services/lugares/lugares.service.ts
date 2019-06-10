@@ -7,6 +7,7 @@ import { SortDirection } from 'src/app/directives/sortable.directive';
 import { DatosService } from 'src/app/services/datos/datos.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { LocalDataService } from 'src/app/services/local-data/local-data.service';
+import { usuario } from 'src/app/interfaces/usuario.interface';
 
 interface SearchResult {
   lugares: lugar[];
@@ -58,6 +59,7 @@ export class LugaresService {
     this.datosService.obtenerColeccion("lugares").subscribe(datos => {
       if(datos){
         this.lugaresItems = datos;
+              
         this._buscar$.pipe(
           tap(() => this._cargando$.next(true)),
           debounceTime(200),

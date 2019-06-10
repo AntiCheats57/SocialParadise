@@ -10,7 +10,7 @@
             <thead>
                 <tr>
                     <th scope="col" sortable="nombre" (sort)="onSort($event)">Lugar</th>
-                    <th scope="col" sortable="asignado" (sort)="onSort($event)">Asignado</th>
+                    <th scope="col" sortable="asignado" (sort)="onSort($event)">Ubicación</th>
                     <th scope="col" sortable="" (sort)="onSort($event)">Editor</th>
                 </tr>
             </thead>
@@ -20,10 +20,10 @@
                         <ngb-highlight [result]="lugar.nombre" [term]="service.buscarTermino"></ngb-highlight>
                     </td>
                     <td>
-                        <ngb-highlight [result]="asignado(lugar.usuario)" [term]="service.buscarTermino"></ngb-highlight>
+                        <ngb-highlight [result]="lugar.ubicacion" [term]="service.buscarTermino"></ngb-highlight>
                     </td>
                     <td>
-                        <ngb-highlight [result]="usuario(lugar)" [term]="service.buscarTermino"></ngb-highlight>
+                        <ngb-highlight [result]="obtenerEditor(lugar)" [term]="service.buscarTermino"></ngb-highlight>
                     </td>
                 </tr>
             </tbody>

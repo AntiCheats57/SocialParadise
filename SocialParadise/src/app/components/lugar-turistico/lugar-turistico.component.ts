@@ -40,6 +40,7 @@ export class LugarTuristicoComponent implements OnInit, OnDestroy {
   censurar: boolean;
   formulario: FormGroup;
   resenaComentario: resena;
+  esDueno: boolean;
 
   constructor(public auth : AuthService, config: NgbRatingConfig, private localStorage : LocalDataService, private datosService : DatosService, private rutaActual: ActivatedRoute, private router: Router) {
     this.formulario = new FormGroup({
@@ -55,6 +56,7 @@ export class LugarTuristicoComponent implements OnInit, OnDestroy {
     this.siguiendoLugar = false
     this.lugarId = parseInt(this.rutaActual.snapshot.paramMap.get("id"));
     this.censurar = false;
+    this.esDueno = false;
   }
 
   ngOnInit() {
@@ -80,6 +82,22 @@ export class LugarTuristicoComponent implements OnInit, OnDestroy {
                   this.siguiendoLugar = true
                 }
               }
+              this.datosService.obtenerElementoIdFB("usuarios", usuario.idFB).subscribe(datos => {
+                console.info(datos)
+                if(datos){
+                  for(let i in datos["lugaresAsignados"]){
+                    if(datos["lugaresAsignados"][i] == this.lugar.id){
+                      this.esDueno = true;
+                    }      
+                  }
+                  if(this.esDueno){
+                    this.esDueno = this.lugar.usuario == datos["id"]
+                  }
+                }
+                else{
+                  this.esDueno = false;
+                }
+              }) 
             }
             this.suscResena = this.datosService.obtenerColeccionCondicion("resenas", "lugar", parseInt(this.lugar.id)).subscribe(elementos => {
               var resenasTemp = elementos;

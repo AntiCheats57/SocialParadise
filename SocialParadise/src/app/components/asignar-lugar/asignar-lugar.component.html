@@ -9,7 +9,7 @@
             </div>
             <div class="modal-body">
                 <div class="container">
-                    <form [formGroup]="formulario" (ngSubmit)="guardar()">
+                    <form [formGroup]="formulario">
                         <div class="row">
                             <div class="form-group col-12" [ngClass]="{'has-danger': !formulario.get('nombre').valid && formulario.get('nombre').touched}">
                                 <label for="nombre" class="col-form-label">Lugar</label>
@@ -53,9 +53,9 @@
                         <div class="btn-edit">
                             <div class="btn-group" role="group">
                                 <div *ngIf="indexLugar != null">
-                                    <button data-dismiss="modal" class="btn btn-danger" [routerLink]="[ '/asignacionLugares']">Eliminar</button>
+                                    <button data-dismiss="modal" (click)="eliminar()" class="btn btn-danger mr-2" [routerLink]="[ '/asignacionLugares']">Eliminar</button>
                                 </div>
-                                <button data-dismiss="modal" type="submit" class="btn btn-submit" [routerLink]="[ '/asignacionLugares']">Guardar {{indexLugar}}</button>
+                                <button data-dismiss="modal" (click)="guardar()" class="btn btn-submit" [routerLink]="[ '/asignacionLugares']">Guardar</button>
                             </div>
                         </div>
                     </form>
