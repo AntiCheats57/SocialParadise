@@ -8,6 +8,9 @@ import { AngularFirestoreCollection } from '@angular/fire/firestore';
 import { usuario } from 'src/app/interfaces/usuario.interface';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { LocalDataService } from 'src/app/services/local-data/local-data.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-lugar-turistico',
@@ -25,7 +28,8 @@ export class LugarTuristicoComponent implements OnInit, OnDestroy {
   private suscUsuario : Subscription;
   private suscUsuarioActual : Subscription;
   private suscSeguir : Subscription;
-  private resenasTemp : resena[];
+  private resenasFiltradas : resena[];
+  private respuestas : resena[];
   private usuarios : any[];
   private usuarioActual : usuario;
   private refrescar : boolean;
@@ -34,8 +38,17 @@ export class LugarTuristicoComponent implements OnInit, OnDestroy {
   lugar : any;
   resenas : resena[];
   censurar: boolean;
+  formulario: FormGroup;
+  resenaComentario: resena;
 
   constructor(public auth : AuthService, config: NgbRatingConfig, private localStorage : LocalDataService, private datosService : DatosService, private rutaActual: ActivatedRoute, private router: Router) {
+    this.formulario = new FormGroup({
+      'comentario': new FormControl('', [
+                                    Validators.required,
+                                    Validators.minLength(2)
+                                  ])
+    });    
+    this.formulario.setValue({comentario : ""});
     config.max = 5;
     config.readonly = true;
     this.refrescar = true;
@@ -69,13 +82,27 @@ export class LugarTuristicoComponent implements OnInit, OnDestroy {
               }
             }
             this.suscResena = this.datosService.obtenerColeccionCondicion("resenas", "lugar", parseInt(this.lugar.id)).subscribe(elementos => {
-              this.resenasTemp = elementos;
+              var resenasTemp = elementos;
+              this.resenasFiltradas = []
+              this.respuestas = []
               this.resenas = []
-              this.usuarios = []    
-              if(this.resenasTemp != undefined){                
+              this.usuarios = []                
+
+              for(let i in resenasTemp){
+                  if(resenasTemp[i].tipo == "C"){
+                      this.resenasFiltradas.push(resenasTemp[i]);
+                  }
+                  else if(resenasTemp[i].tipo == "R"){
+                    this.respuestas.push(resenasTemp[i]);
+                  }
+              }
+              this.respuestas.sort((x,y) => {
+                return -1 * ((new Date(x.fechaPublicacion)).getTime() - (new Date(y.fechaPublicacion)).getTime())
+              });
+              if(this.resenasFiltradas != undefined){                
                 this.valoracionGeneral = 0;
                 var cantidadResenas = 0;
-                this.resenasTemp.sort((x, y) => {
+                this.resenasFiltradas.sort((x, y) => {
                   return -1 * ((new Date(x.fechaPublicacion)).getTime() - (new Date(y.fechaPublicacion)).getTime())
 
                 }).forEach(r => {
@@ -95,7 +122,8 @@ export class LugarTuristicoComponent implements OnInit, OnDestroy {
                       }, error => {}, ()=> {this.suscUsuario.unsubscribe()});
                     }
                   }              
-                });     
+                }); 
+
                 this.valoracionGeneral = this.valoracionGeneral / (cantidadResenas != 0? cantidadResenas : 1);  
               }
             });
@@ -198,6 +226,21 @@ export class LugarTuristicoComponent implements OnInit, OnDestroy {
     
   }
 
+  obtenerRespuestasResena(resenaIndice: number){
+    var salida = []
+    if(this.respuestas){
+      for(let i in this.resenas[resenaIndice].respuestas){
+        for(let j in this.respuestas){
+          if(this.resenas[resenaIndice].respuestas[i] == this.respuestas[j].id){
+            salida.push(this.respuestas[j]);
+            break;
+          }
+        }
+      }
+    }
+    return salida;
+  }
+
   cambiarCensuraResena(indice : number){
       if(this.resenas && this.resenas[indice]){
         this.resenas[indice].censurado = !this.resenas[indice].censurado;
@@ -205,4 +248,56 @@ export class LugarTuristicoComponent implements OnInit, OnDestroy {
       }
   }
 
+  comentar(indice : number){ 
+    if(!this.formulario.valid){
+      Swal.fire({
+        type: 'error',
+        title: 'Error al comentar',
+        text: 'Debe completar correctamente todos los campos'
+      });
+      return;
+    }    
+    this.resenaComentario = {      
+      id: -1,
+      idFB: "",
+      lugar: this.lugarId,
+      usuario: this.usuarioActual.id,
+      valoracion: 0,
+      comentario: this.formulario.get("comentario").value,
+      fechaPublicacion: formatDate(Date.now(), "MM/dd/yyyy hh:mm a", "en-US"), 
+      censurado: false,
+      tipo: "R",
+      respuestas: []
+    }
+
+    this.datosService.obtenerUltimoId("resenas").then(datos => {
+      if(datos != undefined && datos.docs[0] != undefined){
+        this.resenaComentario.id = (<resena> datos.docs[0].data()).id + 1
+      }
+      else{
+        this.resenaComentario.id = 0
+      }   
+      this.datosService.insertarElemento("resenas", this.resenaComentario, true).catch(err => {
+        Swal.fire({
+          type: 'error',
+          title: 'Error al guardar comentario',
+          text: err.message
+        });
+      }).then(()=> {
+        this.resenas[indice].respuestas.push(this.resenaComentario.id);
+        this.datosService.actualizarElemento("resenas", this.resenas[indice]).catch(err => {
+          Swal.fire({
+            type: 'error',
+            title: 'Error al guardar comentario',
+            text: err.message
+          });
+        }).then(()=>{
+          Swal.fire({
+            type: 'success',
+            title: 'Comentario guardado correctamente'
+          });
+        })
+      });
+    });
+  }
 }
