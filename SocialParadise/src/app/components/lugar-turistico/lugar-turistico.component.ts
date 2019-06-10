@@ -38,6 +38,8 @@ export class LugarTuristicoComponent implements OnInit, OnDestroy {
   lugar : any;
   resenas : resena[];
   censurar: boolean;
+  respuesta: boolean;
+  seguidores:number[] = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
   formulario: FormGroup;
   resenaComentario: resena;
   esDueno: boolean;
@@ -57,6 +59,7 @@ export class LugarTuristicoComponent implements OnInit, OnDestroy {
     this.lugarId = parseInt(this.rutaActual.snapshot.paramMap.get("id"));
     this.censurar = false;
     this.esDueno = false;
+    this.respuesta = true;
   }
 
   ngOnInit() {

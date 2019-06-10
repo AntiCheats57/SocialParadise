@@ -4,7 +4,9 @@
             <div class="row feature">
                 <div class="col-md-5">
                     <h2 class="feature-heading">{{lugar.nombre}}</h2>
-                    <h3 class="feature-subheading"><a [routerLink]="[ 'seguidores', this.lugar.id]">Seguidores <span><strong>{{lugar.seguidores? lugar.seguidores.length : 0}}</strong></span></a></h3>
+                    <button type="button" class="btn btn-link feature-subheading" data-toggle="modal" data-target="#modalSeguidores">Seguidores 
+                        <span><strong>{{lugar.seguidores? lugar.seguidores.length : 0}}</strong></span>
+                    </button>
                     <button type="button" *ngIf="!this.siguiendoLugar" (click)="modificarSeguimientoLugar()" class="btn btn-success mb-3">Seguir</button>
                     <button type="button" *ngIf="this.siguiendoLugar" (click)="modificarSeguimientoLugar()" class="btn btn-danger mb-3">Dejar de seguir</button>
                     <p class="feature-description"><strong>Horario: {{lugar.horario}}</strong></p>
@@ -51,10 +53,10 @@
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item" *ngFor="let resena of resenas; let i = index;">
                                     <div class="row component-review" [ngClass]="{'censurar': resena.censurado}">
-                                        <div class="col-12 col-lg-3">
+                                        <div class="col-12 col-md-3">
                                             <div class="row rating text-center">
                                                 <div class="col-12 text-left imagen">
-                                                    <img [src]="getAtributoUsuario(resena.usuario.toString(), 'foto')" alt="" class="img-responsiv img-fluid img-circle" width="150" height="150" />
+                                                    <img [src]="getAtributoUsuario(resena.usuario.toString(), 'foto')" alt="" class="img-responsiv img-fluid img-circle foto" width="150" height="150" />
                                                 </div>
                                                 <ngb-rating class="col-12 order-1 order-lg-2 estrellas" [rate]="resena.valoracion">
                                                     <ng-template let-fill="fill" let-index="index">
@@ -64,13 +66,26 @@
                                             </div>
                                             <span>{{resena.fechaPublicacion | date: "dd/MM/yyyy hh:mm a"}}</span>
                                         </div>
-                                        <div class="col-12 col-lg-9 contenido">
+                                        <div class="col-12 col-md-9 contenido">
                                             <h4>{{getAtributoUsuario(resena.usuario.toString(), 'nombre')}}</h4>
                                             <p>{{resena.comentario}}</p>
                                             <button type="button" class="btn btn-light" data-toggle="modal" [attr.data-target]="'#modal'+resena.id" *ngIf="this.auth.estaAutentificado() && this.esDueno">Responder</button>
                                             <button type="button" class="btn-censura" *ngIf="this.auth.estaAutentificado() && this.esDueno" (click)="cambiarCensuraResena(i)">{{ resena.censurado ? "Aprobar" : "Censurar"}}</button>
+                                            <hr *ngIf="respuesta">
+
+                                            <div *ngIf="respuesta" class="row component-answer" [ngClass]="{'censurar': resena.censurado}">
+                                                <div class="col-12 contenido">
+                                                    <img [src]="getAtributoUsuario(resena.usuario.toString(), 'foto')" alt="" class="img-responsiv img-fluid img-circle" width="50px" height="50px" />
+                                                    <h5>{{getAtributoUsuario(resena.usuario.toString(), 'nombre')}}</h5>
+                                                    <span>{{resena.fechaPublicacion | date: "dd/MM/yyyy hh:mm a"}}</span>
+                                                    <p>{{resena.comentario}}</p>
+                                                    <button type="button" class="btn-censura" *ngIf="this.auth.estaAutentificado() && this.auth.esAdmin()">{{ resena.censurado ? "Aprobar" : "Censurar"}}</button>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
+
                                     <div class="modal fade" [attr.id]="'modal'+resena.id" tabindex="-1" role="dialog" aria-labelledby="comentarioModalLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                                             <div class="modal-content">
@@ -85,7 +100,7 @@
                                                         <div class="col-12 col-lg-3">
                                                             <div class="row rating text-center">
                                                                 <div class="col-12 text-left imagen">
-                                                                    <img [src]="getAtributoUsuario(resena.usuario.toString(), 'foto')" alt="" class="img-responsiv img-fluid img-circle" width="150" height="150" />
+                                                                    <img [src]="getAtributoUsuario(resena.usuario.toString(), 'foto')" alt="" class="img-responsiv img-fluid img-circle foto" width="100" height="100" />
                                                                 </div>
                                                                 <ngb-rating class="col-12 order-1 order-lg-2 estrellas" [rate]="resena.valoracion">
                                                                     <ng-template let-fill="fill" let-index="index">
@@ -97,7 +112,7 @@
                                                         </div>
                                                         <div class="col-12 col-lg-9 contenido">
                                                             <h4>{{getAtributoUsuario(resena.usuario.toString(), 'nombre')}}</h4>
-                                                            <p>{{resena.comentario}}</p>
+                                                            <p class="comentario-modal">{{resena.comentario}}</p>
                                                         </div>
                                                     </div>
                                                     <form>
@@ -126,6 +141,35 @@
             </div>
         </div>
     </div>
-
-
 </section>
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalSeguidores">
+        Launch demo modal
+      </button>
+
+<!-- Modal -->
+<div class="modal fade" id="modalSeguidores" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalScrollableTitle">Seguidores</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                <div class="list-group list-group-flush">
+                    <div *ngFor="let seguidor of seguidores" class="list-group-item seguidor-c">
+                        <img src="assets/images/im-contact.jpg" alt="" class="" width="50px" height="50px" />
+                        <p>Nombre Apellidos</p>
+                        <span>Correo electrónico</span>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>
