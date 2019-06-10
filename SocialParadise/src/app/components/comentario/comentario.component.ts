@@ -44,7 +44,10 @@ export class ComentarioComponent implements OnInit {
       usuario: 0,
       valoracion: 0,
       comentario: "",
-      fechaPublicacion: ""
+      fechaPublicacion: "", 
+      censurado: false,
+      tipo: "C",
+      respuestas: []
     }
     this.cargarDatosUsuario();
   }
