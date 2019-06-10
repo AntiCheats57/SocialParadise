@@ -46,7 +46,7 @@ form {
 }
 
 .estrellas {
-    margin-left: 1.5rem;
+    margin-left: 0;
 }
 
 button:focus {
@@ -63,7 +63,11 @@ button:focus {
 
 .imagen {
     min-width: 150px;
-    min-height: 150px;
+    /* min-height: 150px; */
+}
+
+span {
+    font-size: 0.87rem;
 }
 
 .feature-component {
@@ -106,7 +110,12 @@ button:focus {
     line-height: 1;
     letter-spacing: -.05rem;
     font-size: 30px;
-    padding-bottom: .65em;
+    display: block;
+    padding: 0 0 1.2rem 0;
+}
+
+.feature-subheading span {
+    font-size: 30px;
 }
 
 .back-gray {
@@ -135,6 +144,11 @@ button:focus {
     font-weight: 700;
 }
 
+.component-review .foto {
+    height: 100px;
+    width: 100px;
+}
+
 @media (min-width: 576px) {
     .feature-heading {
         font-size: 45px;
@@ -157,6 +171,14 @@ button:focus {
     p {
         min-height: 6rem;
     }
+    .component-review .foto {
+        width: 150px;
+        max-width: 100%;
+        height: auto;
+    }
+    .estrellas {
+        margin-left: 1.5rem;
+    }
 }
 
 @media (min-width: 992px) {
@@ -166,10 +188,13 @@ button:focus {
     .feature-component {
         padding: 3.2rem 0;
     }
+    span {
+        font-size: 1rem;
+    }
 }
 
-.component-review {
-    margin-bottom: 2rem;
+.comentario-modal {
+    min-height: 0 !important;
 }
 
 iframe {
@@ -183,6 +208,40 @@ iframe {
 
 .img-circle {
     border-radius: 50%;
+}
+
+.component-answer .img-circle {
+    position: absolute;
+}
+
+.component-answer h5,
+.component-answer span,
+.component-answer p {
+    margin-left: 3.8rem;
+    margin-bottom: 0;
+}
+
+.component-answer .contenido {
+    margin-top: 0.5rem;
+}
+
+.component-answer .btn-censura {
+    margin-left: 3.1rem;
+}
+
+.component-answer span {
+    font-size: .85rem;
+}
+
+.component-answer p {
+    margin-top: 1rem;
+    min-height: 3rem;
+}
+
+.component-review {
+    background-color: #f5f5f58c;
+    border-radius: 6px;
+    padding: 1rem;
 }
 
 #agregar-comentario {
@@ -213,4 +272,26 @@ iframe {
     padding-left: 100px;
     padding-right: 100px;
     padding-bottom: 20px;
+}
+
+.seguidor-c img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    position: absolute;
+}
+
+.seguidor-c p,
+.seguidor-c span {
+    margin-left: 4.5rem;
+    min-height: 0px;
+    margin-bottom: 0;
+}
+
+.seguidor-c p {
+    font-weight: bold;
+}
+
+.seguidor-c {
+    padding-bottom: 0;
 }
