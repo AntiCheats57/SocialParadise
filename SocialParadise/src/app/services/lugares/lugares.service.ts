@@ -98,7 +98,7 @@ export class LugaresService {
   
   private asignado(lugar: lugar): string {
     if (lugar.usuario) {
-      return "Si";
+      return "Sí";
     } 
     else {
       return "No";
