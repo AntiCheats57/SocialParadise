@@ -36,7 +36,7 @@ export class AdminLugarComponent implements OnInit {
 
   asignado(objeto: any) {
     if (objeto) {
-      return "Si";
+      return "Sí";
     } else {
       return "No";
     }

@@ -79,6 +79,43 @@ form .btn-submit {
     text-align: right !important;
 }
 
+.img-circle {
+    width: 87px;
+    height: 87px;
+    border-radius: 50%;
+}
+
+.buscar {
+    margin-bottom: 1rem;
+}
+
+.list-group-item {
+    padding: .2rem .3rem;
+    border: none;
+    cursor: pointer;
+}
+
+.editorInfo {
+    min-height: 8.5rem;
+}
+
+.list-group {
+    overflow: hidden;
+    overflow-y: visible;
+    min-height: 5.8rem;
+    max-height: 5.8rem;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+}
+
+.list-group-item:hover {
+    background-color: rgba(76, 175, 79, 0.219);
+}
+
+.list-group-item:active {
+    background-color: rgba(76, 175, 79, 0.329);
+}
+
 @media (max-width: 768px) {
     .gallery {
         max-height: 23rem;
