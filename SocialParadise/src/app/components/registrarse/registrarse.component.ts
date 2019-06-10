@@ -71,73 +71,108 @@ export class RegistrarseComponent implements OnInit {
       });
       return;
     }
-    this.usuario.nombre = this.formulario.controls['nombre'].value;
-    this.usuario.apellidos = this.formulario.controls['apellidos'].value;
-    this.usuario.usuario = this.formulario.controls['usuario'].value;
-    this.usuario.clave = this.formulario.controls['clave'].value;
-    this.usuario.correo = this.formulario.controls['email'].value;
+    this.datosService.obtenerColeccionCondicion("usuarios", "usuario", this.formulario.controls['usuario'].value).subscribe(usu=>{
+      if(usu == undefined || (usu != undefined && usu.length == 0)){
+        this.usuario.nombre = this.formulario.controls['nombre'].value;
+        this.usuario.apellidos = this.formulario.controls['apellidos'].value;
+        this.usuario.usuario = this.formulario.controls['usuario'].value;
+        this.usuario.usuario = this.usuario.usuario.toLowerCase()
+        this.usuario.clave = this.formulario.controls['clave'].value;
+        this.usuario.correo = this.formulario.controls['email'].value;
     
-    Swal.fire({
-      allowOutsideClick: false,
-      type: 'info',
-      text: 'Espere por favor...'
-    });
-    Swal.showLoading();
-    this.auth.registrarUsuario(this.usuario).then((res) => {
-      this.usuario.idFB = res["user"].uid;
-      this.datosService.obtenerUltimoId("usuarios").then(datos => {
-        if(datos != undefined && datos.docs[0] != undefined){
-          this.usuario.id = (<usuario> datos.docs[0].data()).id + 1
-        }
-        else{
-          this.usuario.id = 0
-        }          
-        this.usuario.foto = 'https://firebasestorage.googleapis.com/v0/b/socialparadiseuna.appspot.com/o/uploads%2F9u8dmhw1bjl-70039.png?alt=media&token=948326f6-1857-402f-af75-7d6ecb676491'
-        this.datosService.insertarElemento("usuarios", this.usuario, false).catch(error => {
+        Swal.fire({
+          allowOutsideClick: false,
+          type: 'info',
+          text: 'Espere por favor...'
+        });
+        Swal.showLoading();
+        this.auth.registrarUsuario(this.usuario).then((res) => {
+          if(res != undefined){
+            this.usuario.idFB = res["user"].uid;
+            this.datosService.obtenerUltimoId("usuarios").then(datos => {
+              if(datos != undefined && datos.docs[0] != undefined){
+                this.usuario.id = (<usuario> datos.docs[0].data()).id + 1
+              }
+              else{
+                this.usuario.id = 0
+              }          
+              this.usuario.foto = 'https://firebasestorage.googleapis.com/v0/b/socialparadiseuna.appspot.com/o/uploads%2F9u8dmhw1bjl-70039.png?alt=media&token=948326f6-1857-402f-af75-7d6ecb676491'
+              this.datosService.insertarElemento("usuarios", this.usuario, false).catch(error => {
+                Swal.fire({
+                  type: 'error',
+                  title: 'Error al registrarse',
+                  text: this.error(error)
+                })                
+              }).then(()=>{
+                this.auth.almacenarUsuarioLocalStorage(this.usuario.idFB)
+              })
+            }) 
+            Swal.close();
+            this.router.navigateByUrl('');
+          }
+        }).catch ( err => {
           Swal.fire({
-            type: 'error',
-            title: 'Error al registrarse',
-            text: this.error(error)
-          })                
-        }).then(()=>{
-          this.auth.almacenarUsuarioLocalStorage(this.usuario.idFB)
-        })
-      }) 
-      Swal.close();
-      this.router.navigateByUrl('');
-    }).catch ( err => {
-      Swal.fire({
+              type: 'error',
+              title: 'Error al registrarse',
+              text: this.error(err)
+            });
+        });
+      }
+      else{
+        Swal.fire({
           type: 'error',
           title: 'Error al registrarse',
-          text: this.error(err)
+          text: 'Ya existe un usuario registrado con ese nombre de usuario'
         });
-        console.log(err);
-    });
+      }
+    })
   }
 
   registrarGoogle() {
     this.auth.loginGoogle().then((res) => {
-      this.usuario.nombre = res.user.displayName;
-      this.usuario.idFB = res.user.uid;
-      this.usuario.foto = res.user.photoURL
-      this.usuario.correo = res.user.email
-      this.datosService.obtenerUltimoId("usuarios").then(datos => {
-        if(datos != undefined && datos.docs[0] != undefined){
-          this.usuario.id = (<usuario> datos.docs[0].data()).id + 1
+      var suscripcion = this.datosService.obtenerElementoIdFB("usuarios", res.user.uid).subscribe(datos => {
+        if((datos && datos["idFB"] != res.user.uid) || datos == undefined){          
+          this.usuario.nombre = res.user.displayName;
+          this.usuario.idFB = res.user.uid;
+          this.usuario.foto = res.user.photoURL
+          this.usuario.correo = res.user.email
+          this.datosService.obtenerUltimoId("usuarios").then(datos => {
+            if(datos != undefined && datos.docs[0] != undefined){
+              this.usuario.id = (<usuario> datos.docs[0].data()).id + 1
+            }
+            else{
+              this.usuario.id = 0
+            }          
+            this.datosService.insertarElemento("usuarios", this.usuario, false).catch(error => {
+              Swal.fire({
+                type: 'error',
+                title: 'Error al registrarse',
+                text: this.error(error)
+              })      
+            }).then(()=>{
+              this.auth.almacenarUsuarioLocalStorage(this.usuario.idFB)
+            })
+          })
         }
-        else{
-          this.usuario.id = 0
-        }          
-        this.datosService.insertarElemento("usuarios", this.usuario, false).catch(error => {
+        else if(datos && datos["idFB"] == res.user.uid){
           Swal.fire({
             type: 'error',
             title: 'Error al registrarse',
-            text: this.error(error)
-          })      
-        }).then(()=>{
-          this.auth.almacenarUsuarioLocalStorage(this.usuario.idFB)
-        })
-      }) 
+            text: 'Esta cuenta ya está registrada, por favor inicie sesión'
+          }) 
+          this.auth.logout()
+          this.router.navigate(["/registrarse"])
+          return;
+        }
+        else{
+          Swal.fire({
+            type: 'error',
+            title: 'Error al registrarse',
+            text: 'No se pudo comprobar si la cuenta ya estaba registrada'
+          }) 
+        }
+        suscripcion.unsubscribe()
+      })
       Swal.close();
       this.router.navigateByUrl('');
     }).catch ( err => err);
@@ -145,27 +180,49 @@ export class RegistrarseComponent implements OnInit {
 
   registrarFacebook() {
     this.auth.loginFacebook().then((res) => {
-      this.usuario.nombre = res.user.displayName;
-      this.usuario.idFB = res.user.uid;
-      this.usuario.foto = res.user.photoURL
-      this.usuario.correo = res.user.email
-      this.datosService.obtenerUltimoId("usuarios").then(datos => {
-        if(datos != undefined && datos.docs[0] != undefined){
-          this.usuario.id = (<usuario> datos.docs[0].data()).id + 1
+      var suscripcion = this.datosService.obtenerElementoIdFB("usuarios", res.user.uid).subscribe(datos => {
+        if((datos && datos["idFB"] != res.user.uid) || datos == undefined){          
+          this.usuario.nombre = res.user.displayName;
+          this.usuario.idFB = res.user.uid;
+          this.usuario.foto = res.user.photoURL
+          this.usuario.correo = res.user.email
+          this.datosService.obtenerUltimoId("usuarios").then(datos => {
+            if(datos != undefined && datos.docs[0] != undefined){
+              this.usuario.id = (<usuario> datos.docs[0].data()).id + 1
+            }
+            else{
+              this.usuario.id = 0
+            }          
+            this.datosService.insertarElemento("usuarios", this.usuario, false).catch(error => {
+              Swal.fire({
+                type: 'error',
+                title: 'Error al registrarse',
+                text: this.error(error)
+              })      
+            }).then(()=>{
+              this.auth.almacenarUsuarioLocalStorage(this.usuario.idFB)
+            })
+          })
         }
-        else{
-          this.usuario.id = 0
-        }          
-        this.datosService.insertarElemento("usuarios", this.usuario, false).catch(error => {
+        else if(datos && datos["idFB"] == res.user.uid){
           Swal.fire({
             type: 'error',
             title: 'Error al registrarse',
-            text: this.error(error)
-          })      
-        }).then(()=>{
-          this.auth.almacenarUsuarioLocalStorage(this.usuario.idFB)
-        })
-      }) 
+            text: 'Esta cuenta ya está registrada, por favor inicie sesión'
+          }) 
+          this.auth.logout()
+          this.router.navigate(["/registrarse"])
+          return;
+        }
+        else{
+          Swal.fire({
+            type: 'error',
+            title: 'Error al registrarse',
+            text: 'No se pudo comprobar si la cuenta ya estaba registrada'
+          }) 
+        }
+        suscripcion.unsubscribe()
+      })
       Swal.close();
       this.router.navigateByUrl('');   
     }).catch ( err => err);

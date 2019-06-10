@@ -63,7 +63,6 @@ export class ComentarioComponent implements OnInit {
   }
 
   agregarComentario(){
-
     if(this.resena.comentario == "") {
       Swal.fire({
         type: 'info',

@@ -77,7 +77,6 @@ export class AuthService {
   }
 
   estaAutentificado() {  
-    console.info(this.autentificado)
     var usuarioActual = this.localStorage.obtenerUsuarioActual();
     if(this.autentificado == undefined){
       if(usuarioActual["id"] >= 0 && usuarioActual["idFB"] != ""){
@@ -116,7 +115,6 @@ export class AuthService {
   }
 
   verificarEstadoAutentificado(){
-    console.info("PRUEBA")
     this.estadoAutentificado = this.afAuth.authState.subscribe(res => {            
       if(res){
         this.autentificado = true;

@@ -21,28 +21,32 @@
                                     <div class="col-sm-8 col-lg-9">
                                         <div class="row">
                                             <div class="form-group col-12" [ngClass]="{'has-danger': !formulario.get('nombre').valid && formulario.get('nombre').touched}">
-                                                <input type="text" formControlName="nombre" class="form-control" placeholder="Nombre">
+                                                <label for="nombre" class="col-form-label">Nombre</label>
+                                                <input id="nombre" type="text" formControlName="nombre" class="form-control" placeholder="Nombre">
                                                 <div>
                                                     <small *ngIf="formulario.get('nombre').errors?.required && formulario.get('nombre').touched" class="form-control-feedback">Este campo es requerido.</small>
                                                     <small *ngIf="formulario.get('nombre').errors?.minlength && formulario.get('nombre').touched" class="form-control-feedback">Por lo menos {{formulario.controls['nombre'].errors?.minlength.requiredLength}} caracteres.</small>
                                                 </div>
                                             </div>
                                             <div class="form-group col-12" [ngClass]="{'has-danger': !formulario.get('apellidos').valid && formulario.get('apellidos').touched}">
-                                                <input type="text" formControlName="apellidos" class="form-control" placeholder="Apellido(s)">
+                                                <label for="apellidos" class="col-form-label">Apellido(s)</label>
+                                                <input id="apellidos" type="text" formControlName="apellidos" class="form-control" placeholder="Apellido(s)">
                                                 <div>
                                                     <small *ngIf="formulario.get('apellidos').errors?.required && formulario.get('apellidos').touched" class="form-control-feedback">Este campo es requerido.</small>
                                                     <small *ngIf="formulario.get('apellidos').errors?.minlength && formulario.get('apellidos').touched" class="form-control-feedback">Por lo menos {{formulario.controls['apellidos'].errors?.minlength.requiredLength}} caracteres.</small>
                                                 </div>
                                             </div>
                                             <div class="form-group col-12" [ngClass]="{'has-danger': !formulario.get('correo').valid && formulario.get('correo').touched}">
-                                                <input type="text" formControlName="correo" class="form-control" placeholder="Correo">
+                                                <label for="correo" class="col-form-label">Correo</label>
+                                                <input id="correo" type="text" formControlName="correo" class="form-control" placeholder="Correo">
                                                 <div>
                                                     <small *ngIf="formulario.get('correo').errors?.required && formulario.get('correo').touched" class="form-control-feedback">Este campo es requerido.</small>
                                                     <small *ngIf="formulario.get('correo').errors?.minlength && formulario.get('correo').touched" class="form-control-feedback">Por lo menos {{formulario.controls['correo'].errors?.minlength.requiredLength}} caracteres.</small>
                                                 </div>
                                             </div>
                                             <div class="form-group col-12" [ngClass]="{'has-danger': !formulario.get('usuario').valid && formulario.get('usuario').touched}">
-                                                <input type="text" formControlName="usuario" class="form-control" placeholder="Usuario">
+                                                <label for="usuario" class="col-form-label">Usuario</label>
+                                                <input id="usuario" type="text" formControlName="usuario" class="form-control" placeholder="Usuario">
                                                 <div>
                                                     <small *ngIf="formulario.get('usuario').errors?.required && formulario.get('usuario').touched" class="form-control-feedback">Este campo es requerido.</small>
                                                     <small *ngIf="formulario.get('usuario').errors?.minlength && formulario.get('usuario').touched" class="form-control-feedback">Por lo menos {{formulario.controls['usuario'].errors?.minlength.requiredLength}} caracteres.</small>

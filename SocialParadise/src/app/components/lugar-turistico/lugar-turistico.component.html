@@ -49,8 +49,8 @@
                     <div class="col-12">
                         <div class="following">
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item" *ngFor="let resena of resenas">
-                                    <div class="row component-review" [ngClass]="{'censurar': censurar}">
+                                <li class="list-group-item" *ngFor="let resena of resenas; let i = index;">
+                                    <div class="row component-review" [ngClass]="{'censurar': resena.censurado}">
                                         <div class="col-12 col-lg-3">
                                             <div class="row rating text-center">
                                                 <div class="col-12 text-left imagen">
@@ -68,7 +68,7 @@
                                             <h4>{{getAtributoUsuario(resena.usuario.toString(), 'nombre')}}</h4>
                                             <p>{{resena.comentario}}</p>
                                             <button type="button" class="btn btn-light" data-toggle="modal" [attr.data-target]="'#modal'+resena.id">Responder</button>
-                                            <button type="button" class="btn-censura" *ngIf="this.auth.estaAutentificado() && this.auth.esAdmin()">{{ resena.censurado ? "Aprobar" : "Censurar"}}</button>
+                                            <button type="button" class="btn-censura" *ngIf="this.auth.estaAutentificado() && this.auth.esAdmin()" (click)="cambiarCensuraResena(i)">{{ resena.censurado ? "Aprobar" : "Censurar"}}</button>
                                         </div>
                                     </div>
                                     <div class="modal fade" [attr.id]="'modal'+resena.id" tabindex="-1" role="dialog" aria-labelledby="comentarioModalLabel" aria-hidden="true">

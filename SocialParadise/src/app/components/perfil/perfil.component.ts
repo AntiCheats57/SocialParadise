@@ -129,27 +129,41 @@ export class PerfilComponent implements OnInit, OnDestroy {
       });
       return;
     }
-    this.usuario.nombre = this.formulario.get("nombre").value
-    this.usuario.apellidos = this.formulario.get("apellidos").value
-    this.usuario.correo = this.formulario.get("correo").value
-    this.usuario.usuario = this.formulario.get("usuario").value
-    this.usuario.lugaresSeguidos = []
-    for(var i in this.lugaresSeguidos){
-      this.usuario.lugaresSeguidos.push(this.lugaresSeguidos[i].id)
-    }
-    this.datosService.actualizarElemento("usuarios", this.usuario).catch(err =>{
-      Swal.fire({
-        type: 'error',
-        title: 'Error al guardar los cambios al perfil',
-        text: err.message
-      });
-    }).then(()=>{
-      Swal.fire({
-        type: 'success',
-        title: 'Guardado correctamente'
-      });
-      this.auth.almacenarUsuarioLocalStorage(this.usuario.idFB)
-    });
+    var suscripcion = this.datosService.obtenerColeccionCondicion("usuarios", "usuario", this.formulario.controls['usuario'].value).subscribe(usu=>{
+      if(usu == undefined || (usu != undefined && usu.length == 0) || (usu != undefined && usu[0]["id"] == this.usuario.id)){
+        this.usuario.nombre = this.formulario.get("nombre").value
+        this.usuario.apellidos = this.formulario.get("apellidos").value
+        this.usuario.correo = this.formulario.get("correo").value
+        this.usuario.usuario = this.formulario.get("usuario").value
+        this.usuario.usuario = this.usuario.usuario.toLowerCase()
+        this.usuario.lugaresSeguidos = []
+        for(var i in this.lugaresSeguidos){
+          this.usuario.lugaresSeguidos.push(this.lugaresSeguidos[i].id)
+        }
+        this.datosService.actualizarElemento("usuarios", this.usuario).catch(err =>{
+          Swal.fire({
+            type: 'error',
+            title: 'Error al guardar los cambios al perfil',
+            text: err.message
+          });
+          suscripcion.unsubscribe()
+        }).then(()=>{
+          Swal.fire({
+            type: 'success',
+            title: 'Guardado correctamente'
+          });
+          this.auth.almacenarUsuarioLocalStorage(this.usuario.idFB)
+          suscripcion.unsubscribe()
+        });
+      }
+      else{
+        Swal.fire({
+          type: 'error',
+          title: 'Error al guardar',
+          text: 'Ya existe un usuario registrado con ese nombre de usuario'
+        });
+      }      
+    })    
   }
 
   cargarImagen(e) {

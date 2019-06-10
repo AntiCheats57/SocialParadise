@@ -71,7 +71,7 @@ export class LugarTuristicoComponent implements OnInit, OnDestroy {
             this.suscResena = this.datosService.obtenerColeccionCondicion("resenas", "lugar", parseInt(this.lugar.id)).subscribe(elementos => {
               this.resenasTemp = elementos;
               this.resenas = []
-              this.usuarios = []     
+              this.usuarios = []    
               if(this.resenasTemp != undefined){                
                 this.valoracionGeneral = 0;
                 var cantidadResenas = 0;
@@ -80,18 +80,20 @@ export class LugarTuristicoComponent implements OnInit, OnDestroy {
 
                 }).forEach(r => {
                   if(r.lugar === this.lugar.id){
-                    this.resenas.push(r)
                     this.valoracionGeneral = this.valoracionGeneral + r.valoracion;
-                    cantidadResenas++;             
-                    this.suscUsuario = this.datosService.obtenerElementoId("usuarios", r.usuario.toString()).subscribe(usu => {
-                      if(usu != undefined){
-                        this.usuarios.push({
-                          nombre: (<usuario> usu[0]).nombre + " " + (<usuario> usu[0]).apellidos, 
-                          id: (<usuario> usu[0]).id,
-                          foto: (<usuario> usu[0]).foto
-                        });
-                      }
-                  }, error => {}, ()=> {this.suscUsuario.unsubscribe()});
+                    cantidadResenas++;   
+                    if((this.auth.estaAutentificado() && this.auth.esAdmin()) || !r.censurado){         
+                      this.resenas.push(r); 
+                      this.suscUsuario = this.datosService.obtenerElementoId("usuarios", r.usuario.toString()).subscribe(usu => {
+                          if(usu != undefined){
+                            this.usuarios.push({
+                              nombre: (<usuario> usu[0]).nombre + " " + (<usuario> usu[0]).apellidos, 
+                              id: (<usuario> usu[0]).id,
+                              foto: (<usuario> usu[0]).foto
+                            });
+                          }
+                      }, error => {}, ()=> {this.suscUsuario.unsubscribe()});
+                    }
                   }              
                 });     
                 this.valoracionGeneral = this.valoracionGeneral / (cantidadResenas != 0? cantidadResenas : 1);  
@@ -194,6 +196,13 @@ export class LugarTuristicoComponent implements OnInit, OnDestroy {
         }
     }, error =>{}, () =>{});
     
+  }
+
+  cambiarCensuraResena(indice : number){
+      if(this.resenas && this.resenas[indice]){
+        this.resenas[indice].censurado = !this.resenas[indice].censurado;
+        this.datosService.actualizarElemento("resenas", this.resenas[indice]);
+      }
   }
 
 }
