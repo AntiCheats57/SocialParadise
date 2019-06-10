@@ -116,15 +116,19 @@
                                                         </div>
                                                     </div>
                                                     <form>
-                                                        <div class="form-group">
-                                                            <label for="comentario" class="col-form-label">Comentar:</label>
-                                                            <textarea class="form-control" id="comentario"></textarea>
+                                                        <div class="form-group" [formGroup]="formulario" [ngClass]="{'has-danger': !formulario.get('comentario').valid && formulario.get('comentario').touched}">
+                                                            <label for="comentario" class="col-form-label">Comentario</label>
+                                                            <textarea class="form-control" formControlName="comentario" id="comentario"></textarea>
+                                                            <div>
+                                                                <small *ngIf="formulario.get('comentario').errors?.required && formulario.get('comentario').touched" class="form-control-feedback">Este campo es requerido.</small>
+                                                                <small *ngIf="formulario.get('comentario').errors?.minlength && formulario.get('comentario').touched" class="form-control-feedback">Por lo menos {{formulario.controls['comentario'].errors?.minlength.requiredLength}} caracteres.</small>
+                                                            </div>
                                                         </div>
                                                     </form>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-light" data-dismiss="modal">Cerrar</button>
-                                                    <button type="button" class="btn btn-primary">Publicar comentario</button>
+                                                    <button type="button" class="btn btn-primary" (click)="comentar(i)">Publicar comentario</button>
                                                 </div>
                                             </div>
                                         </div>
