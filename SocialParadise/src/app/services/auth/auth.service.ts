@@ -88,7 +88,6 @@ export class AuthService {
 
   almacenarUsuarioLocalStorage(idFB : string){
     this.datosService.obtenerElementoIdFB("usuarios", idFB).subscribe(datos => {
-      console.info("")
       if(!datos){
         datos = {
           id: -1,

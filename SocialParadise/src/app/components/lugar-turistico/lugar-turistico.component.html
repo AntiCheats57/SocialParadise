@@ -69,6 +69,7 @@
                                         <div class="col-12 col-md-9 contenido">
                                             <h4>{{getAtributoUsuario(resena.usuario.toString(), 'nombre')}}</h4>
                                             <p>{{resena.comentario}}</p>
+                                            <button type="button" *ngIf="this.auth.estaAutentificado() && resena.usuario == this.usuarioActual.id" (click)="eliminar(i, -1, 'C')" class="btn btn-danger mb-3">Eliminar</button>
                                             <button type="button" class="btn btn-light" data-toggle="modal" [attr.data-target]="'#modal'+resena.id" *ngIf="this.auth.estaAutentificado() && this.esDueno">Responder</button>
                                             <button type="button" class="btn-censura" *ngIf="this.auth.estaAutentificado() && this.esDueno" (click)="cambiarCensuraResena(resena.id)">{{ resena.censurado ? "Aprobar" : "Censurar"}}</button>
                                             <hr *ngIf="resena.respuestas && resena.respuestas.length > 0">
@@ -79,6 +80,7 @@
                                                     <h5>{{getAtributoUsuario(respuesta.usuario.toString(), 'nombre')}}</h5>
                                                     <span>{{respuesta.fechaPublicacion | date: "dd/MM/yyyy hh:mm a"}}</span>
                                                     <p>{{respuesta.comentario}}</p>
+                                                    <button type="button" *ngIf="this.auth.estaAutentificado() && respuesta.usuario == this.usuarioActual.id" (click)="eliminar(i, respuesta.id, 'R')" class="btn btn-danger mb-3">Eliminar</button>
                                                     <button type="button" class="btn-censura" *ngIf="this.auth.estaAutentificado() && this.esDueno" (click)="cambiarCensuraResena(respuesta.id)">{{ respuesta.censurado ? "Aprobar" : "Censurar"}}</button>
                                                 </div>
                                             </div>
