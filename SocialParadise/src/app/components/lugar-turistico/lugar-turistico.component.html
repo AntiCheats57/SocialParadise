@@ -70,16 +70,16 @@
                                             <h4>{{getAtributoUsuario(resena.usuario.toString(), 'nombre')}}</h4>
                                             <p>{{resena.comentario}}</p>
                                             <button type="button" class="btn btn-light" data-toggle="modal" [attr.data-target]="'#modal'+resena.id" *ngIf="this.auth.estaAutentificado() && this.esDueno">Responder</button>
-                                            <button type="button" class="btn-censura" *ngIf="this.auth.estaAutentificado() && this.esDueno" (click)="cambiarCensuraResena(i)">{{ resena.censurado ? "Aprobar" : "Censurar"}}</button>
-                                            <hr *ngIf="respuesta">
+                                            <button type="button" class="btn-censura" *ngIf="this.auth.estaAutentificado() && this.esDueno" (click)="cambiarCensuraResena(resena.id)">{{ resena.censurado ? "Aprobar" : "Censurar"}}</button>
+                                            <hr *ngIf="resena.respuestas && resena.respuestas.length > 0">
 
-                                            <div *ngIf="respuesta" class="row component-answer" [ngClass]="{'censurar': resena.censurado}">
+                                            <div *ngFor="let respuesta of obtenerRespuestasResena(i)" class="row component-answer" [ngClass]="{'censurar': respuesta.censurado}">
                                                 <div class="col-12 contenido">
-                                                    <img [src]="getAtributoUsuario(resena.usuario.toString(), 'foto')" alt="" class="img-responsiv img-fluid img-circle" width="50px" height="50px" />
-                                                    <h5>{{getAtributoUsuario(resena.usuario.toString(), 'nombre')}}</h5>
-                                                    <span>{{resena.fechaPublicacion | date: "dd/MM/yyyy hh:mm a"}}</span>
-                                                    <p>{{resena.comentario}}</p>
-                                                    <button type="button" class="btn-censura" *ngIf="this.auth.estaAutentificado() && this.auth.esAdmin()">{{ resena.censurado ? "Aprobar" : "Censurar"}}</button>
+                                                    <img [src]="getAtributoUsuario(respuesta.usuario.toString(), 'foto')" alt="" class="img-responsiv img-fluid img-circle" width="50px" height="50px" />
+                                                    <h5>{{getAtributoUsuario(respuesta.usuario.toString(), 'nombre')}}</h5>
+                                                    <span>{{respuesta.fechaPublicacion | date: "dd/MM/yyyy hh:mm a"}}</span>
+                                                    <p>{{respuesta.comentario}}</p>
+                                                    <button type="button" class="btn-censura" *ngIf="this.auth.estaAutentificado() && this.esDueno" (click)="cambiarCensuraResena(respuesta.id)">{{ respuesta.censurado ? "Aprobar" : "Censurar"}}</button>
                                                 </div>
                                             </div>
 
@@ -159,10 +159,10 @@
             </div>
             <div class="modal-body">
                 <div class="list-group list-group-flush">
-                    <div *ngFor="let seguidor of seguidores" class="list-group-item seguidor-c">
-                        <img src="assets/images/im-contact.jpg" alt="" class="" width="50px" height="50px" />
-                        <p>Nombre Apellidos</p>
-                        <span>Correo electrónico</span>
+                    <div *ngFor="let seguidor of this.seguidores" class="list-group-item seguidor-c">
+                        <img [src]="seguidor.foto" alt="" class="" width="50px" height="50px" />
+                        <p>{{seguidor.nombre}}</p>
+                        <span>{{seguidor.correo}}</span>
                         <hr>
                     </div>
                 </div>
