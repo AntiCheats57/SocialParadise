@@ -36,7 +36,7 @@ export class BuscarService {
 
   private _estado: Estado = {
     pagina: 1,
-    tamanoPagina: 4,
+    tamanoPagina: 9,
     buscarTermino: '',
     ordenarColumna: '',
     ordenarDireccion: ''

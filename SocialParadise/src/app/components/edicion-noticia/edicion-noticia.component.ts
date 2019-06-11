@@ -149,9 +149,27 @@ export class EdicionNoticiaComponent implements OnInit, OnDestroy {
   }
 
   eliminar(){
-    if(this.noticiaId && this.noticia){
-      this.datosService.eliminarElemento("noticias", this.noticia.idFB);
-    }
+    Swal.fire({
+      title: 'Estás seguro de eliminarlo?',
+      text: "No podrás revertir esto!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.value) {
+        if(this.noticiaId && this.noticia){
+          this.datosService.eliminarElemento("noticias", this.noticia.idFB);
+        }
+        Swal.fire(
+          'Eliminado!',
+          'El registro ha sido eliminado.',
+          'success'
+        )
+      }
+    })
   }
 
   cargarImagen(e) {

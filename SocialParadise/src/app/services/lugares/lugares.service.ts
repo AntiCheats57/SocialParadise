@@ -43,6 +43,7 @@ export class LugaresService {
   private _buscar$ = new Subject<void>();
   private _lugares$ = new BehaviorSubject<lugar[]>([]);
   private _total$ = new BehaviorSubject<number>(0);
+  private editores: usuario[] = [];
   private lugaresItems: lugar[] = [];
 
   private _estado: Estado = {
@@ -91,35 +92,27 @@ export class LugaresService {
   set buscarTermino(buscarTermino: string) { this._set({buscarTermino}); }
   set ordenarColumna(ordenarColumna: string) { this._set({ordenarColumna}); }
   set ordenarDireccion(ordenarDireccion: SortDirection) { this._set({ordenarDireccion}); }
+  
+  editor(editor: usuario) { this.editores.push(editor); }
+  listaEditor(editores: usuario[]) { this.editores = editores; }
 
   private encontrar(lugar: lugar, termino: string, pipe: PipeTransform) {
     return lugar.nombre.toLowerCase().includes(termino.toLowerCase())
-          || this.asignado(lugar).toLowerCase().includes(termino.toLowerCase());
-          // || lugar.descripcion.toLowerCase().includes(termino);
+          || lugar.ubicacion.toLowerCase().includes(termino.toLowerCase())
+          || this.obtenerEditor(lugar).toLowerCase().includes(termino.toLowerCase());
   }
-  
-  private asignado(lugar: lugar): string {
-    if (lugar.usuario) {
-      return "Sí";
-    } 
-    else {
-      return "No";
-    }
-  } 
 
-  // private editor(lugar: lugar): string {
-  //   if (lugar.usuario) {
-  //     this.datosService.obtenerElementoId('usuario', lugar.usuario.toString()).subscribe(dato => {
-  //       return dato.values.toString();
-  //     });
-  //     // return "";
-  //   } 
-  //   else {
-  //     return "";
-  //   }
-    
-  // } 
-  
+  private obtenerEditor(lugar: lugar) {
+    var salida  = "-"
+    if(this.editores && this.editores.length > 0){
+      for(let i in this.editores){
+        if(this.editores[i].id == lugar.usuario){
+          salida = this.editores[i].nombre + " " + this.editores[i].apellidos
+        }
+      }
+    }
+    return salida;
+  }
 
   private _set(patch: Partial<Estado>) {
     Object.assign(this._estado, patch);

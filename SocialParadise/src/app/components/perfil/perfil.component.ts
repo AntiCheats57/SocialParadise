@@ -173,25 +173,38 @@ export class PerfilComponent implements OnInit, OnDestroy {
   }
 
   removerLugar(indice: number){
-    var suscLugar : Subscription;
-    var lugarId = this.lugaresSeguidos[indice].id;
-    suscLugar = this.datosService.obtenerElementoId("lugares", lugarId.toString()).subscribe(datos => {
-      if(datos){
-        var lugar = <lugar> datos[0];
-        var seguidores = []
-        for(var i in lugar.seguidores){
-            if(lugar.seguidores[i] != this.usuario.id){
-              seguidores.push(lugar.seguidores[i]);
+    Swal.fire({
+      title: 'Estás seguro de eliminarlo?',
+      text: "No podrás revertir esto!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.value) {
+        var suscLugar : Subscription;
+        var lugarId = this.lugaresSeguidos[indice].id;
+        suscLugar = this.datosService.obtenerElementoId("lugares", lugarId.toString()).subscribe(datos => {
+          if(datos){
+            var lugar = <lugar> datos[0];
+            var seguidores = []
+            for(var i in lugar.seguidores){
+                if(lugar.seguidores[i] != this.usuario.id){
+                  seguidores.push(lugar.seguidores[i]);
+                }
             }
-        }
-        lugar.seguidores = seguidores;
-        this.datosService.actualizarElemento("lugares", lugar).then(()=>{
-          suscLugar.unsubscribe();
-        });        
+            lugar.seguidores = seguidores;
+            this.datosService.actualizarElemento("lugares", lugar).then(()=>{
+              suscLugar.unsubscribe();
+            });        
+          }
+        });
+        this.lugaresSeguidos.splice(indice, 1);
+        this.guardar();
       }
-    });
-    this.lugaresSeguidos.splice(indice, 1);
-    this.guardar();
+    })
   }
 
   ngOnDestroy(): void{

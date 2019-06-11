@@ -129,13 +129,27 @@ export class EdicionLugarComponent implements OnInit, OnDestroy {
   }
 
   eliminarImagen(indice : number){
-    if(indice != -1){
-      (<string[]> this.imagenes).splice(indice, 1);
-      this.indiceImgSeleccionada = indice - 1;
-      if(this.indiceImgSeleccionada < 0 ){
-        this.indiceImgSeleccionada = 0;
+    Swal.fire({
+      title: 'Estás seguro de eliminarlo?',
+      text: "No podrás revertir esto!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.value) {
+        if(indice != -1){
+          (<string[]> this.imagenes).splice(indice, 1);
+          this.indiceImgSeleccionada = indice - 1;
+          if(this.indiceImgSeleccionada < 0 ){
+            this.indiceImgSeleccionada = 0;
+          }
+        }
       }
-    }
+    })
+    
   }
 
   cargarImagenes(){

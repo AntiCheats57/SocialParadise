@@ -20,7 +20,10 @@
 .censurar .rating,
 .censurar .contenido>h4,
 .censurar .contenido>p,
-.censurar .contenido>.btn-light {
+.censurar .contenido>.btn-light,
+.censurar span,
+.censurar h5,
+.censurar img {
     pointer-events: none;
     opacity: 0.2;
 }

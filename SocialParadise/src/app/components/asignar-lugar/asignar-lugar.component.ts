@@ -232,48 +232,61 @@ export class AsignarLugarComponent implements OnInit, OnDestroy {
   }
 
   eliminar(){
-    if(this.lugar && this.lugar.id >=0 && this.indexLugar){
-      var indexEditor = this.lugar.usuario
-      this.datosService.eliminarElemento("lugares", this.lugar.idFB).catch(err =>{
-        Swal.fire({
-          type: 'error',
-          title: 'Error al eliminar el lugar',
-          text: err.message
-        });
-      }).then(()=>{
-        if(indexEditor >= 0){
-          this.datosService.obtenerElementoId("usuarios", indexEditor.toString()).subscribe(datos =>{
-            if(datos){
-              var lugaresAsignados = []
-              for(let i in datos[0]["lugaresAsignados"]){
-                if(datos[0]["lugaresAsignados"][i] != this.indexLugar){
-                  lugaresAsignados.push(datos[0]["lugaresAsignados"][i])
+    Swal.fire({
+      title: 'Estás seguro de eliminarlo?',
+      text: "No podrás revertir esto!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.value) {
+        if(this.lugar && this.lugar.id >=0 && this.indexLugar){
+          var indexEditor = this.lugar.usuario
+          this.datosService.eliminarElemento("lugares", this.lugar.idFB).catch(err =>{
+            Swal.fire({
+              type: 'error',
+              title: 'Error al eliminar el lugar',
+              text: err.message
+            });
+          }).then(()=>{
+            if(indexEditor >= 0){
+              this.datosService.obtenerElementoId("usuarios", indexEditor.toString()).subscribe(datos =>{
+                if(datos){
+                  var lugaresAsignados = []
+                  for(let i in datos[0]["lugaresAsignados"]){
+                    if(datos[0]["lugaresAsignados"][i] != this.indexLugar){
+                      lugaresAsignados.push(datos[0]["lugaresAsignados"][i])
+                    }
+                  }
+                  datos[0]["lugaresAsignados"] = lugaresAsignados
+                  var suscripcion = this.datosService.actualizarElemento("usuarios", datos[0]).catch(err =>{
+                    Swal.fire({
+                      type: 'error',
+                      title: 'Error al eliminar el enlace del lugar con el editor',
+                      text: err.message
+                    });
+                  }).then(()=>{
+                    Swal.fire({
+                      type: 'success',
+                      title: 'Eliminado correctamente'
+                    });
+                 })
                 }
-              }
-              datos[0]["lugaresAsignados"] = lugaresAsignados
-              var suscripcion = this.datosService.actualizarElemento("usuarios", datos[0]).catch(err =>{
-                Swal.fire({
-                  type: 'error',
-                  title: 'Error al eliminar el enlace del lugar con el editor',
-                  text: err.message
-                });
-              }).then(()=>{
-                Swal.fire({
-                  type: 'success',
-                  title: 'Eliminado correctamente'
-                });
-             })
+              })
+            }
+            else{
+              Swal.fire({
+                type: 'success',
+                title: 'Eliminado correctamente'
+              });
             }
           })
         }
-        else{
-          Swal.fire({
-            type: 'success',
-            title: 'Eliminado correctamente'
-          });
-        }
-      })
-    }
+      }
+    })
   }
 
   ngOnDestroy(){
