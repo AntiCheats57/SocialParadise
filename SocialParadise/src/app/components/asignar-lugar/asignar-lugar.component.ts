@@ -38,6 +38,10 @@ export class AsignarLugarComponent implements OnInit, OnDestroy {
                                     Validators.required,
                                     Validators.minLength(4)
                                   ]),
+      'ubicacion': new FormControl('', [
+                                    Validators.required,
+                                    Validators.minLength(4)
+                                  ]),
       'editor': new FormControl('')
     });
   }
@@ -62,7 +66,7 @@ export class AsignarLugarComponent implements OnInit, OnDestroy {
       idFB: "",
       descripcion: "",
       imagenes: [],
-      ubicacion: "-",
+      ubicacion: "",
       nombre: "",
       seguidores: [],
       usuario: -1,
@@ -94,6 +98,7 @@ export class AsignarLugarComponent implements OnInit, OnDestroy {
     }
     if(this.lugar){
       this.lugar.nombre = this.formulario.get("nombre").value
+      this.lugar.ubicacion = this.formulario.get("ubicacion").value
       if(this.editor && this.editor.id >= 0 && this.indexLugar){
         var estaAsignado = false;
         for(let i in this.editor.lugaresAsignados){
@@ -219,6 +224,7 @@ export class AsignarLugarComponent implements OnInit, OnDestroy {
           this.lugar = <lugar> datos[0]
           this.formulario.setValue({
             nombre: this.lugar.nombre,
+            ubicacion: this.lugar.ubicacion,
             editor: ""
           })
           if(this.lugar.usuario >= 0){

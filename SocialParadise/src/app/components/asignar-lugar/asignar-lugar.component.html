@@ -4,8 +4,8 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title form-title" id="modalLabel">{{encabezadoModal}}</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true" [routerLink]="[ '/asignacionLugares']">&times;</span>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" [routerLink]="[ '/asignacionLugares']">
+                    <span aria-hidden="true" >&times;</span>
                 </button>
                 </div>
                 <div class="modal-body">
@@ -18,6 +18,14 @@
                                     <div>
                                         <small *ngIf="formulario.get('nombre').errors?.required && formulario.get('nombre').touched" class="form-control-feedback">Este campo es requerido.</small>
                                         <small *ngIf="formulario.get('nombre').errors?.minlength && formulario.get('nombre').touched" class="form-control-feedback">Por lo menos {{formulario.controls['nombre'].errors?.minlength.requiredLength}} caracteres.</small>
+                                    </div>
+                                </div>
+                                <div class="form-group col-12" [ngClass]="{'has-danger': !formulario.get('ubicacion').valid && formulario.get('ubicacion').touched}">
+                                    <label for="ubicacion" class="col-form-label">Ubicación</label>
+                                    <input type="text" formControlName="ubicacion" class="form-control" placeholder="Ubicación">
+                                    <div>
+                                        <small *ngIf="formulario.get('ubicacion').errors?.required && formulario.get('ubicacion').touched" class="form-control-feedback">Este campo es requerido.</small>
+                                        <small *ngIf="formulario.get('ubicacion').errors?.minlength && formulario.get('ubicacion').touched" class="form-control-feedback">Por lo menos {{formulario.controls['ubicacion'].errors?.minlength.requiredLength}} caracteres.</small>
                                     </div>
                                 </div>
 
