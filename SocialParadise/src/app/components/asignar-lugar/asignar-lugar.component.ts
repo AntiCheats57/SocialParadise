@@ -33,7 +33,6 @@ export class AsignarLugarComponent implements OnInit, OnDestroy {
   constructor(private router: Router, private route: ActivatedRoute, public service: UsuariosService, private datosService : DatosService) {
     this.usuarios$ = service.usuarios$;
     this.total$ = service.total$;
-    this.editor
     this.formulario = new FormGroup({
       'nombre': new FormControl('', [
                                     Validators.required,
@@ -308,6 +307,23 @@ export class AsignarLugarComponent implements OnInit, OnDestroy {
         }
       }
     })
+  }
+
+  eliminarEditor() {
+    Swal.fire({
+      title: 'Estás seguro de eliminarlo?',
+      text: "No podrás revertir esto!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.value) {
+
+      }
+    });
   }
 
   ngOnDestroy(){

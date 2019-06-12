@@ -334,47 +334,60 @@ export class LugarTuristicoComponent implements OnInit, OnDestroy {
   }
 
   eliminar(resenaIndice : number, respuestaId : number, resenaTipo : string){
-    if(resenaTipo === 'C'){
-      if(this.resenas[resenaIndice]){
-        this.datosService.eliminarElemento("resenas", this.resenas[resenaIndice].idFB).catch(err =>{
-          Swal.fire({
-            type: 'error',
-            title: 'Error al eliminar el comentario',
-            text: err.message
-          });
-        }).then(()=>{
-          Swal.fire({
-            type: 'success',
-            title: 'El comentario se eliminó correctamente'
-          });
-        });   
-      }
-    }
-    else if(resenaTipo === 'R'){
-      var resenaRespuestas = this.obtenerRespuestasResena(resenaIndice);
-      if(resenaRespuestas && resenaRespuestas.length > 0){
-        var respuestaIndice = -1;
-        for(let i in resenaRespuestas){
-          if(resenaRespuestas[i].id == respuestaId){
-            respuestaIndice = parseInt(i);
+    Swal.fire({
+      title: 'Estás seguro de eliminarlo?',
+      text: "No podrás revertir esto!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if(result.value) {
+        if(resenaTipo === 'C'){
+          if(this.resenas[resenaIndice]){
+            this.datosService.eliminarElemento("resenas", this.resenas[resenaIndice].idFB).catch(err =>{
+              Swal.fire({
+                type: 'error',
+                title: 'Error al eliminar el comentario',
+                text: err.message
+              });
+            }).then(()=>{
+              Swal.fire({
+                type: 'success',
+                title: 'El comentario se eliminó correctamente'
+              });
+            });   
           }
         }
-        if(respuestaIndice != -1){
-          this.datosService.eliminarElemento("resenas", resenaRespuestas[respuestaIndice].idFB).catch(err =>{
-            Swal.fire({
-              type: 'error',
-              title: 'Error al eliminar la respuesta',
-              text: err.message
-            });
-          }).then(()=>{
-            Swal.fire({
-              type: 'success',
-              title: 'La respuesta se eliminó correctamente'
-            });
-          });  
+        else if(resenaTipo === 'R'){
+          var resenaRespuestas = this.obtenerRespuestasResena(resenaIndice);
+          if(resenaRespuestas && resenaRespuestas.length > 0){
+            var respuestaIndice = -1;
+            for(let i in resenaRespuestas){
+              if(resenaRespuestas[i].id == respuestaId){
+                respuestaIndice = parseInt(i);
+              }
+            }
+            if(respuestaIndice != -1){
+              this.datosService.eliminarElemento("resenas", resenaRespuestas[respuestaIndice].idFB).catch(err =>{
+                Swal.fire({
+                  type: 'error',
+                  title: 'Error al eliminar la respuesta',
+                  text: err.message
+                });
+              }).then(()=>{
+                Swal.fire({
+                  type: 'success',
+                  title: 'La respuesta se eliminó correctamente'
+                });
+              });  
+            }
+          }
         }
       }
-    }
+    });
   }
 
   cambiarCensuraResena(resenaId : number){

@@ -38,6 +38,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <button type="button" *ngIf="editor.id !== -1" (click)="eliminarEditor()" class="btn f-delete"><i class="fas fa-trash"></i></button>
                                 </div>
 
                                 <div class="form-group col-12 col-lg-8" [ngClass]="{'has-danger': !formulario.get('editor').valid && formulario.get('editor').touched}">

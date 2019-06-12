@@ -21,6 +21,14 @@
     background-color: #fdf7f7;
 }
 
+.f-delete {
+    color: #d9544ff1;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding-bottom: 0;
+}
+
 small {
     position: absolute;
     font-weight: bold;

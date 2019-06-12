@@ -24,10 +24,12 @@
 .censurar-com span,
 .censurar-com h5,
 .censurar-com img,
+.censurar-com .btn-borrar,
 .censurar-com .btn-censura-res,
 .censurar-res span,
 .censurar-res h5,
 .censurar-res img,
+.censurar-res .btn,
 .censurar-res p {
     pointer-events: none;
     opacity: 0.2;
@@ -262,8 +264,16 @@ iframe {
 }
 
 .component-answer .btn-censura-com,
-.component-answer .btn-censura-res {
+.component-answer .botones-res {
     margin-left: 3.1rem;
+}
+
+.f-delete {
+    color: #d9534f;
+}
+
+.btn-borrar {
+    margin-left: .9rem;
 }
 
 .component-answer span {
