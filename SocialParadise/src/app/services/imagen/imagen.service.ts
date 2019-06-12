@@ -19,6 +19,7 @@ export class ImagenService {
 
   cargarImagen(archivos: FileList) {
 
+    this.imagenesSubidas = []
     this.imagenes = new Array(archivos.length);
     
     Swal.fire({
@@ -34,11 +35,10 @@ export class ImagenService {
       const filePath = `uploads/${id}${'-'}${file.name}`;
       const ref = this.storage.ref(filePath);
       const task = this.storage.upload(filePath, file);
-      
       task.snapshotChanges().pipe( finalize(() => {
         ref.getDownloadURL().toPromise().then( (url) => {
           this.imagenes[i] = url;
-          console.log(url);
+          this.imagenesSubidas.push(this.imagenes[i])
           if(i == archivos.length-1) {
             Swal.fire({
               type: 'success',
@@ -46,9 +46,8 @@ export class ImagenService {
               showConfirmButton: false,
               timer: 1500
             })
+            this.cambios = true;
           }
-          this.imagenesSubidas.push(this.imagenes[i])
-          this.cambios = true;
         })
       })).subscribe();
     }

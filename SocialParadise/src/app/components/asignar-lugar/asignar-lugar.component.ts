@@ -312,7 +312,7 @@ export class AsignarLugarComponent implements OnInit, OnDestroy {
   eliminarEditor() {
     Swal.fire({
       title: 'Estás seguro de eliminarlo?',
-      text: "No podrás revertir esto!",
+      text: "No podrás revertir esto si guardas así!",
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -321,7 +321,22 @@ export class AsignarLugarComponent implements OnInit, OnDestroy {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.value) {
-
+        if(this.editor && this.editor.id >= 0 && this.lugar && this.lugar.id >= 0){
+          this.editor = {
+            id: -1,
+            idFB: "",
+            nombre: "",
+            apellidos: "",
+            usuario: "",
+            clave: "",
+            correo: "",
+            foto: "",
+            resenas: [],
+            lugaresAsignados: [],
+            lugaresSeguidos: [],
+            admin: false
+          }
+        }
       }
     });
   }
