@@ -95,8 +95,8 @@
                                         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="comentarioModalLabel">{{'modal'+resena.id}}</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <h5 class="modal-title" id="comentarioModalLabel">Responder al comentario</h5>
+                                                    <button type="button" class="close" (click)="cerrarModal('#modal'+resena.id)" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                       </button>
                                                 </div>
@@ -132,7 +132,7 @@
                                                     </form>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-light" data-dismiss="modal">Cerrar</button>
+                                                    <button type="button" class="btn btn-light" (click)="cerrarModal('#modal'+resena.id)">Cerrar</button>
                                                     <button type="button" class="btn btn-primary" (click)="comentar(resena, '#modal'+resena.id)">Publicar comentario</button>
                                                 </div>
                                             </div>

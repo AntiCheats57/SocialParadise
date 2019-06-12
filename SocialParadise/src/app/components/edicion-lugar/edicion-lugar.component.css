@@ -118,3 +118,24 @@ input[type=file] {
 .overModal {
     overflow-y: auto !important;
 }
+
+.btn-borrar {
+    position: absolute;
+    right: 13px;
+    bottom: 15px;
+    color: rgb(240, 76, 76);
+    background-color: white;
+    border: none;
+    padding: .375rem .75rem;
+    border-radius: .25rem;
+}
+
+.btn-borrar:hover {
+    color: red;
+}
+
+.btn-borrar:focus,
+.btn-borrar:active {
+    outline: 0;
+    border: none;
+}
