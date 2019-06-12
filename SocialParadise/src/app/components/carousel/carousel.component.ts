@@ -50,7 +50,7 @@ export class CarouselComponent implements OnInit, OnDestroy  {
         this.suscripcion = this.datosService.obtenerElementoId("lugares", this.rutaActual.snapshot.paramMap.get("id")).subscribe(datos => {
             this.lugar = datos[0];
             if(this.lugar.imagenes.length == 0){
-              this.lugar.imagenes.push("https://firebasestorage.googleapis.com/v0/b/socialparadiseuna.appspot.com/o/uploads%2Fpaisaje-default.svg?alt=media&token=3b84a525-6e7f-4212-9197-b9fffdb7dcae");
+              this.lugar.imagenes.push("https://firebasestorage.googleapis.com/v0/b/socialparadiseuna.appspot.com/o/default%2Fpaisaje1.svg?alt=media&token=501ffcee-c3fd-4d8d-b748-40ea0ebe9019");
             }
           }, 
           error => {
