@@ -139,7 +139,7 @@ export class PerfilComponent implements OnInit, OnDestroy {
       Swal.fire({
         type: 'error',
         title: 'Error al guardar los cambios al perfil',
-        text: 'Debe completar correctamente todos los campos'
+        text: 'Debe completar todos los campos requeridos'
       });
       return;
     }

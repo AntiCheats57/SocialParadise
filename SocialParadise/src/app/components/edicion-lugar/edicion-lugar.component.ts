@@ -37,9 +37,8 @@ export class EdicionLugarComponent implements OnInit, OnDestroy {
                                     Validators.required
                                   ]),
       'video': new FormControl('', [
-                                    Validators.required
-                                    //Validators.pattern("^http:\/\/(.*\.(com$|net$|org$))")
-                                    // Validators.pattern("https://www.youtube.com/embed/.$")
+                                    Validators.required,
+                                    Validators.pattern("^https?\:\/\/www\.youtube\.com\/embed\/.+$")
                                   ])
     });    
   }
@@ -92,8 +91,7 @@ export class EdicionLugarComponent implements OnInit, OnDestroy {
     if(!this.formulario.valid){
       Swal.fire({
         type: 'error',
-        title: 'Error al guardar los cambios al perfil',
-        text: 'Debe completar correctamente los campos requeridos'
+        title: 'Debe completar todos los campos requeridos'
       });
       return;
     }

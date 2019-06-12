@@ -48,7 +48,7 @@ export class LugaresService {
 
   private _estado: Estado = {
     pagina: 1,
-    tamanoPagina: 4,
+    tamanoPagina: 8,
     buscarTermino: '',
     ordenarColumna: '',
     ordenarDireccion: ''

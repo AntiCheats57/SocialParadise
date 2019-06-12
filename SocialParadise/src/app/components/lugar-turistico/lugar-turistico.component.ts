@@ -492,6 +492,7 @@ export class LugarTuristicoComponent implements OnInit, OnDestroy {
     $(document).ready(function() {
       $(resenaId).modal("hide");
     });
+    this.formulario.reset();
   }
 
   validar() {

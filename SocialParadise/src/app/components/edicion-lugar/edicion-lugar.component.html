@@ -29,7 +29,7 @@
                                     <input type="text" formControlName="video" class="form-control">
                                     <div>
                                         <small *ngIf="formulario.get('video').errors?.required && formulario.get('video').touched" class="form-control-feedback">Este campo es requerido.</small>
-                                        <small *ngIf="formulario.get('video').errors?.pattern && formulario.get('video').touched" class="form-control-feedback">El campo no tiene formato de URL</small>
+                                        <small *ngIf="formulario.get('video').errors?.pattern && formulario.get('video').touched" class="form-control-feedback">La URL no tiene formato válido (https://www.youtube.com/embed/...)</small>
                                     </div>
                                 </div>
                                 <div class="form-group col-12" [ngClass]="{'has-danger': !formulario.get('descripcion').valid && formulario.get('descripcion').touched}">
@@ -48,9 +48,11 @@
                                     <div class="col gallery">
                                         <div class="row">
                                             <div *ngFor="let imagen of this.imagenes; let i = index" class="col-6 col-md-4 col-lg-3">
-                                                <a class="thumbnail" href="#" data-toggle="modal" data-target="#image-gallery" (click)="indiceImgSeleccionada = i">
+                                                <!-- <a class="thumbnail" href="#" data-toggle="modal" data-target="#image-gallery" (click)="indiceImgSeleccionada = i"> -->
+                                                <a class="thumbnail">
                                                     <img class="img-thumbnail" [src]="imagen" alt="lugar">
                                                 </a>
+                                                <button type="button" (click)="eliminarImagen(i)" class="btn-borrar"><i class="fas fa-trash f-delete"></i></button>
                                             </div>
                                         </div>
                                         <div class="modal" id="image-gallery" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
