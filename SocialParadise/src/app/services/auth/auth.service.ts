@@ -69,19 +69,25 @@ export class AuthService {
   }
 
   esAdmin(){
+    if(this.admin == undefined){
+      var usuario = this.localStorage.obtenerUsuarioActual()
+      this.admin = this.verificarIntegridadSesion("admin", usuario.idFB)
+    }
     return this.admin;
   }
 
   esEditor(){
+    if(this.editor == undefined){
+      var usuario = this.localStorage.obtenerUsuarioActual()
+      this.editor = this.verificarIntegridadSesion("editor", usuario.idFB)
+    }
     return this.editor;
   }
 
-  estaAutentificado() {  
-    var usuarioActual = this.localStorage.obtenerUsuarioActual();
+  estaAutentificado() {      
     if(this.autentificado == undefined){
-      if(usuarioActual["id"] >= 0 && usuarioActual["idFB"] != ""){
-        this.autentificado = true;
-      }
+      var usuario = this.localStorage.obtenerUsuarioActual()
+      this.autentificado = this.verificarIntegridadSesion("autentificado", usuario.idFB)
     }
     return this.autentificado;
   }
@@ -110,6 +116,11 @@ export class AuthService {
         nombre: datos["nombre"] + (datos["apellidos"]? " " + datos["apellidos"] : ""),
         usuario: datos["usuario"]
       })
+      this.localStorage.agregarDatosSesion({
+        "t": this.autentificado? "uAht" + datos["idFB"].substring(1, 7)+ "athU" + datos["idFB"].substring(2, 8) : "",
+        "a": this.admin? "aniDm" + datos["idFB"].substring(2, 7)+ "danmi" + datos["idFB"].substring(1, 6) : "",
+        "e": this.editor? "DteRIo" + datos["idFB"].substring(1, 5)+ "eDroTi" + datos["idFB"].substring(2, 6) : ""
+      })
     })
   }
 
@@ -124,8 +135,25 @@ export class AuthService {
         this.localStorage.eliminarUsuarioActual();
         this.admin = false;
         this.editor = false;
+        this.localStorage.eliminarDatosSesion()
       }      
     });
+  }
+
+  verificarIntegridadSesion(tipo: string, idFB: string): boolean{
+    var sesion = this.localStorage.obtenerDatosSesion();
+    if(sesion == null){
+      return false;
+    }
+    switch(tipo){
+      case "autentificado":
+        return sesion.t == "uAht" + idFB.substring(1, 7)+ "athU" + idFB.substring(2, 8) 
+      case "admin":
+        return sesion.a == "aniDm" + idFB.substring(2, 7)+ "danmi" + idFB.substring(1, 6)
+      case "editor":
+        return sesion.e == "DteRIo" + idFB.substring(1, 5)+ "eDroTi" + idFB.substring(2, 6)
+    }
+    return false;
   }
 
   cargarDatosUsuarioLocalStorage(){

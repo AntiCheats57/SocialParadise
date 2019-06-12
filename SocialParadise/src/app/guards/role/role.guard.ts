@@ -16,22 +16,19 @@ export class RoleGuard implements CanActivate {
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     if(this.authService.estaAutentificado()){
-      return true; /* TEMPORAL */
       if('admin' === next.data.role){
-        return this.authService.esAdmin();
+        if(this.authService.esAdmin()){
+          return true;
+        }
       }
       else if('editor' === next.data.role){      
-        return this.authService.esEditor();
+        if(this.authService.esEditor()){
+          return true;
+        }
       }
-      else{
-        this.router.navigate(['**']);
-        return false;
-      }
-    }
-    else {
-      this.router.navigate(['**']);
-      return false;
-    }   
+    }    
+    this.router.navigate(['**']);
+    return false;
   }
 
 }
