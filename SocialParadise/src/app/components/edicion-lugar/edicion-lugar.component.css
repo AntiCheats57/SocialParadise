@@ -107,3 +107,14 @@ input[type=file] {
     height: 6rem;
     width: 100%;
 }
+
+.btn-eliminar {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: #d9534f;
+}
+
+.overModal {
+    overflow-y: auto !important;
+}

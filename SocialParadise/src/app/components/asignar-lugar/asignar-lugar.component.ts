@@ -85,10 +85,11 @@ export class AsignarLugarComponent implements OnInit, OnDestroy {
   }
 
   guardar() {
+    this.validar();
     if(!this.formulario.valid){
       Swal.fire({
         type: 'error',
-        title: 'Debe completar todos los campos correctamente'
+        title: 'Debe completar todos los campos requeridos'
       });
       return;
     }
@@ -126,6 +127,10 @@ export class AsignarLugarComponent implements OnInit, OnDestroy {
                 type: 'success',
                 title: 'Lugar guardado correctamente'
               });
+              this.cerrarModal();
+              setTimeout(()=>{
+                this.router.navigate(["/asignacionLugares"]);
+              }, 1000);
             })
           }
           else{
@@ -133,6 +138,10 @@ export class AsignarLugarComponent implements OnInit, OnDestroy {
               type: 'success',
               title: 'Lugar guardado correctamente'
             });
+            this.cerrarModal();
+            setTimeout(()=>{
+              this.router.navigate(["/asignacionLugares"]);
+            }, 1000);
           }
         })
       }
@@ -164,6 +173,10 @@ export class AsignarLugarComponent implements OnInit, OnDestroy {
                   type: 'success',
                   title: 'Lugar guardado correctamente'
                 });
+                this.cerrarModal();
+                setTimeout(()=>{
+                  this.router.navigate(["/asignacionLugares"]);
+                }, 1000);
               })
             }
             else{
@@ -171,6 +184,10 @@ export class AsignarLugarComponent implements OnInit, OnDestroy {
                 type: 'success',
                 title: 'Lugar guardado correctamente'
               });
+              this.cerrarModal();
+              setTimeout(()=>{
+                this.router.navigate(["/asignacionLugares"]);
+              }, 1000);
             }
           })
         })
@@ -244,46 +261,50 @@ export class AsignarLugarComponent implements OnInit, OnDestroy {
     }).then((result) => {
       if (result.value) {
         if(this.lugar && this.lugar.id >=0 && this.indexLugar){
-          var indexEditor = this.lugar.usuario
-          this.datosService.eliminarElemento("lugares", this.lugar.idFB).catch(err =>{
-            Swal.fire({
-              type: 'error',
-              title: 'Error al eliminar el lugar',
-              text: err.message
-            });
-          }).then(()=>{
-            if(indexEditor >= 0){
-              this.datosService.obtenerElementoId("usuarios", indexEditor.toString()).subscribe(datos =>{
-                if(datos){
-                  var lugaresAsignados = []
-                  for(let i in datos[0]["lugaresAsignados"]){
-                    if(datos[0]["lugaresAsignados"][i] != this.indexLugar){
-                      lugaresAsignados.push(datos[0]["lugaresAsignados"][i])
-                    }
-                  }
-                  datos[0]["lugaresAsignados"] = lugaresAsignados
-                  var suscripcion = this.datosService.actualizarElemento("usuarios", datos[0]).catch(err =>{
-                    Swal.fire({
-                      type: 'error',
-                      title: 'Error al eliminar el enlace del lugar con el editor',
-                      text: err.message
-                    });
-                  }).then(()=>{
-                    Swal.fire({
-                      type: 'success',
-                      title: 'Eliminado correctamente'
-                    });
-                 })
-                }
-              })
-            }
-            else{
+          var indexEditor = this.lugar.usuario;
+          this.cerrarModal();
+          setTimeout(()=>{
+            this.router.navigate(["/asignacionLugares"]);
+            this.datosService.eliminarElemento("lugares", this.lugar.idFB).catch(err =>{
               Swal.fire({
-                type: 'success',
-                title: 'Eliminado correctamente'
+                type: 'error',
+                title: 'Error al eliminar el lugar',
+                text: err.message
               });
-            }
-          })
+            }).then(()=>{
+              if(indexEditor >= 0){
+                this.datosService.obtenerElementoId("usuarios", indexEditor.toString()).subscribe(datos =>{
+                  if(datos){
+                    var lugaresAsignados = []
+                    for(let i in datos[0]["lugaresAsignados"]){
+                      if(datos[0]["lugaresAsignados"][i] != this.indexLugar){
+                        lugaresAsignados.push(datos[0]["lugaresAsignados"][i])
+                      }
+                    }
+                    datos[0]["lugaresAsignados"] = lugaresAsignados
+                    var suscripcion = this.datosService.actualizarElemento("usuarios", datos[0]).catch(err =>{
+                      Swal.fire({
+                        type: 'error',
+                        title: 'Error al eliminar el enlace del lugar con el editor',
+                        text: err.message
+                      });
+                    }).then(()=>{
+                      Swal.fire({
+                        type: 'success',
+                        title: 'Eliminado correctamente'
+                      });
+                   })
+                  }
+                })
+              }
+              else{
+                Swal.fire({
+                  type: 'success',
+                  title: 'Eliminado correctamente'
+                });
+              }
+            })
+          }, 200);
         }
       }
     })
@@ -293,6 +314,26 @@ export class AsignarLugarComponent implements OnInit, OnDestroy {
     if(this.suscLugar){
       this.suscLugar.unsubscribe()
     }
+  }
+
+  cerrarModal() {
+    $(document).ready(function() {
+      $("#lugarModal").modal("hide");
+    });
+  }
+
+  validar() {
+    this.markFormGroupTouched(this.formulario);
+  }
+
+  private markFormGroupTouched(formGroup: FormGroup) {
+    (<any>Object).values(formGroup.controls).forEach(control => {
+      control.markAsTouched();
+
+      if (control.controls) {
+        this.markFormGroupTouched(control);
+      }
+    });
   }
 
 }

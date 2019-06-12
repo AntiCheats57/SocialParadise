@@ -52,7 +52,8 @@
                         <div class="following">
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item" *ngFor="let resena of resenas; let i = index;">
-                                    <div class="row component-review" [ngClass]="{'censurar': resena.censurado}">
+                                    <!-- COMENTARIO -->
+                                    <div class="row component-review" [ngClass]="{'censurar-com': resena.censurado}">
                                         <div class="col-12 col-md-3">
                                             <div class="row rating text-center">
                                                 <div class="col-12 text-left imagen">
@@ -71,28 +72,28 @@
                                             <p>{{resena.comentario}}</p>
                                             <button type="button" *ngIf="this.auth.estaAutentificado() && resena.usuario == this.usuarioActual.id" (click)="eliminar(i, -1, 'C')" class="btn btn-danger mb-3">Eliminar</button>
                                             <button type="button" class="btn btn-light" data-toggle="modal" [attr.data-target]="'#modal'+resena.id" *ngIf="this.auth.estaAutentificado() && this.esDueno">Responder</button>
-                                            <button type="button" class="btn-censura" *ngIf="this.auth.estaAutentificado() && this.esDueno" (click)="cambiarCensuraResena(resena.id)">{{ resena.censurado ? "Aprobar" : "Censurar"}}</button>
+                                            <button type="button" class="btn-censura-com" *ngIf="this.auth.estaAutentificado() && this.esDueno" (click)="cambiarCensuraResena(resena.id)">{{ resena.censurado ? "Aprobar" : "Censurar"}}</button>
                                             <hr *ngIf="resena.respuestas && resena.respuestas.length > 0">
-
-                                            <div *ngFor="let respuesta of obtenerRespuestasResena(i)" class="row component-answer" [ngClass]="{'censurar': respuesta.censurado}">
+                                            <!-- RESPUESTA -->
+                                            <div *ngFor="let respuesta of obtenerRespuestasResena(i)" class="row component-answer" [ngClass]="{'censurar-res': respuesta.censurado}">
                                                 <div class="col-12 contenido">
                                                     <img [src]="getAtributoUsuario(respuesta.usuario.toString(), 'foto')" alt="" class="img-responsiv img-fluid img-circle" width="50px" height="50px" />
                                                     <h5>{{getAtributoUsuario(respuesta.usuario.toString(), 'nombre')}}</h5>
                                                     <span>{{respuesta.fechaPublicacion | date: "dd/MM/yyyy hh:mm a"}}</span>
                                                     <p>{{respuesta.comentario}}</p>
                                                     <button type="button" *ngIf="this.auth.estaAutentificado() && respuesta.usuario == this.usuarioActual.id" (click)="eliminar(i, respuesta.id, 'R')" class="btn btn-danger mb-3">Eliminar</button>
-                                                    <button type="button" class="btn-censura" *ngIf="this.auth.estaAutentificado() && this.esDueno" (click)="cambiarCensuraResena(respuesta.id)">{{ respuesta.censurado ? "Aprobar" : "Censurar"}}</button>
+                                                    <button type="button" class="btn-censura-res" *ngIf="this.auth.estaAutentificado() && this.esDueno" (click)="cambiarCensuraResena(respuesta.id)">{{ respuesta.censurado ? "Aprobar" : "Censurar"}}</button>
                                                 </div>
                                             </div>
 
                                         </div>
                                     </div>
-
-                                    <div class="modal fade" [attr.id]="'modal'+resena.id" tabindex="-1" role="dialog" aria-labelledby="comentarioModalLabel" aria-hidden="true">
+                                    <!-- RESPONDER MODAL -->
+                                    <div class="modal fade" [attr.id]="'modal'+resena.id" id="modalRes" tabindex="-1" role="dialog" aria-labelledby="comentarioModalLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="comentarioModalLabel">RESPONDER AL COMENTARIO</h5>
+                                                    <h5 class="modal-title" id="comentarioModalLabel">{{'modal'+resena.id}}</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                       </button>
@@ -130,7 +131,7 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-light" data-dismiss="modal">Cerrar</button>
-                                                    <button type="button" class="btn btn-primary" (click)="comentar(i)">Publicar comentario</button>
+                                                    <button type="button" class="btn btn-primary" (click)="comentar(i, '#modal'+resena.id)">Publicar comentario</button>
                                                 </div>
                                             </div>
                                         </div>

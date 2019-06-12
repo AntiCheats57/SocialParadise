@@ -91,6 +91,7 @@ export class EdicionNoticiaComponent implements OnInit, OnDestroy {
   }
 
   guardar() {
+    this.validar();
     if(!this.formulario.valid || !this.noticia.imagen){
       Swal.fire({
         type: 'error',
@@ -117,7 +118,10 @@ export class EdicionNoticiaComponent implements OnInit, OnDestroy {
             type: 'success',
             title: 'Guardado correctamente'
           });
-          this.router.navigate(["/noticias"]);
+          this.cerrarModal();
+          setTimeout(()=>{
+            this.router.navigate(["/noticias"]);
+          }, 1000);
         });
       }
       else{
@@ -140,8 +144,10 @@ export class EdicionNoticiaComponent implements OnInit, OnDestroy {
               title: 'Guardado correctamente',
               timer: 1500
             })
-            
-            this.router.navigate(["/noticias"]) 
+            this.cerrarModal();
+            setTimeout(()=>{
+              this.router.navigate(["/noticias"]);
+            }, 1000);
           })
         }) 
       }
@@ -160,14 +166,18 @@ export class EdicionNoticiaComponent implements OnInit, OnDestroy {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.value) {
-        if(this.noticiaId && this.noticia){
-          this.datosService.eliminarElemento("noticias", this.noticia.idFB);
-        }
+        this.cerrarModal();
         Swal.fire(
           'Eliminado!',
           'El registro ha sido eliminado.',
           'success'
         )
+        setTimeout(()=>{
+          this.router.navigate(["/noticias"]);
+          if(this.noticiaId && this.noticia){
+            this.datosService.eliminarElemento("noticias", this.noticia.idFB);
+          }
+        }, 200);
       }
     })
   }
@@ -190,9 +200,23 @@ export class EdicionNoticiaComponent implements OnInit, OnDestroy {
     }
   }
 
-  cerrarVisor() {
+  cerrarModal() {
     $(document).ready(function() {
       $("#noticiaModal").modal("hide");
+    });
+  }
+
+  validar() {
+    this.markFormGroupTouched(this.formulario);
+  }
+
+  private markFormGroupTouched(formGroup: FormGroup) {
+    (<any>Object).values(formGroup.controls).forEach(control => {
+      control.markAsTouched();
+
+      if (control.controls) {
+        this.markFormGroupTouched(control);
+      }
     });
   }
 }

@@ -88,11 +88,12 @@ export class EdicionLugarComponent implements OnInit, OnDestroy {
   }
 
   guardar() {
+    this.validar();
     if(!this.formulario.valid){
       Swal.fire({
         type: 'error',
         title: 'Error al guardar los cambios al perfil',
-        text: 'Debe completar correctamente todos los campos'
+        text: 'Debe completar correctamente los campos requeridos'
       });
       return;
     }
@@ -105,18 +106,21 @@ export class EdicionLugarComponent implements OnInit, OnDestroy {
       for(let x in this.imagenes){
         (<string[]> this.lugar.imagenes).push(this.imagenes[x])
       }
-      this.datosService.actualizarElemento("lugares", this.lugar).catch(err =>{
+      this.datosService.actualizarElemento("lugares", this.lugar).then(()=>{
+        Swal.fire({
+          type: 'success',
+          title: 'Guardado correctamente'
+        });
+        this.cerrarModal();
+        setTimeout(()=>{
+          this.router.navigate(["/lugares"]);
+        }, 1000);
+      }).catch(err =>{
         Swal.fire({
           type: 'error',
           title: 'Error al guardar el lugar',
           text: err.message
         });
-      }).then(()=>{
-        Swal.fire({
-          type: 'success',
-          title: 'Guardado correctamente'
-        });
-        this.router.navigate(["/lugares"]);
       });
     }
     else{
@@ -125,7 +129,6 @@ export class EdicionLugarComponent implements OnInit, OnDestroy {
         title: 'No se ha cargado el lugar'
       });
     }
-    this.cerrarComponente();
   }
 
   eliminarImagen(indice : number){
@@ -200,7 +203,7 @@ export class EdicionLugarComponent implements OnInit, OnDestroy {
     });
   }
 
-  cerrarComponente() {
+  cerrarModal() {
     $(document).ready(function() {
       $("#lugarModal").modal("hide");
     });

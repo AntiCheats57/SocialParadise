@@ -1,64 +1,66 @@
-<div class="modal fade" id="lugarModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" data-backdrop="static" data-keyboard="false" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title form-title" id="modalLabel">{{encabezadoModal}}</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<div>
+    <div class="modal fade" id="lugarModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title form-title" id="modalLabel">{{encabezadoModal}}</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true" [routerLink]="[ '/asignacionLugares']">&times;</span>
                 </button>
-            </div>
-            <div class="modal-body">
-                <div class="container">
-                    <form [formGroup]="formulario">
-                        <div class="row">
-                            <div class="form-group col-12" [ngClass]="{'has-danger': !formulario.get('nombre').valid && formulario.get('nombre').touched}">
-                                <label for="nombre" class="col-form-label">Lugar</label>
-                                <input type="text" formControlName="nombre" class="form-control" placeholder="Lugar">
-                                <div>
-                                    <small *ngIf="formulario.get('nombre').errors?.required && formulario.get('nombre').touched" class="form-control-feedback">Este campo es requerido.</small>
-                                    <small *ngIf="formulario.get('nombre').errors?.minlength && formulario.get('nombre').touched" class="form-control-feedback">Por lo menos {{formulario.controls['nombre'].errors?.minlength.requiredLength}} caracteres.</small>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <form [formGroup]="formulario">
+                            <div class="row">
+                                <div class="form-group col-12" [ngClass]="{'has-danger': !formulario.get('nombre').valid && formulario.get('nombre').touched}">
+                                    <label for="nombre" class="col-form-label">Lugar</label>
+                                    <input type="text" formControlName="nombre" class="form-control" placeholder="Lugar">
+                                    <div>
+                                        <small *ngIf="formulario.get('nombre').errors?.required && formulario.get('nombre').touched" class="form-control-feedback">Este campo es requerido.</small>
+                                        <small *ngIf="formulario.get('nombre').errors?.minlength && formulario.get('nombre').touched" class="form-control-feedback">Por lo menos {{formulario.controls['nombre'].errors?.minlength.requiredLength}} caracteres.</small>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="form-group col-12 col-lg-4">
-                                <label for="editorSelect" class="col-form-label">Editor</label>
-                                <div class="row text-center">
-                                    <div class="col-12 editorInfo">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <img src="{{editor.foto}}" alt="" class="img-circle" width="87px" height="87px" />
-                                            </div>
-                                            <div class="col-12">
-                                                <span>{{editor.correo}}</span>
-                                            </div>
-                                            <div class="col-12">
-                                                <span>{{editor.nombre+" "+editor.apellidos}}</span>
+                                <div class="form-group col-12 col-lg-4">
+                                    <label for="editorSelect" class="col-form-label">Editor</label>
+                                    <div class="row text-center">
+                                        <div class="col-12 editorInfo">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <img src="{{editor.foto}}" alt="" class="img-circle" width="87px" height="87px" />
+                                                </div>
+                                                <div class="col-12">
+                                                    <span>{{editor.correo}}</span>
+                                                </div>
+                                                <div class="col-12">
+                                                    <span>{{editor.nombre+" "+editor.apellidos}}</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="form-group col-12 col-lg-8" [ngClass]="{'has-danger': !formulario.get('editor').valid && formulario.get('editor').touched}">
-                                <label for="editorSelect" class="col-form-label">Buscar editor</label>
-                                <input type="text" formControlName="editor" class="form-control buscar" placeholder="Buscar" name="buscarTermino" autocomplete="off" [(ngModel)]="service.buscarTermino">
-                                <ul class="list-group">
-                                    <li class="list-group-item" *ngFor="let usuario of usuarios$ | async" (click)="obtenerEditor(usuario)">
-                                        <ngb-highlight [result]="usuario.nombre+' '+usuario.apellidos+' - '+usuario.correo" [term]="service.buscarTermino"></ngb-highlight>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="btn-edit">
-                            <div class="btn-group" role="group">
-                                <div *ngIf="indexLugar != null">
-                                    <button data-dismiss="modal" (click)="eliminar()" class="btn btn-danger mr-2" [routerLink]="[ '/asignacionLugares']">Eliminar</button>
+                                <div class="form-group col-12 col-lg-8" [ngClass]="{'has-danger': !formulario.get('editor').valid && formulario.get('editor').touched}">
+                                    <label for="editorSelect" class="col-form-label">Buscar editor</label>
+                                    <input type="text" formControlName="editor" class="form-control buscar" placeholder="Buscar" name="buscarTermino" autocomplete="off" [(ngModel)]="service.buscarTermino">
+                                    <ul class="list-group">
+                                        <li class="list-group-item" *ngFor="let usuario of usuarios$ | async" (click)="obtenerEditor(usuario)">
+                                            <ngb-highlight [result]="usuario.nombre+' '+usuario.apellidos+' - '+usuario.correo" [term]="service.buscarTermino"></ngb-highlight>
+                                        </li>
+                                    </ul>
                                 </div>
-                                <button data-dismiss="modal" (click)="guardar()" class="btn btn-submit" [routerLink]="[ '/asignacionLugares']">Guardar</button>
                             </div>
-                        </div>
-                    </form>
+
+                            <div class="btn-edit">
+                                <div class="btn-group" role="group">
+                                    <div *ngIf="indexLugar != null">
+                                        <button (click)="eliminar()" class="btn btn-danger mr-2">Eliminar</button>
+                                    </div>
+                                    <button (click)="guardar()" class="btn btn-submit">Guardar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

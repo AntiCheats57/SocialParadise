@@ -45,10 +45,10 @@
                         <div class="btn-edit">
                             <div class="btn-group" role="group">
                                 <div *ngIf="noticiaId != null" class="mr-3">
-                                    <button data-dismiss="modal" class="btn btn-danger" [routerLink]="[ '/noticias']" (click)="eliminar()">Eliminar</button>
+                                    <button class="btn btn-danger" (click)="eliminar()">Eliminar</button>
                                 </div>
                                 <div>
-                                    <button class="btn btn-submit" (click)="guardar()" data-dismiss="modal">Guardar</button>
+                                    <button class="btn btn-submit" (click)="guardar()">Guardar</button>
                                 </div>
                             </div>
                         </div>

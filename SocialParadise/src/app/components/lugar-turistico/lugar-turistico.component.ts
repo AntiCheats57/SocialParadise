@@ -11,6 +11,7 @@ import { LocalDataService } from 'src/app/services/local-data/local-data.service
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { formatDate } from '@angular/common';
+declare var $: any;
 
 @Component({
   selector: 'app-lugar-turistico',
@@ -413,7 +414,8 @@ export class LugarTuristicoComponent implements OnInit, OnDestroy {
       }
   }
 
-  comentar(indice : number){ 
+  comentar(indice : number, resenaId: string){
+    this.validar();
     if(!this.formulario.valid){
       Swal.fire({
         type: 'error',
@@ -466,6 +468,29 @@ export class LugarTuristicoComponent implements OnInit, OnDestroy {
           })
         });
         comentar = false;
+        
+        this.cerrarModal(resenaId);
+      }
+
+    });
+  }
+
+  cerrarModal(resenaId: string) {
+    $(document).ready(function() {
+      $(resenaId).modal("hide");
+    });
+  }
+
+  validar() {
+    this.markFormGroupTouched(this.formulario);
+  }
+
+  private markFormGroupTouched(formGroup: FormGroup) {
+    (<any>Object).values(formGroup.controls).forEach(control => {
+      control.markAsTouched();
+
+      if (control.controls) {
+        this.markFormGroupTouched(control);
       }
     });
   }

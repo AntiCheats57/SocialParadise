@@ -17,18 +17,24 @@
     background-color: #fdf7f7;
 }
 
-.censurar .rating,
-.censurar .contenido>h4,
-.censurar .contenido>p,
-.censurar .contenido>.btn-light,
-.censurar span,
-.censurar h5,
-.censurar img {
+.censurar-com .rating,
+.censurar-com .contenido>h4,
+.censurar-com .contenido>p,
+.censurar-com .contenido>.btn-light,
+.censurar-com span,
+.censurar-com h5,
+.censurar-com img,
+.censurar-com .btn-censura-res,
+.censurar-res span,
+.censurar-res h5,
+.censurar-res img,
+.censurar-res p {
     pointer-events: none;
     opacity: 0.2;
 }
 
-.btn-censura {
+.btn-censura-com,
+.btn-censura-res {
     border: none;
     background-color: inherit;
     padding: 6px 12px;
@@ -36,13 +42,16 @@
     cursor: pointer;
     display: inline-block;
     vertical-align: middle;
+    color: #1d7bd8;
 }
 
-.btn-censura:hover {
+.btn-censura-com:hover,
+.btn-censura-res:hover {
     color: #1e90ff;
 }
 
-.btn-censura:active {
+.btn-censura-com:active,
+.btn-censura-res:active {
     color: #1d7bd8;
 }
 
@@ -92,6 +101,10 @@ span {
     font-size: 0.87rem;
 }
 
+small {
+    position: absolute;
+}
+
 .feature-component {
     padding: 0.1rem 0;
 }
@@ -136,7 +149,8 @@ span {
     padding: 0 0 1.2rem 0;
 }
 
-.feature-subheading span {
+.feature-subheading span,
+.modal-header span {
     font-size: 30px;
 }
 
@@ -247,7 +261,8 @@ iframe {
     margin-top: 0.5rem;
 }
 
-.component-answer .btn-censura {
+.component-answer .btn-censura-com,
+.component-answer .btn-censura-res {
     margin-left: 3.1rem;
 }
 
