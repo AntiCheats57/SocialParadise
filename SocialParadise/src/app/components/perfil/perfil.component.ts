@@ -105,33 +105,28 @@ export class PerfilComponent implements OnInit, OnDestroy {
             this.resenas = datos
             this.resenas.sort((x, y) => {
               return -1 * ((new Date(x.fechaPublicacion)).getTime() - (new Date(y.fechaPublicacion)).getTime())
-
             })
+            console.info(this.resenas.length)
             var suscripcion     
             this.lugaresDescripcion = []       
             for(var i in this.resenas){
               suscripcion = this.datosService.obtenerColeccionCondicion("lugares", "id", this.resenas[i].lugar).subscribe(lugar => {
                 if(lugar != undefined && lugar.length > 0){
                   this.lugaresDescripcion.push(lugar[0].nombre)
+                  console.info(this.lugaresDescripcion)
                 }
                 else{
                   this.lugaresDescripcion.push("")
                 }
-                suscripcion.unsubscribe()
+                if(this.lugaresDescripcion.length == this.resenas.length){
+                  suscripcion.unsubscribe()
+                }                
               })
             }      
           }
         })
       }
     }
-    setInterval(x => {
-      if(this.imagen.cambios){
-        for(let x in this.imagen.imagenesSubidas){
-          this.usuario.foto = this.imagen.imagenesSubidas[x];
-        }
-        this.imagen.cambios = false
-      }
-    }, 1000)
   }
 
   guardar() {
@@ -183,6 +178,16 @@ export class PerfilComponent implements OnInit, OnDestroy {
   cargarImagen(e) {
     if(e.target.files.length != 0) {
       this.imagen.cargarImagen(e.target.files);
+       
+      var intervalo = setInterval(x =>{
+        if(this.imagen.cambios){
+          for(let x in this.imagen.imagenesSubidas){
+            this.usuario.foto = this.imagen.imagenesSubidas[x];
+          }
+          this.imagen.cambios = false
+          clearInterval(intervalo)
+        }
+      }, 1000)
     }
   }
 

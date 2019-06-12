@@ -20,6 +20,7 @@ export class EdicionLugarComponent implements OnInit, OnDestroy {
   lugar: lugar;
   indiceImgSeleccionada: number;
   imagenes: string[];
+  imagenesNuevas: string[];
   private suscripcionLugar : Subscription;
   private suscripcionImagenes : Subscription;
 
@@ -57,6 +58,7 @@ export class EdicionLugarComponent implements OnInit, OnDestroy {
       horario: ""
     }
     this.imagenes = []
+    this.imagenesNuevas = []
     this.lugarId = this.route.snapshot.params['id'];
     this.suscripcionLugar = this.datosService.obtenerElementoId("lugares", this.lugarId.toString()).subscribe(datos => {
       if(datos){
@@ -81,9 +83,6 @@ export class EdicionLugarComponent implements OnInit, OnDestroy {
     $(document).ready(function() {
       $("#lugarModal").modal("show");
     });
-    setInterval(x => {
-    this.cargarImagenes()
-    }, 1500)
   }
 
   guardar() {
@@ -132,7 +131,7 @@ export class EdicionLugarComponent implements OnInit, OnDestroy {
   eliminarImagen(indice : number){
     Swal.fire({
       title: 'Estás seguro de eliminarlo?',
-      text: "No podrás revertir esto!",
+      text: "No podrás revertir esto si guardas así!",
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -142,7 +141,26 @@ export class EdicionLugarComponent implements OnInit, OnDestroy {
     }).then((result) => {
       if (result.value) {
         if(indice != -1){
-          (<string[]> this.imagenes).splice(indice, 1);
+          var esNueva = true;
+          var elemento = (<string[]> this.imagenes).splice(indice, 1);
+          var img = []
+          for(let i in this.lugar.imagenes){
+            if(this.lugar.imagenes[i] != elemento[0]){
+              img.push(this.lugar.imagenes[i]);
+            }
+            else{
+                esNueva = false;
+            }
+          }
+          this.lugar.imagenes = img;
+          if(esNueva){
+            var img = []
+            for(let i in this.imagenesNuevas){
+              if(this.imagenesNuevas[i] != elemento[0]){
+                img.push(this.lugar.imagenes[i]);
+              }
+            }
+          }
           this.indiceImgSeleccionada = indice - 1;
           if(this.indiceImgSeleccionada < 0 ){
             this.indiceImgSeleccionada = 0;
@@ -154,23 +172,32 @@ export class EdicionLugarComponent implements OnInit, OnDestroy {
   }
 
   cargarImagenes(){
+    this.imagenes = []
     if(this.lugar && this.lugar.imagenes){
       for(let x in this.lugar.imagenes){
         this.imagenes.push(this.lugar.imagenes[x])
       }
-      this.lugar.imagenes = []
     }
     if(this.imagen && this.imagen.imagenesSubidas){
       for(let x in this.imagen.imagenesSubidas){
-        this.imagenes.push(this.imagen.imagenesSubidas[x])
+        this.imagenesNuevas.push(this.imagen.imagenesSubidas[x])
       }
-      this.imagen.imagenesSubidas = []
+    }
+    for(let i in this.imagenesNuevas){
+      this.imagenes.push(this.imagenesNuevas[i])
     }
   }
 
   cargarImagen(e) {
     if(e.target.files.length != 0) {
       this.imagen.cargarImagen(e.target.files);      
+      var intervalo = setInterval(x => {
+        if(this.imagen.cambios){
+          this.cargarImagenes()
+          this.imagen.cambios = false;
+          clearInterval(intervalo)
+        }
+      }, 500)
     }
   }
 

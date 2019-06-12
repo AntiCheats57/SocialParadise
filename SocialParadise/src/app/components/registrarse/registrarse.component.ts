@@ -71,7 +71,7 @@ export class RegistrarseComponent implements OnInit {
       });
       return;
     }
-    this.datosService.obtenerColeccionCondicion("usuarios", "usuario", this.formulario.controls['usuario'].value).subscribe(usu=>{
+    var suscripcion = this.datosService.obtenerColeccionCondicion("usuarios", "usuario", this.formulario.controls['usuario'].value).subscribe(usu=>{
       if(usu == undefined || (usu != undefined && usu.length == 0)){
         this.usuario.nombre = this.formulario.controls['nombre'].value;
         this.usuario.apellidos = this.formulario.controls['apellidos'].value;
@@ -104,11 +104,13 @@ export class RegistrarseComponent implements OnInit {
                   text: this.error(error)
                 })                
               }).then(()=>{
-                this.auth.almacenarUsuarioLocalStorage(this.usuario.idFB)
+                this.auth.almacenarUsuarioLocalStorage(this.usuario.idFB);
+                
               })
             }) 
             Swal.close();
             this.router.navigateByUrl('');
+            suscripcion.unsubscribe();
           }
         }).catch ( err => {
           Swal.fire({

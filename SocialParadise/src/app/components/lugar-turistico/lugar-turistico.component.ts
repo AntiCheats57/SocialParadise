@@ -136,7 +136,7 @@ export class LugarTuristicoComponent implements OnInit, OnDestroy {
                       }
                       if(!yaConsultado){
                         this.suscUsuario = this.datosService.obtenerElementoId("usuarios", r.usuario.toString()).subscribe(usu => {
-                            if(usu != undefined){
+                            if(usu != undefined && usu[0] != undefined){
                               this.usuarios.push({
                                 nombre: (<usuario> usu[0]).nombre + " " + (<usuario> usu[0]).apellidos, 
                                 id: (<usuario> usu[0]).id,
@@ -170,7 +170,7 @@ export class LugarTuristicoComponent implements OnInit, OnDestroy {
                       }
                       if(!yaConsultado){
                         this.suscUsuario = this.datosService.obtenerElementoId("usuarios", r.usuario.toString()).subscribe(usu => {
-                            if(usu != undefined){
+                            if(usu != undefined && usu[0] != undefined){
                               this.usuarios.push({
                                 nombre: (<usuario> usu[0]).nombre + " " + (<usuario> usu[0]).apellidos, 
                                 id: (<usuario> usu[0]).id,

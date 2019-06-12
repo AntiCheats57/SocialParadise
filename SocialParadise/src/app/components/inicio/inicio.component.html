@@ -20,7 +20,8 @@
         <div class="row">
             <div class="col-sm-6  col-lg-4" *ngFor="let lugar of lugares$ | async">
                 <div class="card place-card" (click)="verLugar(lugar.id)">
-                    <img [src]="lugar.imagenes != null? lugar.imagenes[0] : '/assets/images/im-contact.jpg'" class="card-img-top img-fluid" alt="">
+                    <img [src]="lugar.imagenes != null && lugar.imagenes.length > 0? lugar.imagenes[0] : 'https://firebasestorage.googleapis.com/v0/b/socialparadiseuna.appspot.com/o/uploads%2Fpaisaje-default.svg?alt=media&token=3b84a525-6e7f-4212-9197-b9fffdb7dcae'" class="card-img-top img-fluid"
+                        alt="">
                     <div class="card-body">
                         <span class="ellipsis-simple"><ngb-highlight [result]="lugar.ubicacion" [term]="service.buscarTermino"></ngb-highlight></span>
                         <h5 class="card-title ellipsis-simple">

@@ -77,7 +77,8 @@
                         <li class="list-group-item" *ngFor="let lugar of this.lugaresSeguidos; let i = index;">
                             <div class="row component-follower">
                                 <div class="col-8 col-sm-9">
-                                    <p><img [src]="lugar.imagenes[0]" alt="lugar" class="img-responsiv img-fluid img-circle" />{{lugar.nombre}}</p>
+                                    <p><img [src]="lugar.imagenes[0]? lugar.imagenes[0] : 'https://firebasestorage.googleapis.com/v0/b/socialparadiseuna.appspot.com/o/uploads%2Fpaisaje-default.svg?alt=media&token=3b84a525-6e7f-4212-9197-b9fffdb7dcae'" alt="lugar"
+                                            class="img-responsiv img-fluid img-circle" />{{lugar.nombre}}</p>
                                 </div>
                                 <div class="col-4 col-sm-3 aling-right">
                                     <button class="btn btn-outline-danger" (click)="removerLugar(lugar.id)">Remover</button>

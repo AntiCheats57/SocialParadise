@@ -80,15 +80,6 @@ export class EdicionNoticiaComponent implements OnInit, OnDestroy {
     $(document).ready(function() {
       $("#noticiaModal").modal("show");
     });    
-    
-    setInterval(x =>{
-      if(this.imagen.cambios){
-        for(let x in this.imagen.imagenesSubidas){
-          this.noticia.imagen = this.imagen.imagenesSubidas[x];
-        }
-        this.imagen.cambios = false
-      }
-    }, 1500)
   }
 
   guardar() {
@@ -186,6 +177,16 @@ export class EdicionNoticiaComponent implements OnInit, OnDestroy {
   cargarImagen(e) {
     if(e.target.files.length != 0) {
       this.imagen.cargarImagen(e.target.files);
+    
+      var intervalo = setInterval(x =>{
+        if(this.imagen.cambios){
+          for(let x in this.imagen.imagenesSubidas){
+            this.noticia.imagen = this.imagen.imagenesSubidas[x];
+          }
+          this.imagen.cambios = false
+          clearInterval(intervalo)
+        }
+      }, 1000)
     }
   }
 
