@@ -55,9 +55,9 @@
                             <div class="btn-edit">
                                 <div class="btn-group" role="group">
                                     <div *ngIf="indexLugar != null">
-                                        <button (click)="eliminar()" class="btn btn-danger mr-2">Eliminar</button>
+                                        <button type="button" (click)="eliminar()" class="btn btn-danger mr-2">Eliminar</button>
                                     </div>
-                                    <button (click)="guardar()" class="btn btn-submit">Guardar</button>
+                                    <button type="submit" (click)="guardar()" class="btn btn-submit">Guardar</button>
                                 </div>
                             </div>
                         </form>

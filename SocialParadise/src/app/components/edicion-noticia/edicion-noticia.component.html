@@ -25,6 +25,7 @@
                                 <div>
                                     <small *ngIf="formulario.get('contenido').errors?.required && formulario.get('contenido').touched" class="form-control-feedback">Este campo es requerido.</small>
                                     <small *ngIf="formulario.get('contenido').errors?.minlength && formulario.get('contenido').touched" class="form-control-feedback">Por lo menos {{formulario.controls['contenido'].errors?.minlength.requiredLength}} caracteres.</small>
+                                    <small *ngIf="formulario.get('contenido').errors?.maxlength && formulario.get('contenido').touched" class="form-control-feedback">Máximo permitido {{formulario.controls['contenido'].errors?.maxlength.requiredLength}} caracteres.</small>
                                 </div>
                             </div>
                         </div>
@@ -45,10 +46,10 @@
                         <div class="btn-edit">
                             <div class="btn-group" role="group">
                                 <div *ngIf="noticiaId != null" class="mr-3">
-                                    <button class="btn btn-danger" (click)="eliminar()">Eliminar</button>
+                                    <button type="submit" class="btn btn-danger" (click)="eliminar()">Eliminar</button>
                                 </div>
                                 <div>
-                                    <button class="btn btn-submit" (click)="guardar()">Guardar</button>
+                                    <button type="submit" class="btn btn-submit" (click)="guardar()">Guardar</button>
                                 </div>
                             </div>
                         </div>

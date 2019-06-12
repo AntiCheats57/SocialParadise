@@ -89,3 +89,31 @@ h2 {
     color: #196F3D;
     margin-bottom: 2rem;
 }
+
+.card-body {
+    height: 15rem;
+    max-height: 15rem;
+}
+
+
+/* .pruebadiv {
+    background-color: bisque;
+    width: 300px;
+    height: 100px;
+    margin-left: 300px;
+}
+
+.pruebap {
+    font-size: 14px;
+} */
+
+.ellipsis-simple {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+#card-descripcion {
+    height: 120px;
+    overflow: hidden;
+}

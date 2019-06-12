@@ -31,7 +31,8 @@ export class EdicionNoticiaComponent implements OnInit, OnDestroy {
                                   ]),
       'contenido': new FormControl('', [
                                     Validators.required,
-                                    Validators.minLength(10)
+                                    Validators.minLength(10),
+                                    Validators.maxLength(250)
                                   ])
     });
   }
