@@ -427,7 +427,7 @@ export class LugarTuristicoComponent implements OnInit, OnDestroy {
       }
   }
 
-  comentar(indice : number, resenaId: string){
+  comentar(resena : resena, resenaId: string){
     this.validar();
     if(!this.formulario.valid){
       Swal.fire({
@@ -466,8 +466,8 @@ export class LugarTuristicoComponent implements OnInit, OnDestroy {
             text: err.message
           });
         }).then(()=> {
-          this.resenas[indice].respuestas.push(this.resenaComentario.id);
-          this.datosService.actualizarElemento("resenas", this.resenas[indice]).catch(err => {
+          resena.respuestas.push(this.resenaComentario.id);
+          this.datosService.actualizarElemento("resenas", resena).catch(err => {
             Swal.fire({
               type: 'error',
               title: 'Error al guardar comentario',

@@ -78,10 +78,24 @@ export class PerfilComponent implements OnInit, OnDestroy {
             var suscripcion
             for(var i in this.usuario.lugaresSeguidos){
               suscripcion = this.datosService.obtenerElementoId("lugares", this.usuario.lugaresSeguidos[i].toString()).subscribe(lugar =>{
-                  if(lugar){
-                    this.lugaresSeguidos.push(<lugar> lugar[0])
-                  }         
-                  suscripcion.unsubscribe()
+                if(lugar){
+                  var indiceAgregado = -1;
+                  for(let j in this.lugaresSeguidos){
+                    if(this.lugaresSeguidos[j].id === (<lugar> lugar[0]).id){
+                    indiceAgregado = parseInt(j)
+                    break;
+                    }
+                  }
+                  if(indiceAgregado == -1){
+                    this.lugaresSeguidos.push(<lugar> lugar[0]);
+                  }                    
+                  else{
+                    this.lugaresSeguidos[indiceAgregado] = <lugar> lugar[0];
+                  }
+                  if(this.lugaresSeguidos.length == this.usuario.lugaresSeguidos.length){
+                    suscripcion.unsubscribe()
+                  }
+                }                  
               })
             }
           }
@@ -172,7 +186,7 @@ export class PerfilComponent implements OnInit, OnDestroy {
     }
   }
 
-  removerLugar(indice: number){
+  removerLugar(lugarId: number){
     Swal.fire({
       title: 'Estás seguro de eliminarlo?',
       text: "No podrás revertir esto!",
@@ -185,7 +199,6 @@ export class PerfilComponent implements OnInit, OnDestroy {
     }).then((result) => {
       if (result.value) {
         var suscLugar : Subscription;
-        var lugarId = this.lugaresSeguidos[indice].id;
         suscLugar = this.datosService.obtenerElementoId("lugares", lugarId.toString()).subscribe(datos => {
           if(datos){
             var lugar = <lugar> datos[0];
@@ -197,12 +210,30 @@ export class PerfilComponent implements OnInit, OnDestroy {
             }
             lugar.seguidores = seguidores;
             this.datosService.actualizarElemento("lugares", lugar).then(()=>{
+              var lugaresSeguidosTemp = []
+              for(let i in this.lugaresSeguidos){
+                if(this.lugaresSeguidos[i].id != lugarId){
+                  lugaresSeguidosTemp.push(this.lugaresSeguidos[i])
+                }
+              }
+              this.lugaresSeguidos = lugaresSeguidosTemp
+              this.usuario.lugaresSeguidos = []
+              for(let i in this.lugaresSeguidos){
+                this.usuario.lugaresSeguidos.push(this.lugaresSeguidos[i].id)
+              } 
+              this.datosService.actualizarElemento("usuarios", this.usuario).catch(err =>{
+                Swal.fire({
+                  type: 'error',
+                  title: 'Error al dejar de seguir lugar',
+                  text: err.message
+                });
+              }).then(()=>{
+                this.auth.almacenarUsuarioLocalStorage(this.usuario.idFB)
+              });
               suscLugar.unsubscribe();
             });        
           }
         });
-        this.lugaresSeguidos.splice(indice, 1);
-        this.guardar();
       }
     })
   }
