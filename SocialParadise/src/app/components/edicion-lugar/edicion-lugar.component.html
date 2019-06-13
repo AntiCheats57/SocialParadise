@@ -48,39 +48,12 @@
                                     <div class="col gallery">
                                         <div class="row">
                                             <div *ngFor="let imagen of this.imagenes; let i = index" class="col-6 col-md-4 col-lg-3">
-                                                <!-- <a class="thumbnail" href="#" data-toggle="modal" data-target="#image-gallery" (click)="indiceImgSeleccionada = i"> -->
                                                 <a class="thumbnail">
                                                     <img class="img-thumbnail" [src]="imagen" alt="lugar">
                                                 </a>
                                                 <button type="button" (click)="eliminarImagen(i)" class="btn-borrar"><i class="fas fa-trash f-delete"></i></button>
                                             </div>
                                         </div>
-                                        <!-- <div class="modal" id="image-gallery" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog modal-lg vertical-align-center">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title">Ver imagen</h4>
-                                                        <button type="button" class="close" (click)="cerrarVisor()"><span>&times;</span></button>
-                                                    </div>
-                                                    <div class="modal-body text-center">
-                                                        <img class="img-thumbnail" [src]="this.imagenes[indiceImgSeleccionada]" alt="lugar" height="50%" width="70%">
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <div class="row">
-                                                            <div class="col-4 text-left">
-                                                                <button type="button" class="btn btn-secondary" (click)="cambiarIndiceImg('disminuir')"><i class="fa fa-arrow-left"></i></button>
-                                                            </div>
-                                                            <div class="col-4 text-center">
-                                                                <button type="button" class="btn btn-danger" (click)="eliminarImagen(indiceImgSeleccionada)"><i class="fa fa-trash"></i></button>
-                                                            </div>
-                                                            <div class="col-4 text-right">
-                                                                <button type="button" class="btn btn-secondary" (click)="cambiarIndiceImg('aumentar')"><i class="fa fa-arrow-right"></i></button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> -->
                                     </div>
                                 </div>
                                 <label class="btn  btn-secondary "> Seleccionar imagen

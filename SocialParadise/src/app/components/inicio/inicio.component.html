@@ -28,9 +28,6 @@
                             <ngb-highlight [result]="lugar.nombre" [term]="service.buscarTermino"></ngb-highlight>
                         </h5>
                         <div id="card-descripcion" class="ellipsis">{{lugar.descripcion}}</div>
-                        <!-- <p id="card-descripcion" class="ellipsis">
-                            <ngb-highlight [result]="lugar.descripcion"></ngb-highlight>
-                        </p> -->
                     </div>
                 </div>
             </div>
@@ -40,7 +37,4 @@
 
     <ngb-pagination class="d-flex justify-content-center" [collectionSize]="total$ | async" [pageSize]="service.tamanoPagina" [(page)]="service.pagina" [maxSize]="cantidadMaxima" [rotate]="true" [ellipses]="false" [boundaryLinks]="true">
     </ngb-pagination>
-
-    <!-- <div id="conten" class="ellipsis">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sed dolor ac sapien interdum interdum. Etiam leo tortor, tincidunt eu neque nec, laoreet ullamcorper augue. Phasellus commodo tincidunt ligula, quis sodales est tempus ut. Donec non
-        finibus dolor, quis molestie ligula. Sed orci magna, vehicula ut dui in, posuere rhoncus augue. </div> -->
 </div>

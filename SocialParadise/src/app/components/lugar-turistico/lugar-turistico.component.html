@@ -52,7 +52,6 @@
                         <div class="following">
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item" *ngFor="let resena of resenas; let i = index;">
-                                    <!-- COMENTARIO -->
                                     <div class="row component-review" [ngClass]="{'censurar-com': resena.censurado}">
                                         <div class="col-12 col-md-3">
                                             <div class="row rating text-center">
@@ -74,7 +73,6 @@
                                             <button type="button" *ngIf="this.auth.estaAutentificado() && resena.usuario == this.usuarioActual.id" (click)="eliminar(i, -1, 'C')" class="btn btn-borrar"><i class="fas fa-trash f-delete"></i></button>
                                             <button type="button" class="btn-censura-com" *ngIf="this.auth.estaAutentificado() && this.esDueno" (click)="cambiarCensuraResena(resena.id)">{{ resena.censurado ? "Aprobar" : "Censurar"}}</button>
                                             <hr *ngIf="resena.respuestas && resena.respuestas.length > 0">
-                                            <!-- RESPUESTA -->
                                             <div *ngFor="let respuesta of obtenerRespuestasResena(i)" class="row component-answer" [ngClass]="{'censurar-res': respuesta.censurado}">
                                                 <div class="col-12 contenido">
                                                     <img [src]="getAtributoUsuario(respuesta.usuario.toString(), 'foto')" alt="" class="img-responsiv img-fluid img-circle" width="50px" height="50px" />
@@ -90,7 +88,6 @@
 
                                         </div>
                                     </div>
-                                    <!-- RESPONDER MODAL -->
                                     <div class="modal fade" [attr.id]="'modal'+resena.id" id="modalRes" tabindex="-1" role="dialog" aria-labelledby="comentarioModalLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                                             <div class="modal-content">
