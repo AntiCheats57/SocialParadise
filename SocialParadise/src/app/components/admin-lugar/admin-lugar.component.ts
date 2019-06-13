@@ -67,7 +67,6 @@ export class AdminLugarComponent implements OnInit {
                 if(usu){
                   this.editores.push(<usuario> usu[0]);
                   this.service.editor(<usuario> usu[0]);
-                  //suscripcion.unsubscribe();
                 }
               })
             }            

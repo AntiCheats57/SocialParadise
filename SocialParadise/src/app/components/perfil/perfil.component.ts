@@ -106,14 +106,12 @@ export class PerfilComponent implements OnInit, OnDestroy {
             this.resenas.sort((x, y) => {
               return -1 * ((new Date(x.fechaPublicacion)).getTime() - (new Date(y.fechaPublicacion)).getTime())
             })
-            console.info(this.resenas.length)
             var suscripcion     
             this.lugaresDescripcion = []       
             for(var i in this.resenas){
               suscripcion = this.datosService.obtenerColeccionCondicion("lugares", "id", this.resenas[i].lugar).subscribe(lugar => {
                 if(lugar != undefined && lugar.length > 0){
                   this.lugaresDescripcion.push(lugar[0].nombre)
-                  console.info(this.lugaresDescripcion)
                 }
                 else{
                   this.lugaresDescripcion.push("")

@@ -193,7 +193,6 @@ export class LugarTuristicoComponent implements OnInit, OnDestroy {
           }   
         }
       }, err => {
-        console.info("Error al obtener el elemento");
         this.router.navigate(["/"]);
       }
    );  
