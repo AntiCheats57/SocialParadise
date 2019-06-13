@@ -74,7 +74,9 @@ export class LugarTuristicoComponent implements OnInit, OnDestroy {
       ubicacion:"",
       descripcion:"",
       seguidores:[],
-      imagenes:[""]
+      imagenes:[""],
+      latitud: 0,
+      longitud: 0
     }
     this.suscLugar = this.datosService.obtenerElementoId("lugares", this.lugarId.toString()).subscribe(datos => {
         if(this.refrescar){

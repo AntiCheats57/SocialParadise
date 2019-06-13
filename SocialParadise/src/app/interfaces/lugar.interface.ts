@@ -9,4 +9,6 @@ export interface lugar {
     seguidores: number[];
     imagenes: string[];
     horario: string;
+    latitud: number;
+    longitud: number;
 }

@@ -32,7 +32,7 @@ export class ImagenService {
     for (let i = 0; i < archivos.length; i++) {
       const id = Math.random().toString(36).substring(2);
       const file = archivos[i];
-      const filePath = `uploads/${id}${'-'}${file.name}`;
+      const filePath = `upload/${file.name}${'-'}${id}`;
       const ref = this.storage.ref(filePath);
       const task = this.storage.upload(filePath, file);
       task.snapshotChanges().pipe( finalize(() => {

@@ -19,9 +19,11 @@ import { ErrorComponent } from 'src/app/components/error/error.component';
 import { AuthGuard } from 'src/app/guards/auth/auth.guard';
 import { RoleGuard } from 'src/app/guards/role/role.guard';
 import { SeguidoresComponent } from './components/seguidores/seguidores.component';
+import { MapaComponent } from './components/mapa/mapa.component';
 
 const routes: Routes = [
   {path : '', component: InicioComponent},
+  {path : 'ubicacion', component: MapaComponent},
   {path : 'nosotros', component: NosotrosComponent},
   {path : 'servicios', component: ServiciosComponent},
   {path : 'contactenos', component: ContactenosComponent},

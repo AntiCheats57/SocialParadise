@@ -45,7 +45,9 @@ export class CarouselComponent implements OnInit, OnDestroy  {
           "descripcion":"",
           "seguidores":[],
           "resenas":[""],
-          "imagenes":[""]
+          "imagenes":[""],
+          "latitud": 0,
+          "longitud": 0
         }
         this.suscripcion = this.datosService.obtenerElementoId("lugares", this.rutaActual.snapshot.paramMap.get("id")).subscribe(datos => {
             this.lugar = datos[0];

@@ -71,7 +71,9 @@ export class AsignarLugarComponent implements OnInit, OnDestroy {
       seguidores: [],
       usuario: -1,
       video: "",
-      horario: ""
+      horario: "",
+      latitud: 0,
+      longitud: 0
     }
     this.indexLugar = this.route.snapshot.params['id'];
     if (this.indexLugar) {
@@ -108,6 +110,7 @@ export class AsignarLugarComponent implements OnInit, OnDestroy {
         }
         if(!estaAsignado){
           this.editor.lugaresAsignados.push(this.lugar.id)
+          console.log(this.editor);
         }
       }
       this.lugar.usuario = this.editor.id

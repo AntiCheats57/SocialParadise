@@ -50,7 +50,10 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { ImagenService } from './services/imagen/imagen.service';
 import { SeguidoresComponent } from './components/seguidores/seguidores.component';
 import { RouterModule } from '@angular/router';
-import * as rutas from './app-routing.module'
+import * as rutas from './app-routing.module';
+import { MapaComponent } from './components/mapa/mapa.component'
+
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   declarations: [
@@ -80,7 +83,8 @@ import * as rutas from './app-routing.module'
     FilterPipe, 
     ErrorComponent,
     UrlSegura,
-    SeguidoresComponent
+    SeguidoresComponent,
+    MapaComponent
   ],
   imports: [
     BrowserModule,
@@ -93,7 +97,10 @@ import * as rutas from './app-routing.module'
     AngularFireDatabaseModule,
     AngularFireStorageModule,
     HttpClientModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyB1oygZXqLDNeEQ4GJRdsKG1H5ZujtpEBw'
+    })
   ],
   providers: [
     AuthService,

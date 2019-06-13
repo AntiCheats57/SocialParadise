@@ -55,7 +55,9 @@ export class EdicionLugarComponent implements OnInit, OnDestroy {
       seguidores: [],
       usuario: -1,
       video: "",
-      horario: ""
+      horario: "",
+      latitud: 0,
+      longitud: 0
     }
     this.imagenes = []
     this.imagenesNuevas = []
@@ -176,16 +178,25 @@ export class EdicionLugarComponent implements OnInit, OnDestroy {
     if(this.lugar && this.lugar.imagenes){
       for(let x in this.lugar.imagenes){
         this.imagenes.push(this.lugar.imagenes[x])
+        
       }
+      
+      console.log('a:'+this.imagenes.length);
+        
     }
     if(this.imagen && this.imagen.imagenesSubidas){
       for(let x in this.imagen.imagenesSubidas){
         this.imagenesNuevas.push(this.imagen.imagenesSubidas[x])
       }
+      console.log('b:'+this.imagenes.length);
+        
     }
     for(let i in this.imagenesNuevas){
       this.imagenes.push(this.imagenesNuevas[i])
-    }
+      
+    }    
+    console.log('c:'+this.imagenes.length);
+    
   }
 
   cargarImagen(e) {

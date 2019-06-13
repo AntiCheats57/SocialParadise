@@ -206,9 +206,6 @@ small {
     #div-img-comentario {
         text-align: center;
     }
-    p {
-        min-height: 6rem;
-    }
     .component-review .foto {
         width: 150px;
         max-width: 100%;

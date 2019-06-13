@@ -1,0 +1,30 @@
+<div class="margin-nav">
+
+    <div class="container">
+        <div class="buscador">
+            <form class="form-search">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <input type="text" class="form-control" name="buscarTermino" placeholder="Buscar lugar turístico" autocomplete="off" [(ngModel)]="service.buscarTermino">
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="mapa">
+
+            <agm-map [latitude]="lat" [longitude]="lng">
+                <agm-marker *ngFor="let lugar of lugares$ | async" [latitude]="lugar.latitud" [longitude]="lugar.longitud">
+                    <agm-info-window>
+                        <strong class="text-center">{{lugar.nombre}}</strong>
+                        <p class="text-center"> {{lugar.ubicacion}}</p>
+                        <div class="text-center">
+                            <button class="btn btn-primary" (click)="verLugar(lugar.id)">Visitar</button>
+                        </div>
+                    </agm-info-window>
+                </agm-marker>
+            </agm-map>
+        </div>
+    </div>
+
+</div>

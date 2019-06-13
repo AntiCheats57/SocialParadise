@@ -10,6 +10,9 @@
             <li class="nav-item active">
                 <a class="nav-link" [routerLink]="[ '' ]">INICIO <span class="sr-only">(current)</span></a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="[ '/ubicacion' ]">UBICACIÓN</a>
+            </li>
             <li class="nav-item" *ngIf="!this.auth.estaAutentificado()">
                 <a class="nav-link" [routerLink]="[ '/servicios' ]">SERVICIOS</a>
             </li>
