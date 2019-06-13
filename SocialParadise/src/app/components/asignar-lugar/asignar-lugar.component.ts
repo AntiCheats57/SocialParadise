@@ -101,7 +101,8 @@ export class AsignarLugarComponent implements OnInit, OnDestroy {
     if(this.lugar){
       this.lugar.nombre = this.formulario.get("nombre").value
       this.lugar.ubicacion = this.formulario.get("ubicacion").value
-      if(this.editor && this.editor.id >= 0 && this.indexLugar){
+      if(this.editor && this.editor.id >= 0){
+        var lugaresAsignados = []
         var estaAsignado = false;
         for(let i in this.editor.lugaresAsignados){
           if(this.lugar.id == this.editor.lugaresAsignados[i]){
@@ -110,8 +111,8 @@ export class AsignarLugarComponent implements OnInit, OnDestroy {
         }
         if(!estaAsignado){
           this.editor.lugaresAsignados.push(this.lugar.id)
-          console.log(this.editor);
-        }
+        }        
+        lugaresAsignados = this.editor.lugaresAsignados
       }
       this.lugar.usuario = this.editor.id
       if(this.indexLugar){
@@ -123,6 +124,7 @@ export class AsignarLugarComponent implements OnInit, OnDestroy {
           });
         }).then(()=>{
           if(this.editor && this.editor.id >= 0){
+            this.editor.lugaresAsignados = lugaresAsignados
             this.datosService.actualizarElemento("usuarios", this.editor).catch(err => {             
               Swal.fire({
                 type: 'error',
