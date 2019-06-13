@@ -27,9 +27,7 @@ const routes: Routes = [
   {path : 'nosotros', component: NosotrosComponent},
   {path : 'servicios', component: ServiciosComponent},
   {path : 'contactenos', component: ContactenosComponent},
-  {path : 'lugar/:id', component: LugarTuristicoComponent, children: [
-    {path : 'seguidores/:id', component: SeguidoresComponent}
-  ]},
+  {path : 'lugar/:id', component: LugarTuristicoComponent},
   {path : 'loguearse', component: LoguearseComponent},
   {path : 'registrarse', component: RegistrarseComponent},
   {path : 'perfil', component: PerfilComponent, canActivate: [AuthGuard]},
