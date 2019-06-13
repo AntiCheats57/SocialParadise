@@ -96,7 +96,6 @@ button:focus {
 
 .imagen {
     min-width: 150px;
-    /* min-height: 150px; */
 }
 
 span {
@@ -217,9 +216,6 @@ small {
 }
 
 @media (min-width: 992px) {
-    /* .feature-heading {
-        margin-top: 3.5rem;
-    } */
     .feature-component {
         padding: 3.2rem 0;
     }

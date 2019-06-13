@@ -75,20 +75,6 @@ input[type=file] {
     margin-bottom: 1rem;
 }
 
-
-/* 
-@media (max-width: 768px) {
-    .gallery {
-        max-height: 1rem;
-    }
-}
-
-@media (max-width: 576px) {
-    .gallery {
-        max-height: 1rem;
-    }
-} */
-
 @media (min-width: 992px) {
     .item-bold {
         font-weight: bold;
