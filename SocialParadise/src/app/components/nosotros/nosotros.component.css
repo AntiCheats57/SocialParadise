@@ -14,6 +14,66 @@ h2 {
     font-weight: 400;
 }
 
+.feature {
+    margin: 4rem 0;
+}
+
+.feature-component {
+    padding: 3.2rem 0;
+}
+
+.feature-image {
+    height: 17rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.feature-description {
+    font-weight: 300;
+    line-height: 1.2;
+    letter-spacing: 0;
+    font-size: 20px;
+}
+
+.feature-heading {
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -.05rem;
+    padding-bottom: .65em;
+}
+
+.back-gray {
+    background-color: #FAFAFA;
+}
+
+@media (max-width: 576px) {
+    .feature-component {
+        padding: 0.3rem 0 !important;
+    }
+}
+
+@media (min-width: 576px) {
+    .feature-heading {
+        font-size: 45px;
+    }
+    .feature-component {
+        padding: 1rem 0 !important;
+    }
+}
+
+@media (min-width: 768px) {
+    .feature-heading {
+        font-size: 2.6rem;
+    }
+}
+
+@media (min-width: 992px) {
+    .feature-heading {
+        margin-top: 3rem;
+    }
+}
+
 @media (min-width: 440px) {
     .about-section {
         height: 280px;
